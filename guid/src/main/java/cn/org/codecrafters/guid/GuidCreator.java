@@ -24,6 +24,9 @@ package cn.org.codecrafters.guid;
  * The type of ID is determined by the class implementing this interface.
  *
  * @param <IdType> this represents the type of the Global Unique Identifier
+ * @author Zihlu Wang
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public interface GuidCreator<IdType> {
 

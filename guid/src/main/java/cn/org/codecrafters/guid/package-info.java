@@ -30,6 +30,6 @@
  *   <li>Easy to integrate</li>
  * </ul>
  *
- * @since 2023.2
+ * @since 1.0.0
  */
 package cn.org.codecrafters.guid;

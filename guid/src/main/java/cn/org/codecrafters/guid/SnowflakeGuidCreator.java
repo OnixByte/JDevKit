@@ -43,7 +43,7 @@ import java.time.ZoneOffset;
  *
  * @author Zihlu Wang
  * @version 1.0.0
- * @since 14 Jul 2023
+ * @since 1.0.0
  */
 public final class SnowflakeGuidCreator implements GuidCreator<Long> {
 
