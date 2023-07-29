@@ -17,6 +17,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>guid</module>
+        <module>dev-utils</module>
+        <module>devkit-core</module>
     </modules>
 
     <properties>
@@ -87,6 +89,12 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>cn.org.codecrafters</groupId>
+                <artifactId>devkit-core</artifactId>
+                <version>1.0.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -109,6 +117,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.org.codecrafters</groupId>
+            <artifactId>devkit-core</artifactId>
         </dependency>
     </dependencies>
 
