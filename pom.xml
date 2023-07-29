@@ -19,6 +19,7 @@
         <module>guid</module>
         <module>dev-utils</module>
         <module>devkit-core</module>
+        <module>simple-jwt-facade</module>
     </modules>
 
     <properties>
