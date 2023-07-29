@@ -16,29 +16,11 @@
 
     <packaging>pom</packaging>
     <modules>
+        <module>devkit-core</module>
         <module>guid</module>
         <module>dev-utils</module>
-        <module>devkit-core</module>
         <module>simple-jwt-facade</module>
     </modules>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- Plugin Versions -->
-        <source-plugin.version>3.3.0</source-plugin.version>
-        <javadoc-plugin.version>3.5.0</javadoc-plugin.version>
-        <gpg-plugin.version>3.1.0</gpg-plugin.version>
-        <jar-plugin.version>3.3.0</jar-plugin.version>
-
-        <!-- Dependency Versions -->
-        <logback.version>1.4.8</logback.version>
-        <junit.version>5.10.0</junit.version>
-        <slf4j-api.version>2.0.7</slf4j-api.version>
-        <lombok.version>1.18.28</lombok.version>
-    </properties>
 
     <developers>
         <developer>
@@ -63,6 +45,26 @@
         <connection>git@github.com:CodeCraftersCN/jdevkit.git</connection>
         <developerConnection>https://github.com/CodeCraftersCN/jdevkit</developerConnection>
     </scm>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Plugin Versions -->
+        <source-plugin.version>3.3.0</source-plugin.version>
+        <javadoc-plugin.version>3.5.0</javadoc-plugin.version>
+        <gpg-plugin.version>3.1.0</gpg-plugin.version>
+        <jar-plugin.version>3.3.0</jar-plugin.version>
+
+        <!-- Dependency Versions -->
+        <logback.version>1.4.8</logback.version>
+        <junit.version>5.10.0</junit.version>
+        <slf4j-api.version>2.0.7</slf4j-api.version>
+        <lombok.version>1.18.28</lombok.version>
+        <auth0-jwt.version>4.4.0</auth0-jwt.version>
+        <jjwt-jwt.version>0.9.1</jjwt-jwt.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -92,9 +94,21 @@
             </dependency>
 
             <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${auth0-jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt-jwt.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>cn.org.codecrafters</groupId>
                 <artifactId>devkit-core</artifactId>
-                <version>1.0.0</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
