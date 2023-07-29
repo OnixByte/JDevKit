@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.guid;
+package cn.org.codecrafters.devkit.guid;
 
-import cn.org.codecrafters.guid.exceptions.TimingException;
+import cn.org.codecrafters.devkit.guid.exceptions.TimingException;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

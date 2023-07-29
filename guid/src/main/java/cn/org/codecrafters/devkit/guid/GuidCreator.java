@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.guid;
+package cn.org.codecrafters.devkit.guid;
 
 /**
  * The `GuidCreator` is a generic interface for generating globally unique

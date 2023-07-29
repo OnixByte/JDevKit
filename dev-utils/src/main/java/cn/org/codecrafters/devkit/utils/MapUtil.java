@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.devutils;
+package cn.org.codecrafters.devkit.utils;
 
 import lombok.extern.slf4j.Slf4j;
 

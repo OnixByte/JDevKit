@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.guid.exceptions;
+package cn.org.codecrafters.devkit.guid.exceptions;
 
 /**
  * The TimingException class represents an exception that is thrown when there is an error related

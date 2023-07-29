@@ -32,4 +32,4 @@
  *
  * @since 1.0.0
  */
-package cn.org.codecrafters.guid;
+package cn.org.codecrafters.devkit.guid;
