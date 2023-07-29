@@ -25,9 +25,9 @@
  * <p>
  * Key features include:
  * <ul>
- *   <li>Efficient generation of globally unique identifiers</li>
- *   <li>High performance and quick response</li>
- *   <li>Easy to integrate</li>
+ *     <li>Efficient generation of globally unique identifiers</li>
+ *     <li>High performance and quick response</li>
+ *     <li>Easy to integrate</li>
  * </ul>
  *
  * @since 1.0.0

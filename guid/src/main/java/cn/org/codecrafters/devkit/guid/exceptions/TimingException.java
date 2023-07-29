@@ -18,20 +18,22 @@
 package cn.org.codecrafters.devkit.guid.exceptions;
 
 /**
- * The TimingException class represents an exception that is thrown when there is an error related
- * to time sequence.
+ * The TimingException class represents an exception that is thrown when there
+ * is an error related to time sequence.
  * <p>
- * This class extends the RuntimeException class, which means that instances of TimingException
- * do not need to be declared in a method or constructor's throws clause.
+ * This class extends the RuntimeException class, which means that instances of
+ * TimingException do not need to be declared in a method or constructor's
+ * throws clause.
  * <p>
- * Instances of TimingException can be created with or without a message and a cause. The message
- * provides a description of the exception, while the cause represents the underlying cause of the
- * exception and provides additional information about the error.
+ * Instances of TimingException can be created with or without a message and a
+ * cause. The message provides a description of the exception, while the cause
+ * represents the underlying cause of the exception and provides additional
+ * information about the error.
  * <p>
- * TimingException is typically used to handle exceptions related to timing, such as timeouts or
- * synchronization issues. It is a subclass of RuntimeException, which means it is an unchecked
- * exception and does not need to be caught or declared.
- * <p>
+ * TimingException is typically used to handle exceptions related to timing,
+ * such as timeouts or synchronization issues. It is a subclass of
+ * RuntimeException, which means it is an unchecked exception and does not need
+ * to be caught or declared.
  *
  * @author Zihlu Wang
  * @since 1.0.0
@@ -39,14 +41,15 @@ package cn.org.codecrafters.devkit.guid.exceptions;
 public class TimingException extends RuntimeException {
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or scheduling.
+     * A custom exception that is thrown when there is an issue with timing or
+     * scheduling.
      */
     public TimingException() {
     }
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or scheduling with
-     * customized error message.
+     * A custom exception that is thrown when there is an issue with timing or
+     * scheduling with customized error message.
      *
      * @param message customized message
      */
@@ -55,8 +58,8 @@ public class TimingException extends RuntimeException {
     }
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or scheduling with
-     * customized error message.
+     * A custom exception that is thrown when there is an issue with timing or
+     * scheduling with customized error message.
      *
      * @param message customized message
      * @param cause   the cause of this exception
@@ -66,8 +69,8 @@ public class TimingException extends RuntimeException {
     }
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or scheduling with
-     * customized error message.
+     * A custom exception that is thrown when there is an issue with timing or
+     * scheduling with customized error message.
      *
      * @param cause the cause of this exception
      */

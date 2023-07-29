@@ -2,6 +2,9 @@
 JDevKit is a Java Development Kit that offers a set of convenient tools for writing code efficiently.
 
 ## Modules
+### `devkit-core`
+The core module for `JDevKit`, by now, this module contains the commonly used classes of the whole `dev-kit`.
+
 ### `guid`
 A module for generating globally unique IDs. It includes a facade interface and an implementation of GUID generation using the Snowflake algorithm. More globally unique ID generation modes will be added in the future.
 
@@ -52,7 +55,7 @@ implementation 'cn.org.codecrafters:$artifactId:$version'
 If you want to check the available versions, please check out at our [official site]().
 
 ## Contribution
-Contributions are welcome! If you encounter any issues or want to contribute to the project, please feel free to **[raise an issue]()** or **[submit a pull request]()**.
+Contributions are welcome! If you encounter any issues or want to contribute to the project, please feel free to **[raise an issue](https://github.com/CodeCraftersCN/jdevkit/issues/new)** or **[submit a pull request]()**.
 
 ## License
 This project is licensed under the [Apache License 2.0](LICENSE).

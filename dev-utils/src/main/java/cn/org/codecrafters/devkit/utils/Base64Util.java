@@ -24,15 +24,18 @@ import java.util.Base64;
 /**
  * Utility class for Base64 encoding and decoding of strings.
  * <p>
- * The {@code Base64Util} class provides static methods to encode and decode strings using Base64 encoding.
- * It utilizes the {@link Base64} class from the Java standard library for performing the encoding and decoding operations.
- * This utility class offers convenient methods to encode and decode strings with different character sets.
+ * The {@code Base64Util} class provides static methods to encode and decode
+ * strings using Base64 encoding. It utilizes the {@link Base64} class from the
+ * Java standard library for performing the encoding and decoding operations.
+ * This utility class offers convenient methods to encode and decode strings
+ * with different character sets.
  * <p>
- * This class is designed as a final class with a private constructor to prevent instantiation.
- * All methods in this class are static, allowing easy access to the Base64 encoding and decoding functionality.
+ * This class is designed as a final class with a private constructor to
+ * prevent instantiation. All methods in this class are static, allowing easy
+ * access to the Base64 encoding and decoding functionality.
  * <p>
  * Example usage:
- * <pre>{@code
+ * <pre>
  * String original = "Hello, World!";
  *
  * // Encode the string using UTF-8 charset
@@ -42,17 +45,15 @@ import java.util.Base64;
  * // Decode the encoded string using UTF-8 charset
  * String decoded = Base64Util.decode(encoded);
  * System.out.println("Decoded string: " + decoded);
- * }</pre>
+ * </pre>
  * <p>
- * <b>Note:</b> This utility class uses the default charset (UTF-8) if no specific charset is provided.
- * It is recommended to specify the charset explicitly to ensure consistent encoding and decoding.
- * <p>
- * <b>Thread Safety:</b> The methods in this class are thread-safe.
- * Multiple threads can safely use the methods for encoding and decoding strings simultaneously.
+ * <b>Note:</b> This utility class uses the default charset (UTF-8) if no
+ * specific charset is provided. It is recommended to specify the charset
+ * explicitly to ensure consistent encoding and decoding.
  *
- * @since 10 Jul 2023
  * @author Zihlu Wang
  * @version 1.0.0
+ * @since 1.0.0
  */
 public final class Base64Util {
 

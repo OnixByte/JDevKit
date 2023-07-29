@@ -18,16 +18,36 @@
 package cn.org.codecrafters.simplejwt;
 
 /**
- * ResolvedToken
+ * ResolvedToken - Generic Record for Holding Resolved Tokens.
+ * <p>
+ * This class represents a generic record that holds a resolved token of type {@code T}. It is used as a simple
+ * container to store the resolved token value for further processing.
+ * <p>
+ * <b>Usage:</b>
+ * To create a new instance of {@code ResolvedToken}, use the static factory method {@code init}.
  *
+ * @param <T> the type of the resolved token
  * @author Zihlu Wang
- * @since 29 Jul 2023
+ * @since 1.0.0
  */
 public record ResolvedToken<T>(T resolvedToken) {
 
-    public ResolvedToken {
+    /**
+     * Creates a new {@code ResolvedToken} instance with the provided {@code resolvedToken} value.
+     *
+     * @param resolvedToken the resolved token value to be stored in the {@code ResolvedToken}
+     */
+    public ResolvedToken(T resolvedToken) {
+        this.resolvedToken = resolvedToken;
     }
 
+    /**
+     * Factory method to create a new {@code ResolvedToken} instance with the provided {@code resolvedToken} value.
+     *
+     * @param <T> the type of the resolved token
+     * @param resolvedToken the resolved token value to be stored in the {@code ResolvedToken}
+     * @return a new {@code ResolvedToken} instance containing the provided {@code resolvedToken}
+     */
     public static <T> ResolvedToken<T> init(T resolvedToken) {
         return new ResolvedToken<>(resolvedToken);
     }

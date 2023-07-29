@@ -16,15 +16,8 @@
  */
 
 /**
- * <h3>JDevKit Dev-Utils - Common Utility Classes</h3>
- * <p>
- * This package is part of JDevKit, an open-source Java Development Kit that
- * provides a set of convenient tools to streamline code development and
- * enhance productivity. This package serves as the root package for the module
- * dev-utils, which contains a collection of common utility classes commonly
- * used in all Java Application development.
+ * The package provides all exceptions be used by module guid.
  *
- * @author Zihlu Wang
  * @since 1.0.0
  */
-package cn.org.codecrafters.devkit.utils;
+package cn.org.codecrafters.devkit.guid.exceptions;

@@ -18,28 +18,96 @@
 package cn.org.codecrafters.devkit.core.exceptions;
 
 /**
- * NotImplementedException
+ * NotImplementedException - Custom Runtime Exception
+ * <p>
+ * The {@code NotImplementedException} class is a custom runtime exception
+ * that represents a situation where a particular method or functionality is
+ * not implemented or is currently unavailable in the codebase. It extends the
+ * standard {@code RuntimeException} class, making it an unchecked exception.
+ * <p>
+ * This exception is typically thrown when developers need to indicate that a
+ * specific part of the code is incomplete or requires further implementation.
+ * It serves as a placeholder to highlight unfinished sections of the
+ * application during development and testing phases.
+ * <p>
+ * Usage Example:
+ * <pre>
+ * public void someMethod() {
+ *     // Some code...
+ *     throw new NotImplementedException("""
+ *     This feature will be implemented in a future release.
+ *     """);
+ * }
+ * </pre>
+ * <p>
+ * For more information and the latest version of JDevKit, please visit our
+ * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.
+ * <p>
+ * <h4>Contact</h4>
+ * <ul>
+ *     <li>
+ *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
+ *         >GitHub Issues</a>
+ *     </li>
+ *     <li>
+ *         <a href="https://discord.gg/">Discord Community</a>
+ *     </li>
+ * </ul>
  *
  * @author Zihlu Wang
- * @since 29 Jul 2023
+ * @version 1.0.0
+ * @see RuntimeException
+ * @since 1.0.0
  */
 public class NotImplementedException extends RuntimeException {
 
+    /**
+     * Creates a new {@code NotImplementedException} with no specific error
+     * message.
+     */
     public NotImplementedException() {
     }
 
+    /**
+     * Creates a new {@code NotImplementedException} with the provided error
+     * message.
+     *
+     * @param message the error message associated with this exception
+     */
     public NotImplementedException(String message) {
         super(message);
     }
 
+    /**
+     * Creates a new {@code NotImplementedException} with the specified error
+     * message and a cause for this exception.
+     *
+     * @param message the error message associated with this exception
+     * @param cause   the cause of this exception
+     */
     public NotImplementedException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /**
+     * Creates a new {@code NotImplementedException} with the specified cause.
+     *
+     * @param cause the cause of this exception
+     */
     public NotImplementedException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Creates a new {@code NotImplementedException} with the specified error
+     * message, cause, suppression flag, and stack trace writable flag.
+     *
+     * @param message            the error message associated with this
+     *                           exception
+     * @param cause              the cause of this exception
+     * @param enableSuppression  whether suppression is enabled or disabled
+     * @param writableStackTrace whether the stack trace should be writable
+     */
     public NotImplementedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }

@@ -16,9 +16,28 @@
  */
 
 /**
- * The core package for JDevKit, containing the core classes of JDevKit.
+ * This package is a part of JDevKit, an open-source Java Development Kit that
+ * provides a set of convenient tools to streamline code development and
+ * enhance productivity. This package serves as the core package containing
+ * common exceptions that are used throughout the entireJDevKit project.
+ * <p>
+ * JDevKit is designed to be modular, and other specific feature modules within
+ * the library may rely on these exceptions from the core package.
+ * <p>
+ * For more information and the latest version of JDevKit, please visit our
+ * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.
+ * <p>
+ * <h4>Contact</h4>
+ * <ul>
+ *     <li>
+ *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
+ *         >GitHub Issues</a>
+ *     </li>
+ *     <li>
+ *         <a href="https://discord.gg/">Discord Community</a>
+ *     </li>
+ * </ul>
  *
- * @author Zihlu Wang
- * @since 29 Jul 2023
+ * @since 1.0.0
  */
 package cn.org.codecrafters.devkit.core;

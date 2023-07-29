@@ -24,8 +24,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * MapUtil is a utility class that provides methods for converting objects to maps and maps to objects.
- * It also provides methods for getting and setting field values using reflection.
+ * MapUtil is a utility class that provides methods for converting objects to
+ * maps and maps to objects.
+ * <p>
+ * It also provides methods for getting and setting field values using
+ * reflection.
  *
  * @author Zihlu Wang
  * @version 1.0.0
@@ -41,11 +44,13 @@ public final class MapUtil {
     }
 
     /**
-     * Converts an object to a map by mapping the field names to their corresponding values.
+     * Converts an object to a map by mapping the field names to their
+     * corresponding values.
      *
      * @param obj the object to be converted to a map
      * @return a map representing the fields and their values of the object
-     * @throws IllegalAccessException if an error occurs while accessing the fields of the object
+     * @throws IllegalAccessException if an error occurs while accessing the
+     *                                fields of the object
      */
     public static Map<String, Object> objectToMap(Object obj) throws IllegalAccessException {
         if (obj == null) {
@@ -67,16 +72,22 @@ public final class MapUtil {
     }
 
     /**
-     * Converts a map to an object of the specified type by setting the field values using the map entries.
+     * Converts a map to an object of the specified type by setting the field
+     * values using the map entries.
      *
      * @param map          the map representing the fields and their values
      * @param requiredType the class of the object to be created
      * @param <T>          the type of the object to be created
-     * @return an object of the specified type with the field values set from the map
-     * @throws NoSuchMethodException     if the constructor of the required type is not found
-     * @throws InvocationTargetException if an error occurs while invoking the constructor
-     * @throws InstantiationException    if the required type is abstract or an interface
-     * @throws IllegalAccessException    if an error occurs while accessing the fields of the object
+     * @return an object of the specified type with the field values set from
+     * the map
+     * @throws NoSuchMethodException     if the constructor of the required
+     *                                   type is not found
+     * @throws InvocationTargetException if an error occurs while invoking the
+     *                                   constructor
+     * @throws InstantiationException    if the required type is abstract or an
+     *                                   interface
+     * @throws IllegalAccessException    if an error occurs while accessing the
+     *                                   fields of the object
      */
     public static <T> T mapToObject(Map<String, Object> map, Class<T> requiredType) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         var bean = requiredType.getConstructor().newInstance();
@@ -130,9 +141,12 @@ public final class MapUtil {
      * @param fieldName the name of the field
      * @param fieldType the class representing the type of the field value
      * @param <T>       the type of the field value
-     * @return the value of the field in the object, or null if the field does not exist or cannot be accessed
-     * @throws IllegalAccessException    if an error occurs while accessing the field
-     * @throws InvocationTargetException if an error occurs while invoking the field getter method
+     * @return the value of the field in the object, or null if the field does
+     * not exist or cannot be accessed
+     * @throws IllegalAccessException    if an error occurs while accessing the
+     *                                   field
+     * @throws InvocationTargetException if an error occurs while invoking the
+     *                                   field getter method
      */
     public static <T> T getFieldValue(Object obj, String fieldName, Class<T> fieldType) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         var methodName = getMethodName("get", fieldName);
@@ -149,8 +163,10 @@ public final class MapUtil {
      * @param obj        the object in which to set the field value
      * @param fieldName  the name of the field
      * @param fieldValue the value to be set
-     * @throws InvocationTargetException if an error occurs while invoking the field setter method
-     * @throws IllegalAccessException    if an error occurs while accessing the field
+     * @throws InvocationTargetException if an error occurs while invoking the
+     *                                   field setter method
+     * @throws IllegalAccessException    if an error occurs while accessing the
+     *                                   field
      */
     public static void setFieldValue(Object obj, String fieldName, Object fieldValue) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         var objectClass = obj.getClass();
@@ -174,7 +190,8 @@ public final class MapUtil {
     /**
      * Returns the default string representation of the specified object.
      *
-     * @param obj the object for which to return the default string representation
+     * @param obj the object for which to return the default string
+     *            representation
      * @return the default string representation of the object
      */
     private static String defaultObject(Object obj) {
@@ -191,7 +208,8 @@ public final class MapUtil {
      * @param value        the value to be casted
      * @param requiredType the type to which the value should be casted
      * @param <T>          the type to which the value should be casted
-     * @return the casted value, or null if the value cannot be casted to the required type
+     * @return the casted value, or null if the value cannot be casted to the
+     * required type
      */
     public static <T> T cast(Object value, Class<T> requiredType) {
         if (requiredType.isInstance(value)) {

@@ -18,7 +18,7 @@
 package cn.org.codecrafters.devkit.guid;
 
 /**
- * The `GuidCreator` is a generic interface for generating globally unique
+ * The {@code GuidCreator} is a generic interface for generating globally unique
  * identifiers (GUIDs) of a specific type.
  * <p>
  * The type of ID is determined by the class implementing this interface.
@@ -32,6 +32,7 @@ public interface GuidCreator<IdType> {
 
     /**
      * Generates and returns the next globally unique ID.
+     * <p>
      * The exact implementation of how the globally unique ID is generated and
      * returned will depend on the class implementing this method.
      *
