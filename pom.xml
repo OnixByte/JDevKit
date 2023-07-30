@@ -146,11 +146,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>cn.org.codecrafters</groupId>
-            <artifactId>devkit-core</artifactId>
-        </dependency>
     </dependencies>
 
     <profiles>
