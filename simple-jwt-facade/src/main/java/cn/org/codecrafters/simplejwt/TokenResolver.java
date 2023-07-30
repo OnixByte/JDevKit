@@ -21,8 +21,6 @@ import java.time.Duration;
 import java.util.Map;
 
 /**
- * TokenResolver - Interface for Creating, Extracting, and Renewing Tokens.
- * <p>
  * The {@code TokenResolver} interface defines methods for creating,
  * extracting, and renewing tokens, particularly JSON Web Tokens (JWTs). It
  * provides a set of methods to generate tokens with various payload
@@ -44,54 +42,24 @@ import java.util.Map;
  * expired token by providing a new expiration time, audience, subject, and
  * optional custom payload data.
  *
+ * @param <ResolvedTokenType> the type of the result obtained by the
+ *                            third-party library when parsing JWTs
+ * @author Zihlu Wang
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface TokenResolver {
+public interface TokenResolver<ResolvedTokenType> {
 
     /**
-     * Creates a new token with the specified expiration time and audience.
-     *
-     * @param expireAfter the duration after which the token will expire
-     * @param audience    the audience for which the token is intended
-     * @return the generated token as a {@code String}
-     */
-    String createToken(Duration expireAfter, String audience);
-
-    /**
-     * Creates a new token with the specified expiration time, audience, and
-     * custom payload data.
-     *
-     * @param expireAfter the duration after which the token will expire
-     * @param audience    the audience for which the token is intended
-     * @param payloads    the custom payload data to be included in the token
-     * @return the generated token as a {@code String}
-     */
-    String createToken(Duration expireAfter, String audience, Map<String, Object> payloads);
-
-    /**
-     * Creates a new token with the specified expiration time, audience, and
-     * strongly-typed payload data.
-     *
-     * @param <T>         the type of the payload data, must implement
-     *                    {@link TokenPayload}
-     * @param expireAfter the duration after which the token will expire
-     * @param audience    the audience for which the token is intended
-     * @param payloads    the strongly-typed payload data to be included in the
-     *                    token
-     * @return the generated token as a {@code String}
-     */
-    <T extends TokenPayload> String createToken(Duration expireAfter, String audience, T payloads);
-
-    /**
-     * Creates a new token with the specified expiration time, subject, and audience.
+     * Creates a new token with the specified expiration time, subject, and
+     * audience.
      *
      * @param expireAfter the duration after which the token will expire
      * @param subject     the subject of the token
      * @param audience    the audience for which the token is intended
      * @return the generated token as a {@code String}
      */
-    String createToken(Duration expireAfter, String subject, String audience);
+    String createToken(Duration expireAfter, String audience, String subject);
 
     /**
      * Creates a new token with the specified expiration time, subject,
@@ -103,7 +71,7 @@ public interface TokenResolver {
      * @param payloads    the custom payload data to be included in the token
      * @return the generated token as a {@code String}
      */
-    String createToken(Duration expireAfter, String subject, String audience, Map<String, Object> payloads);
+    String createToken(Duration expireAfter, String audience, String subject, Map<String, Object> payloads);
 
     /**
      * Creates a new token with the specified expiration time, subject,
@@ -114,19 +82,19 @@ public interface TokenResolver {
      * @param expireAfter the duration after which the token will expire
      * @param subject     the subject of the token
      * @param audience    the audience for which the token is intended
-     * @param payloads    the strongly-typed payload data to be included in the
+     * @param payload     the strongly-typed payload data to be included in the
      *                    token
      * @return the generated token as a {@code String}
      */
-    <T extends TokenPayload> String createToken(Duration expireAfter, String subject, String audience, T payloads);
+    <T extends TokenPayload> String createToken(Duration expireAfter, String audience, String subject, T payload);
 
     /**
-     * Extracts the payload information from the given token.
+     * Resolves the given token into a ResolvedTokenType object.
      *
-     * @param token the token from which to extract the payload
-     * @return a map containing the extracted payload data
+     * @param token the token to be resolved
+     * @return a ResolvedTokenType object
      */
-    Map<String, Object> extract(String token);
+    ResolvedTokenType resolve(String token);
 
     /**
      * Extracts the payload information from the given token and maps it to the
@@ -142,22 +110,39 @@ public interface TokenResolver {
     <T extends TokenPayload> T extract(String token, Class<T> targetType);
 
     /**
-     * Renews the given expired token.
+     * Renews the given expired token with the specified custom payload data.
      *
      * @param oldToken the expired token to be renewed
+     * @param payload  the custom payload data to be included in the renewed
+     *                 token
      * @return the renewed token as a {@code String}
      */
-    String renew(String oldToken);
+    String renew(String oldToken, Map<String, Object> payload);
 
     /**
      * Renews the given expired token with the specified custom payload data.
      *
-     * @param oldToken the expired token to be renewed
-     * @param payloads the custom payload data to be included in the renewed
-     *                 token
+     * @param oldToken    the expired token to be renewed
+     * @param expireAfter specify when does the new token invalid
+     * @param payload     the custom payload data to be included in the renewed
+     *                    token
      * @return the renewed token as a {@code String}
      */
-    String renew(String oldToken, Map<String, Object> payloads);
+    String renew(String oldToken, Duration expireAfter, Map<String, Object> payload);
+
+    /**
+     * Renews the given expired token with the specified strongly-typed
+     * payload data.
+     *
+     * @param <T>         the type of the payload data, must implement
+     *                    {@link TokenPayload}
+     * @param oldToken    the expired token to be renewed
+     * @param expireAfter specify when does the new token invalid
+     * @param payload     the strongly-typed payload data to be included in the
+     *                    renewed token
+     * @return the renewed token as a {@code String}
+     */
+    <T extends TokenPayload> String renew(String oldToken, Duration expireAfter, T payload);
 
     /**
      * Renews the given expired token with the specified strongly-typed
@@ -166,19 +151,10 @@ public interface TokenResolver {
      * @param <T>      the type of the payload data, must implement
      *                 {@link TokenPayload}
      * @param oldToken the expired token to be renewed
-     * @param payloads the strongly-typed payload data to be included in the
+     * @param payload  the strongly-typed payload data to be included in the
      *                 renewed token
      * @return the renewed token as a {@code String}
      */
-    <T extends TokenPayload> String renew(String oldToken, T payloads);
-
-    /**
-     * Resolves the given token into a {@link ResolvedToken} object.
-     *
-     * @param <T>   the type of the resolved token
-     * @param token the token to be resolved
-     * @return a {@link ResolvedToken} object containing the resolved token
-     */
-    <T> ResolvedToken<T> resolve(String token);
+    <T extends TokenPayload> String renew(String oldToken, T payload);
 
 }
