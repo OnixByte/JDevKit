@@ -23,6 +23,7 @@
  * enhance productivity. This package serves as the root package for the module
  * dev-utils, which contains a collection of common utility classes commonly
  * used in all Java Application development.
+ * </p>
  *
  * @author Zihlu Wang
  * @since 1.0.0

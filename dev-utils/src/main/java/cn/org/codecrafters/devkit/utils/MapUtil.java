@@ -24,11 +24,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * <p>
  * MapUtil is a utility class that provides methods for converting objects to
  * maps and maps to objects.
+ * </p>
  * <p>
  * It also provides methods for getting and setting field values using
  * reflection.
+ * </p>
  *
  * @author Zihlu Wang
  * @version 1.0.0

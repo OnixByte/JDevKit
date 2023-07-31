@@ -24,7 +24,9 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
+ * <p>
  * Utility class for chained high-precision calculations using BigDecimal.
+ * </p>
  * <p>
  * The ChainedCalcUtil class provides a convenient way to perform chained
  * high-precision calculations using BigDecimal. It allows users to perform
@@ -32,6 +34,7 @@ import java.util.function.Function;
  * and division with customizable precision and scale. By using this utility
  * class, developers can achieve accurate results and avoid precision loss
  * in their calculations.
+ * </p>
  * <p>
  * <b>Usage:</b>
  * <pre>
@@ -80,12 +83,14 @@ import java.util.function.Function;
  *  </pre>
  * The above expressions perform various mathematical calculations using the
  * ChainedCalcUtil class.
+ * </p>
  * <p>
  * <b>Note:</b>
  * The ChainedCalcUtil class internally uses BigDecimal to handle
  * high-precision calculations. It is important to note that BigDecimal
  * operations can be memory-intensive and may have performance implications
  * for extremely large numbers or complex calculations.
+ * </p>
  *
  * @author sunzsh
  * @version 1.0.0
