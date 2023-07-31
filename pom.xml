@@ -71,7 +71,9 @@
         <slf4j-api.version>2.0.7</slf4j-api.version>
         <lombok.version>1.18.28</lombok.version>
         <auth0-jwt.version>4.4.0</auth0-jwt.version>
-        <jjwt-jwt.version>0.9.1</jjwt-jwt.version>
+
+        <spring.version>x.x.x</spring.version>
+        <spring-boot.version>3.1.0</spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -108,12 +110,6 @@
             </dependency>
 
             <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt-jwt.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>cn.org.codecrafters</groupId>
                 <artifactId>devkit-core</artifactId>
                 <version>${project.version}</version>
@@ -129,6 +125,38 @@
                 <groupId>cn.org.codecrafters</groupId>
                 <artifactId>simple-jwt-facade</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.org.codecrafters</groupId>
+                <artifactId>simple-jwt-authzero</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-logging</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+                <version>${spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
