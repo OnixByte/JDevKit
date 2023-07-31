@@ -18,8 +18,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>devkit-core</module>
+        <module>devkit-utils</module>
         <module>guid</module>
-        <module>dev-utils</module>
         <module>simple-jwt-facade</module>
         <module>simple-jwt-authzero</module>
         <module>simple-jwt-spring-boot-starter</module>
