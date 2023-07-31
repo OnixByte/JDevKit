@@ -298,4 +298,13 @@
         </profile>
     </profiles>
 
+    <repositories>
+        <repository>
+            <!-- maven.proxy.ustclug.org is a reverse proxy repo1.maven.org -->
+            <id>central</id>
+            <url>https://maven.proxy.ustclug.org/maven2/</url>
+            <!-- <url>https://repo1.maven.org/maven2/</url> -->
+        </repository>
+    </repositories>
+
 </project>
