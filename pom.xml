@@ -21,6 +21,7 @@
         <module>dev-utils</module>
         <module>simple-jwt-facade</module>
         <module>simple-jwt-authzero</module>
+        <module>simple-jwt-spring-boot-starter</module>
     </modules>
 
     <developers>
