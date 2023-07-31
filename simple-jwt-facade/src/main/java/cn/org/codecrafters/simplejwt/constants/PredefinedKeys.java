@@ -20,12 +20,47 @@ package cn.org.codecrafters.simplejwt.constants;
 import java.util.List;
 
 /**
- * PredefinedKeys
+ * <p>
+ * This class contains predefined keys that are commonly used in JSON Web
+ * Tokens (JWT).
+ * </p>
  *
- * @author Zihlu Wang
+ * <p>
+ * JWTs consist of a set of claims represented as key-value pairs. These claims
+ * store various pieces of information, such as the subject, issuer, expiration
+ * time, and more. To ensure consistency and avoid spelling mistakes, this
+ * class provides constants for the standard keys used in JWT claims.
+ * </p>
+ *
+ * <p>
+ * Developers using this JWT library can use these predefined keys to set and
+ * retrieve claims in a safer and more readable way. By using constants instead
+ * of plain strings, it helps prevent typos and makes the code more
+ * maintainable.
+ * </p>
+ *
+ * @since 1.0.0
  */
 public final class PredefinedKeys {
 
-    public static final List<String> KEYS = List.of("aud", "sub", "nbf", "iss", "exp", "iat", "jti");
+    // Constants for standard JWT claims
+    public static final String ISSUER = "iss";
 
+    public static final String SUBJECT = "sub";
+
+    public static final String AUDIENCE = "aud";
+
+    public static final String EXPIRATION_TIME = "exp";
+
+    public static final String NOT_BEFORE = "nbf";
+
+    public static final String ISSUED_AT = "iat";
+
+    public static final String JWT_ID = "jti";
+
+    private PredefinedKeys() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static final List<String> KEYS = List.of(ISSUER, SUBJECT, AUDIENCE, EXPIRATION_TIME, NOT_BEFORE, ISSUED_AT, JWT_ID);
 }

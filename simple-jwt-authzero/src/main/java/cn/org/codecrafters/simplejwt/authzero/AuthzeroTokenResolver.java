@@ -17,7 +17,7 @@
 
 package cn.org.codecrafters.simplejwt.authzero;
 
-import cn.org.codecrafters.devkit.guid.GuidCreator;
+import cn.org.codecrafters.guid.GuidCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
@@ -37,16 +37,19 @@ import java.time.ZoneId;
 import java.util.*;
 
 /**
+ * <p>
  * The {@code AuthzeroTokenResolver} class is an implementation of the {@link
  * cn.org.codecrafters.simplejwt.TokenResolver} interface. It uses the {@code
  * com.auth0:java-jwt} library to handle JSON Web Token (JWT) resolution. This
  * resolver provides functionality to create, extract, verify, and renew JWT
  * tokens using various algorithms and custom payload data.
+ * </p>
  * <p>
  * <b>Dependencies:</b>
  * This implementation relies on the {@code com.auth0:java-jwt} library. Please
  * ensure you have added this library as a dependency to your project before
  * using this resolver.
+ * </p>
  * <p>
  * <b>Usage:</b>
  * To use the {@code AuthzeroTokenResolver}, first, create an instance of this
@@ -58,6 +61,7 @@ import java.util.*;
  *                               "Token Issuer",
  *                               "Token Secret");
  * }</pre>
+ * </p>
  * <p>
  * Then, you can utilize the various methods provided by this resolver to
  * handle JWT tokens:
@@ -78,12 +82,14 @@ import java.util.*;
  * String renewedToken =
  *     tokenResolver.renew(token, Duration.ofMinutes(30), customPayloads);
  * }</pre>
+ * </p>
  * <p>
  * <b>Note:</b>
  * It is essential to configure the appropriate algorithms, secret, and issuer
  * according to your specific use case when using this resolver.
  * Additionally, ensure that the {@code com.auth0:java-jwt} library is
  * correctly configured in your project's dependencies.
+ * </p>
  *
  * @author Zihlu Wang
  * @version 1.0.0
@@ -232,13 +238,16 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     }
 
     /**
+     * <p>
      * Builds the custom claims of the JSON Web Token (JWT) using the provided
      * Map of claims and adds them to the JWTCreator.Builder.
+     * <p>
      * <p>
      * This method is used to add custom claims to the JWT. It takes a Map of
      * claims, where each entry represents a custom claim name (key) and its
      * corresponding value (value). The custom claims will be added to the JWT
      * using the JWTCreator.Builder.
+     * <p>
      *
      * @param claims  a Map containing the custom claims to be added to the JWT
      * @param builder the JWTCreator.Builder instance to which the custom
@@ -253,9 +262,12 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     }
 
     /**
+     * <p>
      * Finish creating a token.
+     * </p>
      * <p>
      * This is the final step of create a token, to sign this token.
+     * </p>
      *
      * @param builder the builder to build this JWT
      * @return the generated token as a {@code String}

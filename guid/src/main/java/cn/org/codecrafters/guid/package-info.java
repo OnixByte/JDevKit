@@ -16,12 +16,15 @@
  */
 
 /**
+ * <p>
  * The package provides a set of tools for generating globally unique
  * identifiers (GUIDs).
+ * </p>
  * <p>
  * The goal of this library is to provide an efficient, reliable way to
  * generate globally unique identifiers without requiring any specific
  * environment or configuration.
+ * </p>
  * <p>
  * Key features include:
  * <ul>
@@ -29,7 +32,8 @@
  *     <li>High performance and quick response</li>
  *     <li>Easy to integrate</li>
  * </ul>
+ * </p>
  *
  * @since 1.0.0
  */
-package cn.org.codecrafters.devkit.guid;
+package cn.org.codecrafters.guid;

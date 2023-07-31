@@ -17,21 +17,16 @@
 
 package cn.org.codecrafters.simplejwt.constants;
 
-import ch.qos.logback.core.subst.Token;
 import lombok.Getter;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
-
 /**
+ * <p>
  * The {@code TokenAlgorithm} enum class defines the algorithms that can be
  * used for signing and verifying JSON Web Tokens (JWT). JWT allows various
  * cryptographic algorithms to be used for secure token generation and
  * validation. This enum provides a list of supported algorithms to ensure
  * consistent usage and avoid potential security issues.
- *
+ * </p>
  * <p><b>Supported Algorithms:</b>
  * This enum includes the following supported algorithms:
  * <ul>
@@ -45,9 +40,10 @@ import java.util.stream.Stream;
  *     <li>{@link TokenAlgorithm#ES384}: ECDSA with SHA-384</li>
  *     <li>{@link TokenAlgorithm#ES512}: ECDSA with SHA-512</li>
  * </ul>
+ * </p>
  *
- * @since 1.0.0
  * @version 1.0.0
+ * @since 1.0.0
  */
 @Getter
 public enum TokenAlgorithm {

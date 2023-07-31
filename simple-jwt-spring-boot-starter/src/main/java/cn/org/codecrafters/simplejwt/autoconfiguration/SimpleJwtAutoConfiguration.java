@@ -15,11 +15,12 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.simplejwt;
+package cn.org.codecrafters.simplejwt.autoconfiguration;
 
-import cn.org.codecrafters.devkit.guid.GuidCreator;
+import cn.org.codecrafters.guid.GuidCreator;
+import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver;
-import cn.org.codecrafters.simplejwt.properties.SimpleJwtProperties;
+import cn.org.codecrafters.simplejwt.autoconfiguration.properties.SimpleJwtProperties;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,35 +34,91 @@ import org.springframework.context.annotation.Configuration;
 import java.util.UUID;
 
 /**
- * SimpleJwtAutoConfiguration
+ * <p>
+ * SimpleJwtAutoConfiguration is responsible for automatically configuring the
+ * Simple JWT library when used in a Spring Boot application. It provides
+ * default settings and configurations to ensure that the library works
+ * smoothly without requiring manual configuration.
+ * </p>
+ *
+ * <p>
+ * This auto-configuration class sets up the necessary beans and components
+ * required for JWT generation and validation. It automatically creates and
+ * configures the {@link TokenResolver} bean based on the available options and
+ * properties.
+ * </p>
+ *
+ * <p>
+ * Developers using the Simple JWT library with Spring Boot do not need to
+ * explicitly configure the library, as the auto-configuration takes care of
+ * setting up the necessary components and configurations automatically.
+ * However, developers still have the flexibility to customize the behavior of
+ * the library by providing their own configurations and properties.
+ * </p>
  *
  * @author Zihlu Wang
+ * @version 1.0.0
+ * @since 1.0.0
  */
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(value = {SimpleJwtProperties.class})
 public class SimpleJwtAutoConfiguration {
 
+    /**
+     * The GuidCreator instance to be used for generating JWT IDs (JTI).
+     */
     private GuidCreator<?> jtiCreator;
 
+    /**
+     * Sets the GuidCreator instance to be used for generating JWT IDs (JTI).
+     *
+     * @param jtiCreator the {@code GuidCreator} instance
+     */
     @Autowired
     public void setJtiCreator(GuidCreator<?> jtiCreator) {
         this.jtiCreator = jtiCreator;
     }
 
+    /**
+     * The {@code SimpleJwtProperties} instance containing the configuration
+     * properties for Simple JWT.
+     */
     private final SimpleJwtProperties simpleJwtProperties;
 
+    /**
+     * Constructs a new {@code SimpleJwtAutoConfiguration} instance with the
+     * provided SimpleJwtProperties.
+     *
+     * @param simpleJwtProperties the SimpleJwtProperties instance
+     */
     @Autowired
     public SimpleJwtAutoConfiguration(SimpleJwtProperties simpleJwtProperties) {
         this.simpleJwtProperties = simpleJwtProperties;
     }
 
+    /**
+     * Creates a new {@code GuidCreator} bean if no existing bean with the name
+     * "jtiCreator" is found. The created {@code GuidCreator} is used for
+     * generating JWT IDs (JTI).
+     *
+     * @return the GuidCreator instance
+     */
     @Bean
     @ConditionalOnMissingBean(value = GuidCreator.class, name = "jtiCreator")
     public GuidCreator<?> jtiCreator() {
         return (GuidCreator<UUID>) UUID::randomUUID;
     }
 
+    /**
+     * Creates a new {@link TokenResolver} bean using {@link
+     * AuthzeroTokenResolver} if no existing {@link TokenResolver} bean is
+     * found. The {@link AuthzeroTokenResolver} is configured with the
+     * provided {@link GuidCreator}, {@code algorithm}, {@code issuer}, and
+     * {@code secret} properties from {@link SimpleJwtProperties}.
+     *
+     * @return the {@link TokenResolver} instance
+     */
     @Bean
     @ConditionalOnClass({DecodedJWT.class, AuthzeroTokenResolver.class})
     @ConditionalOnMissingBean({TokenResolver.class})

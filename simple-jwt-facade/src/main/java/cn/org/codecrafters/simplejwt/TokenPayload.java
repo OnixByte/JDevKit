@@ -20,17 +20,21 @@ package cn.org.codecrafters.simplejwt;
 import java.util.Map;
 
 /**
+ * <p>
  * TokenPayload - Interface for JWT Payload Data Classes.
+ * </p>
  * <p>
  * The {@code TokenPayload} interface is used to mark a data class as suitable
  * for being used as the payload in a JSON Web Token (JWT). Any class
  * implementing this interface can be used to represent the payload data that
  * will be included in a JWT.
+ * </p>
  * <p>
  * Implementing this interface indicates that the data class contains
  * information that needs to be securely transmitted and verified as part of a
  * JWT. The payload typically contains claims or attributes that provide
  * additional information about the JWT subject or context.
+ * </p>
  * <p>
  * <b>Usage:</b>
  * To use a class as a JWT payload, simply implement the {@code TokenPayload}
@@ -40,6 +44,7 @@ import java.util.Map;
  *     // Class implementation with payload data...
  * }
  * </pre>
+ * </p>
  *
  * @since 1.0.0
  * @version 1.0.0

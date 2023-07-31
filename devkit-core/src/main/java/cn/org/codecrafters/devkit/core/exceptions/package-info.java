@@ -19,6 +19,6 @@
  * Commonly used exceptions will be used in JDevKit.
  *
  * @author Zihlu Wang
- * @since 29 Jul 2023
+ * @since 1.0.0
  */
 package cn.org.codecrafters.devkit.core.exceptions;

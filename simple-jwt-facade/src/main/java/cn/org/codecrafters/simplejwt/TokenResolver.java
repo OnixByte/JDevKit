@@ -21,26 +21,31 @@ import java.time.Duration;
 import java.util.Map;
 
 /**
+ * <p>
  * The {@code TokenResolver} interface defines methods for creating,
  * extracting, and renewing tokens, particularly JSON Web Tokens (JWTs). It
  * provides a set of methods to generate tokens with various payload
  * configurations, extract payloads from tokens, and renew expired tokens.
+ * </p>
  * <p>
  * <b>Token Creation:</b>
  * The interface provides overloaded methods for creating tokens with different
  * payload configurations, including expiration time, audience, subject, and
  * custom payload data. Clients can choose the appropriate method based on
  * their specific token requirements.
+ * </p>
  * <p>
  * <b>Token Extraction:</b>
  * The interface includes methods to extract payload information from a given
  * token. Clients can use these methods to obtain the payload data encoded in
  * the token.
+ * </p>
  * <p>
  * <b>Token Renewal:</b>
  * The interface also offers methods for token renewal. Clients can renew an
  * expired token by providing a new expiration time, audience, subject, and
  * optional custom payload data.
+ * </p>
  *
  * @param <ResolvedTokenType> the type of the result obtained by the
  *                            third-party library when parsing JWTs

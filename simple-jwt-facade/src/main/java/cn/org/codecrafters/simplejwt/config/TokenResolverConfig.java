@@ -20,13 +20,16 @@ package cn.org.codecrafters.simplejwt.config;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 
 /**
+ * <p>
  * The TokenResolverConfig interface provides a mechanism to configure a
  * TokenResolver with algorithm functions.
+ * </p>
  * <p>
  * This generic interface is used to define the configuration details for a
  * TokenResolver that utilizes algorithm functions. The interface allows for
  * specifying algorithm functions corresponding to different TokenAlgorithm
  * instances supported by the TokenResolver implementation.
+ * </p>
  *
  * @param <AlgorithmFunction> the type representing algorithm functions used by
  *                            the TokenResolver
