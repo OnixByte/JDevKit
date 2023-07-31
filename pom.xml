@@ -7,12 +7,13 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <version>9</version>
     </parent>
 
     <groupId>cn.org.codecrafters</groupId>
     <artifactId>jdevkit</artifactId>
     <version>1.0.0</version>
+    <inceptionYear>2023</inceptionYear>
 
     <packaging>pom</packaging>
     <modules>
@@ -23,6 +24,11 @@
         <module>simple-jwt-authzero</module>
         <module>simple-jwt-spring-boot-starter</module>
     </modules>
+
+    <organization>
+        <name>CodeCrafters</name>
+        <url>https://codecrafters.org.cn</url>
+    </organization>
 
     <developers>
         <developer>
