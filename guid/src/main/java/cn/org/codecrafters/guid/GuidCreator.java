@@ -21,10 +21,10 @@ package cn.org.codecrafters.guid;
  * <p>
  * The {@code GuidCreator} is a generic interface for generating globally unique
  * identifiers (GUIDs) of a specific type.
- * </p>
+ * 
  * <p>
  * The type of ID is determined by the class implementing this interface.
- * </p>
+ * 
  *
  * @param <IdType> this represents the type of the Global Unique Identifier
  * @author Zihlu Wang

@@ -23,18 +23,19 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
- * Utility class to simplify if...else logic using lambda expressions.
  * <p>
  * The BranchUtil class provides static methods to simplify conditional logic
  * in Java development by leveraging lambda expressions. It offers convenient
  * methods to replace verbose if...else statements with more concise and
  * expressive functional constructs.
- * </p>
+ *
+ *
  * <p>
  * Developers can use the methods in this utility class to streamline their
  * code, enhance readability, and promote a more functional style of
  * programming when dealing with branching logic and conditional statements.
- * </p>
+ *
+ *
  * <p>
  * <b>Example:</b>
  * <pre>
@@ -66,12 +67,11 @@ import java.util.function.Supplier;
  *         // do something
  *     });
  * </pre>
- * </p>
+ *
  * <p>
  * <b>Note:</b>
  * The {@link #and(Boolean...)} and {@link #or(Boolean...)} methods accept any
  * number of boolean expressions.
- * </p>
  *
  * @param <T> the type of the result to be handled by the methods
  * @author Zihlu Wang
@@ -167,15 +167,14 @@ public final class BranchUtil<T> {
      * <p>
      * Handles the result of the boolean expressions by executing the
      * appropriate handler based on the result.
-     * </p>
+     *
      * <p>
      * If the result is {@code true}, the {@code ifHandler} is executed. If the
      * result is {@code false} and an {@code elseHandler} is provided, it is
      * executed.
-     * </p>
+     *
      * <p>
      * Returns the result of the executed handler.
-     * </p>
      *
      * @param ifHandler   the handler to be executed if the result is
      *                    {@code true}
@@ -200,10 +199,9 @@ public final class BranchUtil<T> {
      * <p>
      * Handles the result of the boolean expressions by executing the provided
      * handler if the result is {@code true}.
-     * </p>
+     *
      * <p>
      * Returns the result of the executed handler.
-     * </p>
      *
      * @param ifHandler the handler to be executed if the result is
      *                  {@code true}
@@ -217,12 +215,11 @@ public final class BranchUtil<T> {
      * <p>
      * Handles the result of the boolean expressions by executing the
      * appropriate handler based on the result.
-     * </p>
+     *
      * <p>
      * If the result is {@code true}, the {@code ifHandler} is executed. If the
      * result is {@code false} and an {@code elseHandler} is provided, it is
      * executed.
-     * </p>
      *
      * @param ifHandler   the handler to be executed if the result is
      *                    {@code true}

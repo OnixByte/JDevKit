@@ -23,7 +23,7 @@
  * configured in the application's properties file (e.g.,
  * application.properties) to customize the behavior and settings of the Simple
  * JWT library.
- * </p>
+ *
  *
  * <p>
  * Developers can customize the JWT algorithm, issuer, and secret by setting
@@ -32,7 +32,6 @@
  * reads these properties and uses them to create the {@link
  * cn.org.codecrafters.simplejwt.TokenResolver} bean with the desired
  * configuration.
- * </p>
  *
  * @since 1.0.0
  */

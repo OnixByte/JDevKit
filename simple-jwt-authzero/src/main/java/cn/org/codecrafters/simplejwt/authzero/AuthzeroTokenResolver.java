@@ -43,13 +43,13 @@ import java.util.*;
  * com.auth0:java-jwt} library to handle JSON Web Token (JWT) resolution. This
  * resolver provides functionality to create, extract, verify, and renew JWT
  * tokens using various algorithms and custom payload data.
- * </p>
+ *
  * <p>
  * <b>Dependencies:</b>
  * This implementation relies on the {@code com.auth0:java-jwt} library. Please
  * ensure you have added this library as a dependency to your project before
  * using this resolver.
- * </p>
+ *
  * <p>
  * <b>Usage:</b>
  * To use the {@code AuthzeroTokenResolver}, first, create an instance of this
@@ -61,7 +61,7 @@ import java.util.*;
  *                               "Token Issuer",
  *                               "Token Secret");
  * }</pre>
- * </p>
+ *
  * <p>
  * Then, you can utilize the various methods provided by this resolver to
  * handle JWT tokens:
@@ -82,14 +82,13 @@ import java.util.*;
  * String renewedToken =
  *     tokenResolver.renew(token, Duration.ofMinutes(30), customPayloads);
  * }</pre>
- * </p>
+ *
  * <p>
  * <b>Note:</b>
  * It is essential to configure the appropriate algorithms, secret, and issuer
  * according to your specific use case when using this resolver.
  * Additionally, ensure that the {@code com.auth0:java-jwt} library is
  * correctly configured in your project's dependencies.
- * </p>
  *
  * @author Zihlu Wang
  * @version 1.0.0
@@ -264,10 +263,9 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     /**
      * <p>
      * Finish creating a token.
-     * </p>
+     *
      * <p>
      * This is the final step of create a token, to sign this token.
-     * </p>
      *
      * @param builder the builder to build this JWT
      * @return the generated token as a {@code String}

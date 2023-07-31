@@ -16,22 +16,21 @@
  */
 
 /**
- * <p>
  * This package is a part of JDevKit, an open-source Java Development Kit that
  * provides a set of convenient tools to streamline code development and
  * enhance productivity. This package serves as the core package containing
  * common exceptions that are used throughout the entireJDevKit project.
- * </p>
+ *
  * <p>
  * JDevKit is designed to be modular, and other specific feature modules within
  * the library may rely on these exceptions from the core package.
- * </p>
+ *
  * <p>
  * For more information and the latest version of JDevKit, please visit our
  * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.
- * </p>
+ *
  * <p>
- * <h4>Contact</h4>
+ * <b>Contact</b>
  * <ul>
  *     <li>
  *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
@@ -41,7 +40,6 @@
  *         <a href="https://discord.gg/">Discord Community</a>
  *     </li>
  * </ul>
- * </p>
  *
  * @since 1.0.0
  */

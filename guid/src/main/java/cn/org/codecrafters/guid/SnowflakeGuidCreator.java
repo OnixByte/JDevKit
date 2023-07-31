@@ -25,7 +25,7 @@ import java.time.ZoneOffset;
 /**
  * <p>
  * SnowflakeGuidCreator - GUID generator based on the Snowflake algorithm.
- * </p>
+ *
  * <p>
  * The SnowflakeGuidCreator generates unique identifiers using the Snowflake
  * algorithm, which combines a timestamp, worker ID, and data center ID to
@@ -38,7 +38,6 @@ import java.time.ZoneOffset;
  *     <li>5 bits for worker ID</li>
  *     <li>12 bits for sequence number (per millisecond)</li>
  * </ul>
- * </p>
  *
  * <p>
  * When initializing the SnowflakeGuidCreator, you must provide the worker ID
@@ -47,7 +46,6 @@ import java.time.ZoneOffset;
  * increments for IDs generated within the same millisecond. If the system
  * clock moves backward, an exception is thrown to prevent generating IDs with
  * repeated timestamps.
- * </p>
  *
  * @author Zihlu Wang
  * @version 1.0.0

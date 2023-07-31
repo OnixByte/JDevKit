@@ -27,11 +27,10 @@ import java.util.Map;
  * <p>
  * MapUtil is a utility class that provides methods for converting objects to
  * maps and maps to objects.
- * </p>
+ *
  * <p>
  * It also provides methods for getting and setting field values using
  * reflection.
- * </p>
  *
  * @author Zihlu Wang
  * @version 1.0.0
@@ -150,6 +149,7 @@ public final class MapUtil {
      *                                   field
      * @throws InvocationTargetException if an error occurs while invoking the
      *                                   field getter method
+     * @throws NoSuchMethodException     if the specified getter is not present
      */
     public static <T> T getFieldValue(Object obj, String fieldName, Class<T> fieldType) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         var methodName = getMethodName("get", fieldName);
@@ -170,6 +170,7 @@ public final class MapUtil {
      *                                   field setter method
      * @throws IllegalAccessException    if an error occurs while accessing the
      *                                   field
+     * @throws NoSuchMethodException     if the specific setter is not present
      */
     public static void setFieldValue(Object obj, String fieldName, Object fieldValue) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         var objectClass = obj.getClass();

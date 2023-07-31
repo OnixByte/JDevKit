@@ -16,20 +16,16 @@
  */
 
 /**
- * <h3>cn.org.codecrafters.simplejwt.authzero</h3>
- *
- * <p>
  * This package contains classes related to the integration of the {@code
- * com.auth0:java-jwt} library in the Simple JWT project. {@code 
+ * com.auth0:java-jwt} library in the Simple JWT project. {@code
  * com.auth0:java-jwt} is a powerful and widely-used Identity as a Service
  * (IDaaS) platform that provides secure authentication and authorization
  * solutions for web and mobile applications. The classes in this package
  * provide the necessary functionality to handle JSON Web Tokens (JWTs) using
  * the {@code com.auth0:java-jwt} library.
- * </p>
  *
  * <p>
- * The main class in this package is the {@link 
+ * The main class in this package is the {@link
  * cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver}, which
  * implements the {@link cn.org.codecrafters.simplejwt.TokenResolver} interface
  * and uses the {@code com.auth0:java-jwt} library to handle JWT operations. It
@@ -37,7 +33,6 @@
  * {@code com.auth0:java-jwt} library. Developers can use this class as the
  * main token resolver in the Simple JWT project when integrating {@code
  * com.auth0:java-jwt} as the JWT management library.
- * </p>
  *
  * <p>
  * The {@code AuthzeroTokenResolver} relies on the {@code com.auth0:java-jwt}
@@ -45,7 +40,6 @@
  * validation, and extraction. It utilizes the {@code com.auth0:java-jwt}
  * {@code Algorithm} class to define and use different algorithms for JWT
  * signing and verification.
- * </p>
  *
  * <p>
  * To use the {@code AuthzeroTokenResolver}, developers must provide the
@@ -54,14 +48,12 @@
  * issuer name, and the secret key used for token signing and validation. The
  * {@code AuthzeroTokenResolverConfig} class provides a convenient way to
  * configure these dependencies.
- * </p>
  *
  * <p>
  * Developers using the {@code com.auth0:java-jwt} integration should be
  * familiar with the concepts and usage of the {@code com.auth0:java-jwt}
  * library and follow the official {@code com.auth0:java-jwt} documentation for
  * best practices and security considerations.
- * </p>
  *
  * @since 1.0.0
  */

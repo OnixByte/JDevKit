@@ -24,6 +24,7 @@ import cn.org.codecrafters.simplejwt.autoconfiguration.properties.SimpleJwtPrope
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -39,14 +40,14 @@ import java.util.UUID;
  * Simple JWT library when used in a Spring Boot application. It provides
  * default settings and configurations to ensure that the library works
  * smoothly without requiring manual configuration.
- * </p>
+ * 
  *
  * <p>
  * This auto-configuration class sets up the necessary beans and components
  * required for JWT generation and validation. It automatically creates and
  * configures the {@link TokenResolver} bean based on the available options and
  * properties.
- * </p>
+ * 
  *
  * <p>
  * Developers using the Simple JWT library with Spring Boot do not need to
@@ -54,31 +55,21 @@ import java.util.UUID;
  * setting up the necessary components and configurations automatically.
  * However, developers still have the flexibility to customize the behavior of
  * the library by providing their own configurations and properties.
- * </p>
+ * 
  *
  * @author Zihlu Wang
  * @version 1.0.0
  * @since 1.0.0
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(value = {SimpleJwtProperties.class})
 public class SimpleJwtAutoConfiguration {
 
     /**
      * The GuidCreator instance to be used for generating JWT IDs (JTI).
      */
-    private GuidCreator<?> jtiCreator;
-
-    /**
-     * Sets the GuidCreator instance to be used for generating JWT IDs (JTI).
-     *
-     * @param jtiCreator the {@code GuidCreator} instance
-     */
-    @Autowired
-    public void setJtiCreator(GuidCreator<?> jtiCreator) {
-        this.jtiCreator = jtiCreator;
-    }
+    private final GuidCreator<?> jtiCreator;
 
     /**
      * The {@code SimpleJwtProperties} instance containing the configuration
@@ -93,21 +84,9 @@ public class SimpleJwtAutoConfiguration {
      * @param simpleJwtProperties the SimpleJwtProperties instance
      */
     @Autowired
-    public SimpleJwtAutoConfiguration(SimpleJwtProperties simpleJwtProperties) {
+    public SimpleJwtAutoConfiguration(SimpleJwtProperties simpleJwtProperties, GuidCreator<?> jtiCreator) {
+        this.jtiCreator = jtiCreator;
         this.simpleJwtProperties = simpleJwtProperties;
-    }
-
-    /**
-     * Creates a new {@code GuidCreator} bean if no existing bean with the name
-     * "jtiCreator" is found. The created {@code GuidCreator} is used for
-     * generating JWT IDs (JTI).
-     *
-     * @return the GuidCreator instance
-     */
-    @Bean
-    @ConditionalOnMissingBean(value = GuidCreator.class, name = "jtiCreator")
-    public GuidCreator<?> jtiCreator() {
-        return (GuidCreator<UUID>) UUID::randomUUID;
     }
 
     /**

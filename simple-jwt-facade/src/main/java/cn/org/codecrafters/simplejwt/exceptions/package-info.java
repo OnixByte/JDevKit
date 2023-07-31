@@ -21,7 +21,7 @@
  * custom exception classes related to the Simple JWT library. These
  * exceptions are thrown when there are issues or errors during the generation
  * , validation, or processing of JSON Web Tokens (JWTs) in Java applications.
- * </p>
+ *
  *
  * <p>
  * Custom exception classes in this package are designed to enhance the
@@ -30,13 +30,12 @@
  * identify and troubleshoot issues related to JWT generation, validation, or
  * extraction and ensure smooth operation and error handling in their
  * applications.
- * </p>
+ *
  *
  * <p>
  * Developers using the Simple JWT library should be aware of the possible
  * exceptions that can be thrown and handle them appropriately to ensure secure
  * and reliable JWT handling in their Java applications.
- * </p>
  *
  * @since 1.0.0
  */

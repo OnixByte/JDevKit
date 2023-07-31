@@ -64,12 +64,11 @@ public final class AuthzeroTokenResolverConfig implements TokenResolverConfig<Fu
     /**
      * <p>
      * Constructs a new instance of AuthzeroTokenResolverConfig.
-     * </p>
+     *
      * <p>
      * The constructor is set as private to enforce the singleton pattern for
      * this configuration class. Instances of AuthzeroTokenResolverConfig
      * should be obtained through the {@link #getInstance()} method.
-     * </p>
      */
     private AuthzeroTokenResolverConfig() {
     }
@@ -77,20 +76,19 @@ public final class AuthzeroTokenResolverConfig implements TokenResolverConfig<Fu
     /**
      * <p>
      * The singleton instance of AuthzeroTokenResolverConfig.
-     * </p>
+     *
      * <p>
      * This instance is used to ensure that only one instance of
      * AuthzeroTokenResolverConfig is created and shared throughout the
      * application. The singleton pattern is implemented to provide centralized
      * configuration and avoid redundant object creation.
-     * </p>
      */
     private static AuthzeroTokenResolverConfig instance;
 
     /**
      * <p>
      * The supported algorithms and their corresponding algorithm functions.
-     * </p>
+     *
      * <p>
      * This map stores the supported algorithms as keys and their corresponding
      * algorithm functions as values. The algorithm functions represent the
@@ -126,14 +124,13 @@ public final class AuthzeroTokenResolverConfig implements TokenResolverConfig<Fu
      * <p>
      * Gets the algorithm function corresponding to the specified
      * TokenAlgorithm.
-     * </p>
+     *
      * <p>
      * This method returns the algorithm function associated with the given
      * TokenAlgorithm. The provided TokenAlgorithm represents the specific
      * algorithm for which the corresponding algorithm function is required.
      * The returned AlgorithmFunction represents the function implementation
      * that can be used by the TokenResolver to handle the specific algorithm.
-     * </p>
      *
      * @param algorithm the TokenAlgorithm for which the algorithm function is
      *                  required

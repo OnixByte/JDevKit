@@ -21,13 +21,11 @@
  * configuration classes related to the {@link
  * cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver}
  * implementation.
- * </p>
  *
  * <p>
  * The classes in this package provide configuration options and settings for
  * the {@link cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver},
  * which is used for resolving JSON Web Tokens (JWT) using the Auth0 library.
- * </p>
  *
  * <p>
  * The {@link
@@ -39,7 +37,6 @@
  * JWT algorithms. It enables developers to specify and customize the
  * algorithm functions according to the chosen JWT algorithm and the library
  * being used.
- * </p>
  *
  * <p>
  * The configuration options in this package help developers integrate and
@@ -48,7 +45,6 @@
  * into their Spring Boot applications. Developers can fine-tune the token
  * resolution process and customize algorithm handling to align with their
  * specific requirements and desired level of security.
- * </p>
  *
  * <p>
  * It is recommended to explore the classes in this package to understand how
@@ -56,7 +52,6 @@
  * cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver} effectively
  * in the Spring Boot environment to handle JWT authentication and
  * authorization securely and efficiently.
- * </p>
  *
  * @since 1.0.0
  */

@@ -24,15 +24,16 @@ package cn.org.codecrafters.devkit.core.exceptions;
  * that represents a situation where a particular method or functionality is
  * not implemented or is currently unavailable in the codebase. It extends the
  * standard {@code RuntimeException} class, making it an unchecked exception.
- * </p>
+ *
  * <p>
  * This exception is typically thrown when developers need to indicate that a
  * specific part of the code is incomplete or requires further implementation.
  * It serves as a placeholder to highlight unfinished sections of the
  * application during development and testing phases.
- * </p>
+ *
  * <p>
  * Usage Example:
+ *
  * <pre>
  * public void someMethod() {
  *     // Some code...
@@ -41,13 +42,8 @@ package cn.org.codecrafters.devkit.core.exceptions;
  *     """);
  * }
  * </pre>
- * </p>
- * <p>
- * For more information and the latest version of JDevKit, please visit our
- * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.
- * </p>
- * <p>
- * <h4>Contact</h4>
+ *
+ * <b>Contact</b>
  * <ul>
  *     <li>
  *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
@@ -57,7 +53,6 @@ package cn.org.codecrafters.devkit.core.exceptions;
  *         <a href="https://discord.gg/">Discord Community</a>
  *     </li>
  * </ul>
- * </p>
  *
  * @author Zihlu Wang
  * @version 1.0.0

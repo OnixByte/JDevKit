@@ -27,7 +27,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * store the properties related to Simple JWT library configuration. These
  * properties can be configured in the application's properties file (e.g.,
  * application.properties) with the prefix "code-crafters.simple-jwt".
- * </p>
+ * 
  *
  * <p>
  * SimpleJwtProperties provides configuration options for the JWT algorithm,
@@ -35,14 +35,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * cn.org.codecrafters.simplejwt.autoconfiguration.SimpleJwtAutoConfiguration}
  * class to set up the necessary configurations for JWT generation and
  * validation.
- * </p>
+ * 
  *
  * <p>
  * Developers can customize the JWT algorithm, issuer, and secret by setting
  * the corresponding properties in the application's properties file. The
  * SimpleJwtAutoConfiguration class reads these properties and uses them to
  * create the TokenResolver bean with the desired configuration.
- * </p>
+ * 
  *
  * @since 1.0.0
  */

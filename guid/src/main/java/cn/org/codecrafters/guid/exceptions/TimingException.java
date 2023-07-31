@@ -21,24 +21,24 @@ package cn.org.codecrafters.guid.exceptions;
  * <p>
  * The TimingException class represents an exception that is thrown when there
  * is an error related to time sequence.
- * </p>
+ * 
  * <p>
  * This class extends the RuntimeException class, which means that instances of
  * TimingException do not need to be declared in a method or constructor's
  * throws clause.
- * </p>
+ * 
  * <p>
  * Instances of TimingException can be created with or without a message and a
  * cause. The message provides a description of the exception, while the cause
  * represents the underlying cause of the exception and provides additional
  * information about the error.
- * </p>
+ * 
  * <p>
  * TimingException is typically used to handle exceptions related to timing,
  * such as timeouts or synchronization issues. It is a subclass of
  * RuntimeException, which means it is an unchecked exception and does not need
  * to be caught or declared.
- * </p>
+ * 
  *
  * @author Zihlu Wang
  * @since 1.0.0

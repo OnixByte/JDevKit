@@ -22,7 +22,7 @@
  * provide default settings and configurations to ensure that the library works
  * smoothly and seamlessly without requiring developers to manually configure
  * it.
- * </p>
+ * 
  *
  * <p>
  * Developers using the Simple JWT library with Spring Boot do not need to
@@ -31,7 +31,7 @@
  * automatically. However, developers still have the flexibility to customize
  * the behavior of the library by providing their own configurations and
  * properties.
- * </p>
+ * 
  *
  * @since 1.0.0
  */

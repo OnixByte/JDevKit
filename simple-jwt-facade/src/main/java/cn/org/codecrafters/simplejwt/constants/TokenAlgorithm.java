@@ -20,13 +20,12 @@ package cn.org.codecrafters.simplejwt.constants;
 import lombok.Getter;
 
 /**
- * <p>
  * The {@code TokenAlgorithm} enum class defines the algorithms that can be
  * used for signing and verifying JSON Web Tokens (JWT). JWT allows various
  * cryptographic algorithms to be used for secure token generation and
  * validation. This enum provides a list of supported algorithms to ensure
  * consistent usage and avoid potential security issues.
- * </p>
+ *
  * <p><b>Supported Algorithms:</b>
  * This enum includes the following supported algorithms:
  * <ul>
@@ -40,21 +39,56 @@ import lombok.Getter;
  *     <li>{@link TokenAlgorithm#ES384}: ECDSA with SHA-384</li>
  *     <li>{@link TokenAlgorithm#ES512}: ECDSA with SHA-512</li>
  * </ul>
- * </p>
  *
  * @version 1.0.0
  * @since 1.0.0
  */
 @Getter
 public enum TokenAlgorithm {
+
+    /**
+     * HMAC using SHA-256
+     */
     HS256,
+
+    /**
+     * HMAC using SHA-384
+     */
     HS384,
+
+    /**
+     * HMAC using SHA-512
+     */
     HS512,
+
+    /**
+     * RSASSA-PKCS-v1_5 using SHA-256
+     */
     RS256,
+
+    /**
+     * RSASSA-PKCS-v1_5 using SHA-384
+     */
     RS384,
+
+    /**
+     * RSASSA-PKCS-v1_5 using SHA-512
+     */
     RS512,
+
+    /**
+     * ECDSA using P-256 and SHA-256
+     */
     ES256,
+
+    /**
+     * ECDSA using P-384 and SHA-384
+     */
     ES384,
+
+    /**
+     * ECDSA using P-521 and SHA-512
+     */
     ES512,
     ;
 

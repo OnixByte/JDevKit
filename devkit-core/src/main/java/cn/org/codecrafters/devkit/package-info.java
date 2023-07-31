@@ -16,19 +16,17 @@
  */
 
 /**
- * <h3>JDevKit - Java Development Kit</h3>
- * <p>
  * This package is the main part of JDevKit, an open-source Java class library
  * that provides a set of convenient tools to streamline code development and
  * enhance productivity. This package serves as the root package for several
  * modules, containing devkit-core, guid and dev-utils module.
- * </p>
+ *
  * <p>
  * For more information and the latest version of JDevKit, please visit our
  * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.
- * </p>
+ *
  * <p>
- * <h4>Contact</h4>
+ * <b>Contact</b>
  * <ul>
  *     <li>
  *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
@@ -38,7 +36,6 @@
  *         <a href="https://discord.gg/">Discord Community</a>
  *     </li>
  * </ul>
- * </p>
  *
  * @since 1.0.0
  */

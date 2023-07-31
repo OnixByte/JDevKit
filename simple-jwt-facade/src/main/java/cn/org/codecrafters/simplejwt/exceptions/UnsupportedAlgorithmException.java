@@ -21,10 +21,10 @@ package cn.org.codecrafters.simplejwt.exceptions;
  * <p>
  * This {@code UnsupportedAlgorithmException} is to indicates that the given
  * algorithm is not supported by TokenResolver yet.
- * </p>
+ * 
  * <p>
  * To support a specified algorithm, you could
- * </p>
+ * 
  *
  * @author Zihlu Wang
  */
@@ -54,11 +54,11 @@ public class UnsupportedAlgorithmException extends RuntimeException {
      * <p>
      * Constructs a new runtime exception with the specified detail message and
      * cause.
-     * </p>
+     * 
      * <p>Note that the detail message associated with
      * {@code cause} is <i>not</i> automatically incorporated in
      * this runtime exception's detail message.
-     * </p>
+     * 
      *
      * @param message the detail message (which is saved for later retrieval
      *                by the {@link #getMessage()} method).

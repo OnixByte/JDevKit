@@ -24,7 +24,7 @@
  * used to secure web and mobile applications. This library aims to simplify
  * the JWT handling process and provide convenient abstractions for JWT
  * generation, validation, and extraction.
- * </p>
+ * 
  *
  * <p>
  * The Simple JWT library is designed to be flexible and customizable, allowing
@@ -32,13 +32,13 @@
  * classes based on their specific application requirements. It aims to
  * simplify the JWT handling process while maintaining security and best
  * practices for working with JWTs.
- * </p>
+ * 
  *
  * <p>
  * Developers should refer to the official documentation and examples for the
  * Simple JWT project to understand how to use the library effectively and
  * securely in their Java applications.
- * </p>
+ * 
  *
  * @since 1.0.0
  */
