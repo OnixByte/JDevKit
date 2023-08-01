@@ -103,7 +103,7 @@ public final class SnowflakeGuidCreator implements GuidCreator<Long> {
      * @param dataCentreId the data center ID (between 0 and 31).
      */
     public SnowflakeGuidCreator(long workerId, long dataCentreId) {
-        this(DEFAULT_CUSTOM_EPOCH, workerId, dataCentreId);
+        this(workerId, dataCentreId, DEFAULT_CUSTOM_EPOCH);
     }
 
     /**
@@ -118,7 +118,7 @@ public final class SnowflakeGuidCreator implements GuidCreator<Long> {
      *                                  current timestamp, or if the worker ID
      *                                  or data center ID is out of range
      */
-    public SnowflakeGuidCreator(long startEpoch, long workerId, long dataCentreId) {
+    public SnowflakeGuidCreator(long workerId, long dataCentreId, long startEpoch) {
         if (startEpoch > currentTimestamp()) {
             throw new IllegalArgumentException("Start Epoch can not be greater than current timestamp!");
         }
