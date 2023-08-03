@@ -5,41 +5,40 @@ JDevKit is a Java Development Kit that offers a set of convenient tools for writ
 
 > For more information, please visit the README file of each module.
 
-### `devkit-core` <span style="font-size: 14px;">_[Learn more](devkit-core/README.md)_</span>
+### `devkit-core` <span style="font-size: 14px;">_[Learn more](./devkit-core/README.md)_</span>
 The core module for `JDevKit`, by now, this module contains the commonly used classes of the whole `dev-kit`.
 
-### `guid` <span style="font-size: 14px;">_[Learn more](guid/README.md)_</span>
+### `guid` <span style="font-size: 14px;">_[Learn more](./guid/README.md)_</span>
 A module for generating globally unique IDs. It includes a facade interface and an implementation of GUID generation 
 using the Snowflake algorithm. More globally unique ID generation modes will be added in the future.
 
-### `dev-utils` <span style="font-size: 14px;">_[Learn more](dev-utils/README.md)_</span>
+### `devkit-utils` <span style="font-size: 14px;">_[Learn more](./devkit-utils/README.md)_</span>
 A collection of common utility classes to simplify Java development. It includes tools for Base64 encoding/decoding of 
 strings, reducing if-else code blocks using Lambda expressions, converting between maps and arbitrary objects, 
 high-precision chained mathematical calculations, and string hashing or message digest calculations.
 
-### `simple-jwt-facade` <span style="font-size: 14px;">_[Learn more](simple-jwt-facade/README.md)_</span>
+### `simple-jwt-facade` <span style="font-size: 14px;">_[Learn more](./simple-jwt-facade/README.md)_</span>
 A facade for Simple JWT (JSON Web Token) implementations in Java. This module provides a unified interface to work with
 JWTs regardless of the underlying implementation.
 
-### `simple-jwt-auth0` <span style="font-size: 14px;">_[Learn more](simple-jwt-facade/README.md)_</span>
+### `simple-jwt-auth0` <span style="font-size: 14px;">_[Learn more](./simple-jwt-facade/README.md)_</span>
 A Simple JWT implementation using the com.auth0:java-jwt library.
 
-### `simple-jwt-spring-boot-starter` <span style="font-size: 14px;">_[Learn more](simple-jwt-spring-boot-starter/README.md)_</span>
+### `simple-jwt-spring-boot-starter` <span style="font-size: 14px;">_[Learn more](./simple-jwt-spring-boot-starter/README.md)_</span>
 A Spring Boot auto-configuration wrapper for the simple-jwt module, making it easier to integrate JWT functionality into
 Spring Boot applications.
 
-### `sms-sender-facade` <span style="font-size: 14px;">_[Learn more](sms-sender-facade/README.md)_</span>
+### `sms-sender-facade` <span style="font-size: 14px;">_[Learn more](./sms-sender-facade/README.md)_</span>
 A facade for sending SMS messages in Java. This module abstracts the interfaces of various SMS service providers.
 
-### `sms-sender-aliyun` <span style="font-size: 14px;">_[Learn more](sms-sender-aliyun/README.md)_</span>
+### `sms-sender-aliyun` <span style="font-size: 14px;">_[Learn more](./sms-sender-aliyun/README.md)_</span>
 An implementation of SMS Sender using the Alibaba Cloud (Aliyun) service.
 
-### `sms-sender-tencent` <span style="font-size: 14px;">_[Learn more](sms-sender-tencent/README.md)_</span>
+### `sms-sender-tencent` <span style="font-size: 14px;">_[Learn more](./sms-sender-tencent/README.md)_</span>
 An implementation of SMS Sender using the Tencent Cloud service.
 
-### `sms-sender-spring-boot-starter` <span style="font-size: 14px;">_[Learn more](sms-sender-spring-boot-starter/README.md)_</span>
-A Spring Boot auto-configuration wrapper for the sms-sender module, simplifying the integration of SMS sending
-capabilities into Spring Boot applications.
+### `sms-sender-spring-boot-starter` <span style="font-size: 14px;">_[Learn more](./sms-sender-spring-boot-starter/README.md)_</span>
+A Spring Boot auto-configuration wrapper for the `sms-sender-facade` module, simplifying the integration of SMS sending capabilities into Spring Boot applications.
 
 ## Installation and Usage
 If you are using `maven`, please paste the following codes to `pom.xml` in your project.
