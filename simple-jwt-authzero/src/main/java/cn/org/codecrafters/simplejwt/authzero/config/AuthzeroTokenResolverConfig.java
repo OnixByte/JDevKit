@@ -140,7 +140,7 @@ public final class AuthzeroTokenResolverConfig implements TokenResolverConfig<Fu
      *                                       implementation
      */
     @Override
-    public Function<String, Algorithm> getFunction(TokenAlgorithm algorithm) {
+    public Function<String, Algorithm> getAlgorithm(TokenAlgorithm algorithm) {
         return Optional.of(SUPPORTED_ALGORITHMS).map((entry) -> entry.get(algorithm))
                 .orElseThrow(() -> new UnsupportedAlgorithmException("The specified algorithm is not supported yet."));
     }

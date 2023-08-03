@@ -23,21 +23,20 @@ import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
  * <p>
  * The TokenResolverConfig interface provides a mechanism to configure a
  * TokenResolver with algorithm functions.
- * 
+ *
  * <p>
  * This generic interface is used to define the configuration details for a
  * TokenResolver that utilizes algorithm functions. The interface allows for
  * specifying algorithm functions corresponding to different TokenAlgorithm
  * instances supported by the TokenResolver implementation.
- * 
  *
- * @param <AlgorithmFunction> the type representing algorithm functions used by
- *                            the TokenResolver
+ * @param <Algo> the type representing algorithm functions used by the
+ *               {@code TokenResolver}
  * @author Zihlu Wang
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface TokenResolverConfig<AlgorithmFunction> {
+public interface TokenResolverConfig<Algo> {
 
     /**
      * Gets the algorithm function corresponding to the specified
@@ -53,6 +52,6 @@ public interface TokenResolverConfig<AlgorithmFunction> {
      *                  required
      * @return the algorithm function associated with the given TokenAlgorithm
      */
-    AlgorithmFunction getFunction(TokenAlgorithm algorithm);
+    Algo getAlgorithm(TokenAlgorithm algorithm);
 
 }

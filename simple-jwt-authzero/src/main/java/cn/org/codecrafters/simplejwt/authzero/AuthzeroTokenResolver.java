@@ -140,7 +140,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
         this.jtiCreator = jtiCreator;
-        this.algorithm = AuthzeroTokenResolverConfig.getInstance().getFunction(algorithm).apply(secret);
+        this.algorithm = AuthzeroTokenResolverConfig.getInstance().getAlgorithm(algorithm).apply(secret);
         this.issuer = issuer;
         this.verifier = JWT.require(this.algorithm).build();
     }
