@@ -139,8 +139,15 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         if (secret == null || secret.isBlank()) {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
+
+        if (secret.length() <= 32) {
+            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
+        }
+
         this.jtiCreator = jtiCreator;
-        this.algorithm = AuthzeroTokenResolverConfig.getInstance().getAlgorithm(algorithm).apply(secret);
+        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+                .getAlgorithm(algorithm)
+                .apply(secret);
         this.issuer = issuer;
         this.verifier = JWT.require(this.algorithm).build();
     }
@@ -155,7 +162,20 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      *                  HS384, HS512) for token signing and verification
      */
     public AuthzeroTokenResolver(TokenAlgorithm algorithm, String issuer, String secret) {
-        this((GuidCreator<UUID>) UUID::randomUUID, algorithm, issuer, secret);
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
+        }
+
+        if (secret.length() <= 32) {
+            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
+        }
+
+        this.jtiCreator = (GuidCreator<UUID>) UUID::randomUUID;
+        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+                .getAlgorithm(algorithm)
+                .apply(secret);
+        this.issuer = issuer;
+        this.verifier = JWT.require(this.algorithm).build();
     }
 
     /**
@@ -167,7 +187,20 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      *               HS384, HS512) for token signing and verification
      */
     public AuthzeroTokenResolver(String issuer, String secret) {
-        this(TokenAlgorithm.HS256, issuer, secret);
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
+        }
+
+        if (secret.length() <= 32) {
+            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
+        }
+
+        this.jtiCreator = (GuidCreator<UUID>) UUID::randomUUID;
+        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+                .getAlgorithm(TokenAlgorithm.HS256)
+                .apply(secret);
+        this.issuer = issuer;
+        this.verifier = JWT.require(this.algorithm).build();
     }
 
     /**
