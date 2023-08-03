@@ -18,6 +18,7 @@
 package cn.org.codecrafters.simplejwt.authzero;
 
 import cn.org.codecrafters.guid.GuidCreator;
+import cn.org.codecrafters.simplejwt.SecretCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
@@ -201,6 +202,25 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 .apply(secret);
         this.issuer = issuer;
         this.verifier = JWT.require(this.algorithm).build();
+    }
+
+    /**
+     * Creates a new instance of AuthzeroTokenResolver with the provided
+     * configurations, HMAC256 algorithm and a simple UUID GuidCreator.
+     *
+     * @param issuer the issuer claim value to be included in JWT tokens
+     */
+    public AuthzeroTokenResolver(String issuer) {
+        var secret = SecretCreator.createSecret(32, true, true, true);
+
+        this.jtiCreator = (GuidCreator<UUID>) UUID::randomUUID;
+        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+                .getAlgorithm(TokenAlgorithm.HS256)
+                .apply(secret);
+        this.issuer = issuer;
+        this.verifier = JWT.require(this.algorithm).build();
+
+        log.info("The secret has been set to {}.", secret);
     }
 
     /**
