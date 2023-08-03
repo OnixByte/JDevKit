@@ -18,11 +18,9 @@
 package cn.org.codecrafters.simplejwt.autoconfiguration;
 
 import cn.org.codecrafters.guid.GuidCreator;
-import cn.org.codecrafters.simplejwt.autoconfiguration.properties.SimpleJwtProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 import java.util.UUID;
@@ -38,7 +36,7 @@ import java.util.UUID;
 public class GuidAutoConfiguration {
 
     @Bean
-    public GuidCreator<UUID> jtiCreator() {
+    public GuidCreator<?> jtiCreator() {
         return UUID::randomUUID;
     }
 
