@@ -23,6 +23,7 @@ import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
 import cn.org.codecrafters.simplejwt.authzero.config.AuthzeroTokenResolverConfig;
+import cn.org.codecrafters.simplejwt.config.TokenResolverConfig;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
@@ -124,6 +125,8 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      */
     private final JWTVerifier verifier;
 
+    private final AuthzeroTokenResolverConfig config = AuthzeroTokenResolverConfig.getInstance();
+
     /**
      * Creates a new instance of AuthzeroTokenResolver with the provided
      * configurations.
@@ -146,7 +149,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         }
 
         this.jtiCreator = jtiCreator;
-        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+        this.algorithm = config
                 .getAlgorithm(algorithm)
                 .apply(secret);
         this.issuer = issuer;
@@ -172,7 +175,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         }
 
         this.jtiCreator = (GuidCreator<UUID>) UUID::randomUUID;
-        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+        this.algorithm = config
                 .getAlgorithm(algorithm)
                 .apply(secret);
         this.issuer = issuer;
@@ -197,7 +200,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         }
 
         this.jtiCreator = (GuidCreator<UUID>) UUID::randomUUID;
-        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+        this.algorithm = config
                 .getAlgorithm(TokenAlgorithm.HS256)
                 .apply(secret);
         this.issuer = issuer;
@@ -214,7 +217,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         var secret = SecretCreator.createSecret(32, true, true, true);
 
         this.jtiCreator = (GuidCreator<UUID>) UUID::randomUUID;
-        this.algorithm = AuthzeroTokenResolverConfig.getInstance()
+        this.algorithm = config
                 .getAlgorithm(TokenAlgorithm.HS256)
                 .apply(secret);
         this.issuer = issuer;

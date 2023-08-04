@@ -17,6 +17,8 @@
 
 package cn.org.codecrafters.simplejwt.autoconfiguration.properties;
 
+import cn.org.codecrafters.simplejwt.SecretCreator;
+import cn.org.codecrafters.simplejwt.autoconfiguration.AuthzeroTokenResolverAutoConfiguration;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -32,7 +34,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * <p>
  * SimpleJwtProperties provides configuration options for the JWT algorithm,
  * issuer, and secret. The properties are used by the {@link
- * cn.org.codecrafters.simplejwt.autoconfiguration.SimpleJwtAutoConfiguration}
+ * AuthzeroTokenResolverAutoConfiguration}
  * class to set up the necessary configurations for JWT generation and
  * validation.
  * 
@@ -51,19 +53,23 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SimpleJwtProperties {
 
     /**
-     * The algorithm used for JWT generation and validation.
+     * The algorithm used for JWT generation and validation. Default value is
+     * {@link TokenAlgorithm#HS256}
      */
-    private TokenAlgorithm algorithm;
+    private TokenAlgorithm algorithm = TokenAlgorithm.HS256;
 
     /**
-     * The issuer value to be included in the generated JWT.
+     * The issuer value to be included in the generated JWT. Default value is
+     * an empty String.
      */
-    private String issuer;
+    private String issuer = "";
 
     /**
-     * The secret key used for JWT generation and validation.
+     * The secret key used for JWT generation and validation. Default value is
+     * the result of call to {@link
+     * SecretCreator#createSecret(int, boolean, boolean, boolean)}.
      */
-    private String secret;
+    private String secret = SecretCreator.createSecret(32, true, true, true);
 
     /**
      * Returns the JWT algorithm configured in the properties.

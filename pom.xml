@@ -22,6 +22,7 @@
         <module>guid</module>
         <module>simple-jwt-facade</module>
         <module>simple-jwt-authzero</module>
+        <module>simple-jwt-jjwt</module>
         <module>simple-jwt-spring-boot-starter</module>
     </modules>
 
@@ -70,7 +71,9 @@
         <junit.version>5.10.0</junit.version>
         <slf4j-api.version>2.0.7</slf4j-api.version>
         <lombok.version>1.18.28</lombok.version>
+        <jackson.version>2.15.2</jackson.version>
         <auth0-jwt.version>4.4.0</auth0-jwt.version>
+        <jjwt-jwt.version>0.11.5</jjwt-jwt.version>
 
         <spring.version>x.x.x</spring.version>
         <spring-boot.version>3.1.0</spring-boot.version>
@@ -104,9 +107,41 @@
             </dependency>
 
             <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>${auth0-jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt-jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt-jwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt-jwt.version}</version>
+                <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -123,6 +158,12 @@
 
             <dependency>
                 <groupId>cn.org.codecrafters</groupId>
+                <artifactId>devkit-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.org.codecrafters</groupId>
                 <artifactId>simple-jwt-facade</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -130,6 +171,12 @@
             <dependency>
                 <groupId>cn.org.codecrafters</groupId>
                 <artifactId>simple-jwt-authzero</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.org.codecrafters</groupId>
+                <artifactId>simple-jwt-jjwt</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

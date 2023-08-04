@@ -17,6 +17,7 @@
 
 package cn.org.codecrafters.simplejwt;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ import java.util.Map;
  * The {@code TokenResolver} interface defines methods for creating,
  * extracting, and renewing tokens, particularly JSON Web Tokens (JWTs). It
  * provides a set of methods to generate tokens with various payload
- * configurations, extract payloads from tokens, and renew expired tokens.
+ * configurations, extract payload from tokens, and renew expired tokens.
  *
  * <p>
  * <b>Token Creation:</b>
@@ -72,10 +73,10 @@ public interface TokenResolver<ResolvedTokenType> {
      * @param expireAfter the duration after which the token will expire
      * @param subject     the subject of the token
      * @param audience    the audience for which the token is intended
-     * @param payloads    the custom payload data to be included in the token
+     * @param payload     the custom payload data to be included in the token
      * @return the generated token as a {@code String}
      */
-    String createToken(Duration expireAfter, String audience, String subject, Map<String, Object> payloads);
+    String createToken(Duration expireAfter, String audience, String subject, Map<String, Object> payload);
 
     /**
      * Creates a new token with the specified expiration time, subject,
@@ -116,16 +117,6 @@ public interface TokenResolver<ResolvedTokenType> {
     /**
      * Renews the given expired token with the specified custom payload data.
      *
-     * @param oldToken the expired token to be renewed
-     * @param payload  the custom payload data to be included in the renewed
-     *                 token
-     * @return the renewed token as a {@code String}
-     */
-    String renew(String oldToken, Map<String, Object> payload);
-
-    /**
-     * Renews the given expired token with the specified custom payload data.
-     *
      * @param oldToken    the expired token to be renewed
      * @param expireAfter specify when does the new token invalid
      * @param payload     the custom payload data to be included in the renewed
@@ -133,6 +124,16 @@ public interface TokenResolver<ResolvedTokenType> {
      * @return the renewed token as a {@code String}
      */
     String renew(String oldToken, Duration expireAfter, Map<String, Object> payload);
+
+    /**
+     * Renews the given expired token with the specified custom payload data.
+     *
+     * @param oldToken the expired token to be renewed
+     * @param payload  the custom payload data to be included in the renewed
+     *                 token
+     * @return the renewed token as a {@code String}
+     */
+    String renew(String oldToken, Map<String, Object> payload);
 
     /**
      * Renews the given expired token with the specified strongly-typed

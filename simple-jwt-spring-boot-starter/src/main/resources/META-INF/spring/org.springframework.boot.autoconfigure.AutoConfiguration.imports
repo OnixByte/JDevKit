@@ -1,2 +1,3 @@
 cn.org.codecrafters.simplejwt.autoconfiguration.GuidAutoConfiguration
-cn.org.codecrafters.simplejwt.autoconfiguration.SimpleJwtAutoConfiguration
+cn.org.codecrafters.simplejwt.autoconfiguration.AuthzeroTokenResolverAutoConfiguration
+cn.org.codecrafters.simplejwt.autoconfiguration.JjwtTokenResolverAutoConfiguration

@@ -26,7 +26,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>simple-jwt-spring-boot-starter</artifactId>
+    <artifactId>simple-jwt-jjwt</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -37,64 +37,32 @@
     <dependencies>
         <dependency>
             <groupId>cn.org.codecrafters</groupId>
-            <artifactId>simple-jwt-facade</artifactId>
+            <artifactId>devkit-utils</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.org.codecrafters</groupId>
-            <artifactId>simple-jwt-authzero</artifactId>
-            <scope>provided</scope>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>cn.org.codecrafters</groupId>
-            <artifactId>simple-jwt-jjwt</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>simple-jwt-facade</artifactId>
         </dependency>
     </dependencies>
 

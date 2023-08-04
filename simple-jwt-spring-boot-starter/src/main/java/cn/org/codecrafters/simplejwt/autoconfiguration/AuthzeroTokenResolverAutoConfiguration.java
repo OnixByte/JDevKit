@@ -34,17 +34,15 @@ import org.springframework.context.annotation.Bean;
 /**
  * <p>
  * SimpleJwtAutoConfiguration is responsible for automatically configuring the
- * Simple JWT library when used in a Spring Boot application. It provides
- * default settings and configurations to ensure that the library works
- * smoothly without requiring manual configuration.
- * 
+ * Simple JWT library with {@code com.auth0:java-jwt} when used in a Spring
+ * Boot application. It provides default settings and configurations to ensure
+ * that the library works smoothly without requiring manual configuration.
  *
  * <p>
  * This auto-configuration class sets up the necessary beans and components
  * required for JWT generation and validation. It automatically creates and
  * configures the {@link TokenResolver} bean based on the available options and
  * properties.
- * 
  *
  * <p>
  * Developers using the Simple JWT library with Spring Boot do not need to
@@ -61,7 +59,9 @@ import org.springframework.context.annotation.Bean;
 @Slf4j
 @AutoConfiguration
 @EnableConfigurationProperties(value = {SimpleJwtProperties.class})
-public class SimpleJwtAutoConfiguration {
+@ConditionalOnClass({DecodedJWT.class, AuthzeroTokenResolver.class})
+@ConditionalOnMissingBean({TokenResolver.class})
+public class AuthzeroTokenResolverAutoConfiguration {
 
     /**
      * The GuidCreator instance to be used for generating JWT IDs (JTI).
@@ -81,7 +81,7 @@ public class SimpleJwtAutoConfiguration {
      * @param simpleJwtProperties the SimpleJwtProperties instance
      */
     @Autowired
-    public SimpleJwtAutoConfiguration(SimpleJwtProperties simpleJwtProperties, GuidCreator<?> jtiCreator) {
+    public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, GuidCreator<?> jtiCreator) {
         this.jtiCreator = jtiCreator;
         this.simpleJwtProperties = simpleJwtProperties;
     }
@@ -96,14 +96,14 @@ public class SimpleJwtAutoConfiguration {
      * @return the {@link TokenResolver} instance
      */
     @Bean
-    @ConditionalOnClass({DecodedJWT.class, AuthzeroTokenResolver.class})
-    @ConditionalOnMissingBean({TokenResolver.class})
     @ConditionalOnBean(value = {GuidCreator.class}, name = "jtiCreator")
     public TokenResolver<DecodedJWT> tokenResolver() {
-        return new AuthzeroTokenResolver(this.jtiCreator,
+        return new AuthzeroTokenResolver(
+                jtiCreator,
                 simpleJwtProperties.algorithm(),
                 simpleJwtProperties.issuer(),
-                simpleJwtProperties.secret());
+                simpleJwtProperties.secret()
+        );
     }
 
 }
