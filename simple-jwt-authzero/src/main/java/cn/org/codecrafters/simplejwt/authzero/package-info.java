@@ -57,5 +57,4 @@
  *
  * @since 1.0.0
  */
-
 package cn.org.codecrafters.simplejwt.authzero;
