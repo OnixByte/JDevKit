@@ -18,25 +18,77 @@
 package cn.org.codecrafters.webcal.config;
 
 /**
- * WebCalClassification
+ * The Classification enum represents the classification levels of calendar
+ * content based on RFC 5545.
+ *
+ * <p>
+ * Calendar events or components can be classified as one of the following
+ * levels:
+ * <ul>
+ *     <li>
+ *         {@link #PUBLIC}: Indicates that the calendar content is public and
+ *         can be freely distributed.
+ *     </li>
+ *     <li>
+ *         {@link #PRIVATE}: Indicates that the calendar content is private and
+ *         should not be shared with others.
+ *     </li>
+ *     <li>
+ *         {@link #CONFIDENTIAL}: Indicates that the calendar content is
+ *         confidential and should be kept strictly private.
+ *     </li>
+ * </ul>
  *
  * @author Zihlu Wang
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public enum Classification {
 
+    /**
+     * Public classification level.
+     *
+     * <p>
+     * Indicates that the calendar content is public and can be freely
+     * distributed.
+     */
     PUBLIC("PUBLIC"),
 
+    /**
+     * Private classification level.
+     *
+     * <p>
+     * Indicates that the calendar content is private and should not be shared
+     * with others.
+     */
     PRIVATE("PRIVATE"),
 
+    /**
+     * Confidential classification level.
+     *
+     * <p>
+     * Indicates that the calendar content is confidential and should be kept
+     * strictly private.
+     */
     CONFIDENTIAL("CONFIDENTIAL"),
     ;
 
     private final String classification;
 
+    /**
+     * Constructor for Classification enum.
+     *
+     * @param classification the classification level as a string representation
+     */
     Classification(String classification) {
         this.classification = classification;
     }
 
+    /**
+     * Get the string representation of the classification level.
+     *
+     * @return the string representation of the classification level
+     */
     public String getClassification() {
         return classification;
     }

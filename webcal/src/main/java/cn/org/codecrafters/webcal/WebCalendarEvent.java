@@ -28,19 +28,31 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * WebCalendarEvent
+ * The WebCalendarEvent class represents an event in the web calendar. It
+ * extends the abstract class WebCalendarNode and provides additional methods
+ * to set properties specific to events.
+ *
+ * <p>
+ * Users can use the methods in this class to add categories, set the
+ * classification, add comments, descriptions, locations, set percent complete
+ * , set priority, set summary, set start time, set end time, set duration, set
+ * URL, set UID, and set timezone for the event. After setting the properties,
+ * users can call the {@link #resolve()} method to generate the corresponding
+ * iCalendar content for the event.
  *
  * @author Zihlu Wang
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public final class WebCalendarEvent extends WebCalendarNode {
 
     private final static String TAG = "VEVENT";
 
     /**
-     * Add a batch of categories.
+     * Add categories to the event.
      *
-     * @param categories A batch of categories.
-     * @return The Event instance.
+     * @param categories the categories to add
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent addCategories(String... categories) {
         this.categories.addAll(Arrays.asList(categories));
@@ -48,10 +60,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Add a batch of categories.
+     * Add a collection of categories to the event.
      *
-     * @param categories A batch of categories.
-     * @return The Event instance.
+     * @param categories the collection of categories to add
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent addCategories(Collection<String> categories) {
         this.categories.addAll(categories);
@@ -59,10 +71,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Add a category.
+     * Add a single category to the event.
      *
-     * @param category A category.
-     * @return The Event instance.
+     * @param category the category to add
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent addCategory(String category) {
         this.categories.add(category);
@@ -70,10 +82,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the classification.
+     * Set the classification of the event.
      *
-     * @param classification The specified classification value.
-     * @return The Event instance.
+     * @param classification the classification to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setClassification(Classification classification) {
         this.classification = classification;
@@ -81,10 +93,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the comment.
+     * Set the comment for the event.
      *
-     * @param comment The comment.
-     * @return The Event instance.
+     * @param comment the comment to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setComment(String comment) {
         this.comment = comment;
@@ -92,10 +104,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the description.
+     * Set the description for the event.
      *
-     * @param description The description.
-     * @return The Event instance.
+     * @param description the description to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setDescription(String description) {
         this.description = description;
@@ -103,10 +115,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the location.
+     * Set the location for the event.
      *
-     * @param location The location.
-     * @return The Event instance.
+     * @param location the location to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setLocation(String location) {
         this.location = location;
@@ -114,10 +126,11 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the percent complete value.
+     * Set the percent complete for the event.
      *
-     * @param percentComplete The percent complete value.
-     * @return The Event instance.
+     * @param percentComplete the percent complete to set
+     * @return the WebCalendarEvent object
+     * @throws IllegalArgumentException if the percent complete is out of range (0 ~ 100)
      */
     public WebCalendarEvent setPercentComplete(Integer percentComplete) {
         if (percentComplete < 0 || percentComplete > 100) {
@@ -128,10 +141,11 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set a priority.
+     * Set the priority for the event.
      *
-     * @param priority The priority to be set.
-     * @return The Event instance.
+     * @param priority the priority to set
+     * @return the WebCalendarEvent object
+     * @throws IllegalArgumentException if the priority is out of range (0 ~ 9)
      */
     public WebCalendarEvent setPriority(Integer priority) {
         if (priority < 0 || priority > 9) {
@@ -142,10 +156,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the summary.
+     * Set the summary for the event.
      *
-     * @param summary The summary (you can also call it as a title).
-     * @return The Event instance.
+     * @param summary the summary to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setSummary(String summary) {
         this.summary = summary;
@@ -153,10 +167,11 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the end of this node.
+     * Set the end time for the event.
      *
-     * @param end The end time of this event.
-     * @return The Event instance.
+     * @param end the end time to set
+     * @return the WebCalendarEvent object
+     * @throws IllegalStateException if the field DURATION has been set before
      */
     public WebCalendarEvent setEnd(LocalDateTime end) {
         if (this.duration != null) {
@@ -167,10 +182,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the start of this event.
+     * Set the start time for the event.
      *
-     * @param start The date time specify the start time of this event.
-     * @return The Event instance.
+     * @param start the start time to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setStart(LocalDateTime start) {
         this.start = start;
@@ -178,10 +193,11 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the duration of this event.
+     * Set the duration for the event.
      *
-     * @param duration The duration of this event.
-     * @return The Event instance.
+     * @param duration the duration to set
+     * @return the WebCalendarEvent object
+     * @throws IllegalStateException if the field END has been set before
      */
     public WebCalendarEvent setDuration(Duration duration) {
         if (this.end != null) {
@@ -192,10 +208,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the URL.
+     * Set the URL for the event.
      *
-     * @param url The URL.
-     * @return The Event instance.
+     * @param url the URL to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setUrl(String url) {
         this.url = url;
@@ -203,10 +219,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the uid of this event.
+     * Set the UID for the event.
      *
-     * @param uid The uid.
-     * @return The Event instance.
+     * @param uid the UID to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setUid(String uid) {
         this.uid = uid;
@@ -214,10 +230,10 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the domain name of this event.
+     * Set the domain name for the event.
      *
-     * @param domainName The domain name.
-     * @return The Event instance.
+     * @param domainName the domain name to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setDomainName(String domainName) {
         this.domainName = domainName;
@@ -225,16 +241,21 @@ public final class WebCalendarEvent extends WebCalendarNode {
     }
 
     /**
-     * Set the timezone of this event.
+     * Set the timezone for the event.
      *
-     * @param timezone The time zone to set.
-     * @return The Event instance.
+     * @param timezone the timezone to set
+     * @return the WebCalendarEvent object
      */
     public WebCalendarEvent setTimezone(String timezone) {
         this.timezone = timezone;
         return this;
     }
 
+    /**
+     * Generate and resolve the iCalendar content for the event.
+     *
+     * @return the resolved iCalendar content for the event
+     */
     @Override
     public String resolve() {
         return "\nBEGIN:" + TAG + "\n" +

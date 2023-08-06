@@ -21,71 +21,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * WebCalendar
+ * The WebCalendar class represents a web calendar in iCalendar format.
+ *
+ * <p>
+ * It allows users to create and customize calendar components and events and
+ * generate an iCalendar string containing all the calendar information.
+ *
+ * <p>Usage Example:
+ * <pre>
+ * WebCalendar calendar = new WebCalendar()
+ *         .setName("My Web Calendar")
+ *         .setCompanyName("CodeCrafters Inc.")
+ *         .setProductName("WebCal")
+ *         .setDomainName("codecrafters.org.cn")
+ *         .setMethod("PUBLISH")
+ *         .addEvent(event1)
+ *         .addEvent(event2);
+ * String iCalendarString = calendar.resolve();
+ * </pre>
+ *
+ * <p>
+ * The WebCalendar class is designed to generate an iCalendar string conforming
+ * to the iCalendar specification, which can be used to share calendar data
+ * with other calendar applications or services.
  *
  * @author Zihlu Wang
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public final class WebCalendar {
 
-    //
-    // Constants
-    //
-
-    // Tag
+    /**
+     * The VCALENDAR tag for iCalendar format
+     */
     private final static String TAG = "VCALENDAR";
 
-    //
-    // Fields
-    //
-
+    // Calendar properties
     private String name;
 
-    /**
-     * Company name. This value is to specify the {@code productIdentifier}
-     * property.
-     */
     private String companyName;
 
-    /**
-     * Product name. This value is to specify the {@code productIdentifier}
-     * property.
-     */
     private String productName;
 
     private String domainName;
 
-    /**
-     * Calendar scale, referenced from <a href="https://icalendar.org/iCalendar-RFC-5545/3-7-1-calendar-scale.html"
-     * >RFC 5545 - 3.7.1. Calendar Scale</a>.
-     */
     private final String scale = "GREGORIAN";
 
-    /**
-     * Method, referenced from <a href="https://icalendar.org/iCalendar-RFC-5545/3-7-2-method.html"
-     * >RFC 5545 - 3.7.2. Method</a>.
-     */
     private String method;
 
     private final String version = "2.0";
 
-    private List<WebCalendarNode> nodes;
+    /**
+     * List of calendar components and events
+     */
+    private final List<WebCalendarNode> nodes;
 
-    //
-    // Constructors
-    //
+    /**
+     * Constructor for WebCalendar class, initializes the list of calendar
+     * components and events.
+     */
     public WebCalendar() {
         this.nodes = new ArrayList<>();
     }
 
-    //
-    // Methods
-    //
-
     /**
-     * Set the name for this calendar.
+     * Set the name of the web calendar.
      *
-     * @param name The name for the calendar.
-     * @return The calendar instance.
+     * @param name the name of the web calendar
+     * @return the WebCalendar object
      */
     public WebCalendar setName(String name) {
         this.name = name;
@@ -93,26 +96,32 @@ public final class WebCalendar {
     }
 
     /**
-     * Set the company name for this calendar.
+     * Set the company name associated with the web calendar.
      *
-     * @param companyName The company name for the calendar.
-     * @return The calendar instance.
+     * @param companyName the company name
+     * @return the WebCalendar object
      */
     public WebCalendar setCompanyName(String companyName) {
         this.companyName = companyName;
         return this;
     }
 
+    /**
+     * Set the domain name associated with the web calendar.
+     *
+     * @param domainName the domain name
+     * @return the WebCalendar object
+     */
     public WebCalendar setDomainName(String domainName) {
         this.domainName = domainName;
         return this;
     }
 
     /**
-     * Set the product name for this calendar.
+     * Set the product name of the web calendar.
      *
-     * @param productName The product name for the calendar.
-     * @return The calendar instance.
+     * @param productName the product name
+     * @return the WebCalendar object
      */
     public WebCalendar setProductName(String productName) {
         this.productName = productName;
@@ -120,10 +129,10 @@ public final class WebCalendar {
     }
 
     /**
-     * Set the method for this calendar.
+     * Set the method for publishing the web calendar.
      *
-     * @param method The product name for the calendar.
-     * @return The calendar instance.
+     * @param method the publishing method
+     * @return the WebCalendar object
      */
     public WebCalendar setMethod(String method) {
         this.method = method;
@@ -131,10 +140,10 @@ public final class WebCalendar {
     }
 
     /**
-     * Add a calendar node to this calendar.
+     * Add an event to the web calendar.
      *
-     * @param node Any calendar node.
-     * @return The calendar instance.
+     * @param node the calendar component or event to be added
+     * @return the WebCalendar object
      */
     public WebCalendar addEvent(WebCalendarNode node) {
         this.nodes.add(node);
@@ -142,13 +151,13 @@ public final class WebCalendar {
     }
 
     /**
-     * Resolve the calendar instance to a text that implements RFC-5545.
+     * Generate and resolve the iCalendar string for the web calendar.
      *
-     * @return A string includes all events in this calendar.
+     * @return the resolved iCalendar string
      */
     public String resolve() {
         var events = new StringBuilder();
-        if (nodes != null && !nodes.isEmpty()) {
+        if (!nodes.isEmpty()) {
             nodes.forEach(item ->
                     events.append(item.setDomainName(domainName)
                             .resolve()));
