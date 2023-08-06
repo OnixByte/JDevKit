@@ -20,6 +20,7 @@
         <module>devkit-core</module>
         <module>devkit-utils</module>
         <module>guid</module>
+        <module>webcal</module>
         <module>simple-jwt-facade</module>
         <module>simple-jwt-authzero</module>
         <module>simple-jwt-jjwt</module>
