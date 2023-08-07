@@ -166,13 +166,24 @@ public final class WebCalendar {
     }
 
     /**
-     * Add an event to the web calendar.
+     * Add an node to the web calendar.
      *
      * @param node the calendar component or event to be added
      * @return the WebCalendar object
      */
-    public WebCalendar addEvent(WebCalendarNode node) {
+    public WebCalendar addNode(WebCalendarNode node) {
         this.nodes.add(node);
+        return this;
+    }
+
+    /**
+     * Add an event to the web calendar.
+     *
+     * @param event the calendar component or event to be added
+     * @return the WebCalendar object
+     */
+    public WebCalendar addEvent(WebCalendarEvent event) {
+        this.nodes.add(event);
         return this;
     }
 
