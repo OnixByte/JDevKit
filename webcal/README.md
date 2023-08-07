@@ -1,20 +1,26 @@
-# Module `simple-jwt-spring-boot-starter`
+# Module `webcal`
 
 ## Introduction
 
-Module `simple-jwt-spring-boot-starter` is a lightweight and easy-to-use Spring Boot starter module that provides seamless integration with JSON Web Token (JWT) authentication in Spring Boot applications. With this starter, developers can easily configure and enable JWT-based authentication for their APIs and web applications without the need for complex manual setup. It simplifies the process of generating and validating JWTs, making it effortless to secure endpoints and implement token-based authentication in Spring Boot projects. The module is designed to be flexible, allowing developers to customize various aspects of JWT authentication to suit their specific requirements. Overall, `simple-jwt-spring-boot-starter` is a convenient solution for adding secure and efficient JWT authentication to Spring Boot applications.
+The module `webcal` is a Java library that facilitates the generation and resolution of iCalendar content for web-based calendar applications. It provides a flexible and easy-to-use API for creating web calendars with customizable settings and events.
+
+### Key features
+
+- Create and manage web calendars with events, including event details such as summary, description, location, and more.
+- Define event classifications and categories for better organization and filtering of calendar data.
+- Set event start and end times, durations, and time zones to handle various scheduling scenarios.
+- Configure event priorities and completion percentages for visual representation in the calendar.
+- Generate iCalendar format output suitable for web calendar applications.
+
+With the `webcal` module, developers can easily integrate calendar functionality into web applications, enabling users to view, add, and manage events in a structured and standardized format. It is designed to simplify calendar-related tasks and enhance the overall user experience when dealing with calendar data on the web.
+
+Please note that the `webcal` module adheres to the iCalendar standard specified in RFC 5545, ensuring compatibility with other calendar applications that support this format.
 
 ## Prerequisites
 
 - This whole `JDevKit` is developed by **JDK 17**, which means you have to use JDK 17 for better experience.
-- You also need an implementation of any `simple-jwt-$implementation` module to make sure you can create an instance of `TokenResolver`.
 
-### Known Implementation
-
-> If you implemented one on your own, please contact us to add your artifact to this list.
-
-- [`cn.org.codecrafters:simple-jwt-authzero`](../simple-jwt-authzero/README.md)
-- [`cn.org.codecrafters:simple-jwt-jjwt`](../simple-jwt-jjwt/README.md)
+## Installation
 
 ## Installation
 
@@ -60,39 +66,27 @@ implementation 'cn.org.codecrafters:simple-jwt-spring-boot-starter:${simple-jwt-
 3. Put the `jar` file to the folder you just created in Step 2.
 4. Add this folder to your project `classpath`.
 
-## Configuration
-
-### Configuration for a customized JWT ID Creator
-
-We need a `GuidCreator` instance to create JWT ID, though we did implemented a simple `GuidCreator`, but you can still customize it.
-
-First, please implement the `cn.org.codecrafters.guid.GuidCreator` interface based on your own rules for generating JWT IDs.
-
-Then, add the instance of your own guid creator to spring container, whose name is `jtiCreator`.
-
-Here is a simple example which uses class `Random` to create guid.
+## Create a web calendar
 
 ```java
-@Bean
-public GuidCreator<?> jtiCreator() {
-    return new GuidCreator<Long>() {
-        private final Random random = new Random();
-
-        @Override
-        public Long nextId() {
-            return random.nextLong();
-        }
-    };
-}
+var calendar = new WebCalendar()
+    // set the properties for web calendar here.
+    ;
 ```
 
-### `TokenResolver` Configuration
+## Add a calendar node to this calendar
 
-| Property Name                        | Type             | Description                                            |
-| ------------------------------------ | ---------------- | ------------------------------------------------------ |
-| `code-crafters.simple-jwt.algorithm` | `TokenAlgorithm` | The algorithm used for JWT generation and validation.  |
-| `code-crafters.simple-jwt.issuer`    | `String`         | The issuer value to be included in the generated JWT.  |
-| `code-crafters.simple-jwt.secret`    | `String`         | The secret key used for JWT generation and validation. |
+```java
+calendar.addNode(new WebCalendarNode()
+                // set properties for this node here.
+                );
+```
+
+## Resolve this calendar.
+
+```java
+var calendarString = calendar.resolve();
+```
 
 ## Contact
 

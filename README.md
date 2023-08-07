@@ -21,24 +21,12 @@ high-precision chained mathematical calculations, and string hashing or message 
 A facade for Simple JWT (JSON Web Token) implementations in Java. This module provides a unified interface to work with
 JWTs regardless of the underlying implementation.
 
-### `simple-jwt-auth0` <span style="font-size: 14px;">_[Learn more](./simple-jwt-facade/README.md)_</span>
+### `simple-jwt-authzero` <span style="font-size: 14px;">_[Learn more](./simple-jwt-facade/README.md)_</span>
 A Simple JWT implementation using the com.auth0:java-jwt library.
 
 ### `simple-jwt-spring-boot-starter` <span style="font-size: 14px;">_[Learn more](./simple-jwt-spring-boot-starter/README.md)_</span>
 A Spring Boot auto-configuration wrapper for the simple-jwt module, making it easier to integrate JWT functionality into
 Spring Boot applications.
-
-### `sms-sender-facade` <span style="font-size: 14px;">_[Learn more](./sms-sender-facade/README.md)_</span>
-A facade for sending SMS messages in Java. This module abstracts the interfaces of various SMS service providers.
-
-### `sms-sender-aliyun` <span style="font-size: 14px;">_[Learn more](./sms-sender-aliyun/README.md)_</span>
-An implementation of SMS Sender using the Alibaba Cloud (Aliyun) service.
-
-### `sms-sender-tencent` <span style="font-size: 14px;">_[Learn more](./sms-sender-tencent/README.md)_</span>
-An implementation of SMS Sender using the Tencent Cloud service.
-
-### `sms-sender-spring-boot-starter` <span style="font-size: 14px;">_[Learn more](./sms-sender-spring-boot-starter/README.md)_</span>
-A Spring Boot auto-configuration wrapper for the `sms-sender-facade` module, simplifying the integration of SMS sending capabilities into Spring Boot applications.
 
 ## Installation and Usage
 If you are using `maven`, please paste the following codes to `pom.xml` in your project.
@@ -61,7 +49,7 @@ If you want to check the available versions, please check out at our [official s
 
 ## Contribution
 Contributions are welcome! If you encounter any issues or want to contribute to the project, please feel free to 
-**[raise an issue](https://github.com/CodeCraftersCN/jdevkit/issues/new)** or **[submit a pull request]()**.
+**[raise an issue](https://github.com/CodeCraftersCN/jdevkit/issues/new)** or **[submit a pull request](https://github.com/CodeCraftersCN/jdevkit/compare)**.
 
 ## License
 This project is licensed under the [Apache License 2.0](LICENSE).
