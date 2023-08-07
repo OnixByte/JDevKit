@@ -56,19 +56,45 @@ public final class WebCalendar {
      */
     private final static String TAG = "VCALENDAR";
 
-    // Calendar properties
+    /**
+     * The name of this calendar.
+     */
     private String name;
 
+    /**
+     * The company who produces this calendar.
+     *
+     * <p>
+     * This property will be used in {@code PRODID}.
+     */
     private String companyName;
 
+    /**
+     * The product name.
+     *
+     * <p>
+     * This property will be used in {@code PRODID}
+     */
     private String productName;
 
+    /**
+     * The producer's domain name.
+     */
     private String domainName;
 
+    /**
+     * Scale of this calendar.
+     */
     private final String scale = "GREGORIAN";
 
+    /**
+     * The method of this calendar.
+     */
     private String method;
 
+    /**
+     * The version of this calendar.
+     */
     private final String version = "2.0";
 
     /**

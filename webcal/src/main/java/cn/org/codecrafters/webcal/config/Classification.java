@@ -17,6 +17,8 @@
 
 package cn.org.codecrafters.webcal.config;
 
+import lombok.Getter;
+
 /**
  * The Classification enum represents the classification levels of calendar
  * content based on RFC 5545.
@@ -43,6 +45,7 @@ package cn.org.codecrafters.webcal.config;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Getter
 public enum Classification {
 
     /**
@@ -73,6 +76,12 @@ public enum Classification {
     CONFIDENTIAL("CONFIDENTIAL"),
     ;
 
+    /**
+     * -- GETTER --
+     * Get the string representation of the classification level.
+     *
+     * @return the string representation of the classification level
+     */
     private final String classification;
 
     /**
@@ -84,12 +93,4 @@ public enum Classification {
         this.classification = classification;
     }
 
-    /**
-     * Get the string representation of the classification level.
-     *
-     * @return the string representation of the classification level
-     */
-    public String getClassification() {
-        return classification;
-    }
 }
