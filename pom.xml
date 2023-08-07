@@ -248,7 +248,7 @@
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>maven-central</id>
             <build>
                 <plugins>
                     <plugin>
@@ -309,14 +309,78 @@
                     <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
                 </snapshotRepository>
                 <repository>
-                    <id>release</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <id>maven</id>
+                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
         </profile>
 
         <profile>
-            <id>snapshot</id>
+            <id>github</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>${jar-plugin.version}</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>*.xml</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/CodeCraftersCN/jdevkit</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
+        <profile>
+            <id>local</id>
             <build>
                 <plugins>
                     <plugin>
@@ -360,14 +424,5 @@
             </build>
         </profile>
     </profiles>
-
-    <repositories>
-        <repository>
-            <!-- maven.proxy.ustclug.org is a reverse proxy repo1.maven.org -->
-            <id>central</id>
-            <url>https://maven.proxy.ustclug.org/maven2/</url>
-            <!-- <url>https://repo1.maven.org/maven2/</url> -->
-        </repository>
-    </repositories>
 
 </project>
