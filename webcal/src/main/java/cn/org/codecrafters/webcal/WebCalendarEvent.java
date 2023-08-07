@@ -272,7 +272,8 @@ public final class WebCalendarEvent extends WebCalendarNode {
                 Optional.ofNullable(duration)
                         .map((item) -> "DURATION:PT" + item.getSeconds() + "S\n").orElse("") +
                 Optional.ofNullable(end)
-                        .map((item) -> "DTEND:" + end.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n").orElse("") +
+                        .map((item) -> "DTEND" + Optional.ofNullable(timezone).map(tz -> ";TZID=" + tz).orElse("") + ":" +
+                                end.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n").orElse("") +
                 Optional.ofNullable(classification)
                         .map((item) -> "CLASS:" + item.getClassification() + "\n").orElse("") +
                 Optional.ofNullable(comment).map((item) -> "COMMENT:" + item + "\n").orElse("") +

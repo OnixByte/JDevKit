@@ -46,7 +46,7 @@ public class TestWebCalendar {
                 .setClassification(Classification.PUBLIC)
                 .setStart(LocalDateTime.of(2023, 8, 6, 0, 0, 0))
                 .setEnd(LocalDateTime.of(2023, 8, 6, 8, 0, 0))
-                .setLocation("湖南省长沙市天心区碧云路60号")
+                .setLocation("Hong Kong University, Pokfulam, Central West, Hong Kong S.A.R")
                 .setUid(UUID.randomUUID().toString())
                 .setTimezone("Asia/Hong_Kong"));
 
