@@ -12,7 +12,7 @@
 
     <groupId>cn.org.codecrafters</groupId>
     <artifactId>jdevkit</artifactId>
-    <version>1.0.0-alpha</version>
+    <version>1.0.0-beta</version>
     <inceptionYear>2023</inceptionYear>
 
     <packaging>pom</packaging>
