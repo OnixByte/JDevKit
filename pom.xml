@@ -76,7 +76,8 @@
         <auth0-jwt.version>4.4.0</auth0-jwt.version>
         <jjwt-jwt.version>0.11.5</jjwt-jwt.version>
 
-        <spring.version>x.x.x</spring.version>
+        <!-- Spring Dependency Versions -->
+        <spring.version>6.0.9</spring.version>
         <spring-boot.version>3.1.0</spring-boot.version>
     </properties>
 
