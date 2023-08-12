@@ -23,7 +23,7 @@
     <parent>
         <groupId>cn.org.codecrafters</groupId>
         <artifactId>jdevkit</artifactId>
-        <version>1.0.0-beta</version>
+        <version>1.0.0-RC</version>
     </parent>
 
     <artifactId>guid</artifactId>
