@@ -101,7 +101,6 @@ public class AuthzeroTokenResolverAutoConfiguration {
      */
     @Bean
     public TokenResolver<DecodedJWT> tokenResolver() {
-        log.debug("Creating bean TokenResolver<DecodedJWT>.");
         return new AuthzeroTokenResolver(
                 jtiCreator,
                 simpleJwtProperties.algorithm(),

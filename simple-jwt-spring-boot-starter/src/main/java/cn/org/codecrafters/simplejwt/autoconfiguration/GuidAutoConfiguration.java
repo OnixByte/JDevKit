@@ -40,7 +40,6 @@ public class GuidAutoConfiguration {
     @Bean
     @Conditional(GuidCreatorCondition.class)
     public GuidCreator<?> jtiCreator() {
-        log.debug("[GuidAutoConfiguration] --- Initializing default jtiCreator.");
         return UUID::randomUUID;
     }
 

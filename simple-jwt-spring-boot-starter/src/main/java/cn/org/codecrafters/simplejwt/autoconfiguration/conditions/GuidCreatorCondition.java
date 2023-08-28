@@ -19,16 +19,11 @@ import java.util.Objects;
 public class GuidCreatorCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        log.debug("[GuidCreatorCondition] --- Detecting bean jtiCreator.");
         final var beanFactory = Objects.requireNonNull(context.getBeanFactory());
         var isContainJtiCreator = beanFactory.containsBean("jtiCreator");
-        log.debug("[GuidCreatorCondition] --- Bean jtiCreator {} been created.", isContainJtiCreator ? "has" : "has not");
         if (isContainJtiCreator) {
-            var result = !(beanFactory.getBean("jtiCreator") instanceof GuidCreator<?>);
-            log.debug("[GuidCreatorCondition] --- Create jtiCreator now? {}.", result ? "yes" : "no");
-            return result;
+            return !(beanFactory.getBean("jtiCreator") instanceof GuidCreator<?>);
         }
-        log.debug("[GuidCreatorCondition] --- Condition passed.");
         return true;
     }
 }
