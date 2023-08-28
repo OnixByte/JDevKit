@@ -27,6 +27,7 @@ import io.jsonwebtoken.Jws;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -63,6 +64,8 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(value = {SimpleJwtProperties.class})
 @ConditionalOnClass({Jws.class, Claims.class, JjwtTokenResolver.class})
 @ConditionalOnMissingBean({TokenResolver.class})
+@ConditionalOnBean(value = {GuidCreator.class}, name = "jtiCreator")
+@AutoConfigureAfter(value = GuidAutoConfiguration.class)
 public class JjwtTokenResolverAutoConfiguration {
 
     /**
@@ -98,7 +101,6 @@ public class JjwtTokenResolverAutoConfiguration {
      * @return the {@link TokenResolver} instance
      */
     @Bean
-    @ConditionalOnBean(value = {GuidCreator.class}, name = "jtiCreator")
     public TokenResolver<Jws<Claims>> tokenResolver() {
         return new JjwtTokenResolver(
                 jtiCreator,
