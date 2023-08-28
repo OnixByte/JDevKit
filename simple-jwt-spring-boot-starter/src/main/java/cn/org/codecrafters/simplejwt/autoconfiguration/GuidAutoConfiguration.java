@@ -18,10 +18,13 @@
 package cn.org.codecrafters.simplejwt.autoconfiguration;
 
 import cn.org.codecrafters.guid.GuidCreator;
+import cn.org.codecrafters.simplejwt.autoconfiguration.conditions.GuidCreatorCondition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 
 import java.util.UUID;
 
@@ -32,10 +35,10 @@ import java.util.UUID;
  */
 @Slf4j
 @AutoConfiguration
-@ConditionalOnMissingBean(value = GuidCreator.class, name = "jtiCreator")
 public class GuidAutoConfiguration {
 
     @Bean
+    @Conditional(GuidCreatorCondition.class)
     public GuidCreator<?> jtiCreator() {
         return UUID::randomUUID;
     }

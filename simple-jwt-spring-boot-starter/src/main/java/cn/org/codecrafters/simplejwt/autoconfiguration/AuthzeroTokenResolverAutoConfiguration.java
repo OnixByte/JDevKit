@@ -25,11 +25,13 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 
 /**
  * <p>
@@ -61,6 +63,8 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(value = {SimpleJwtProperties.class})
 @ConditionalOnClass({DecodedJWT.class, AuthzeroTokenResolver.class})
 @ConditionalOnMissingBean({TokenResolver.class})
+@ConditionalOnBean(value = {GuidCreator.class}, name = "jtiCreator")
+@AutoConfigureAfter(value = GuidAutoConfiguration.class)
 public class AuthzeroTokenResolverAutoConfiguration {
 
     /**
@@ -96,7 +100,6 @@ public class AuthzeroTokenResolverAutoConfiguration {
      * @return the {@link TokenResolver} instance
      */
     @Bean
-    @ConditionalOnBean(value = {GuidCreator.class}, name = "jtiCreator")
     public TokenResolver<DecodedJWT> tokenResolver() {
         return new AuthzeroTokenResolver(
                 jtiCreator,
