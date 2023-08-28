@@ -19,7 +19,6 @@ package cn.org.codecrafters.simplejwt.autoconfiguration;
 
 import cn.org.codecrafters.guid.GuidCreator;
 import cn.org.codecrafters.simplejwt.TokenResolver;
-import cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver;
 import cn.org.codecrafters.simplejwt.autoconfiguration.properties.SimpleJwtProperties;
 import cn.org.codecrafters.simplejwt.jjwt.JjwtTokenResolver;
 import io.jsonwebtoken.Claims;
