@@ -283,8 +283,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 builder.withClaim(name, v);
             } else {
                 log.warn("""
-                        Unable to determine the type of field {}, converting it to a string now.
-                        """, name);
+                        Unable to determine the type of field {}, converting it to a string now.""", name);
                 builder.withClaim(name, value.toString());
             }
         } else {
