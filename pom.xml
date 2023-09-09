@@ -42,7 +42,7 @@
         <module>simple-jwt-authzero</module>
         <module>simple-jwt-jjwt</module>
         <module>simple-jwt-spring-boot-starter</module>
-        <module>property-encryptor-spring-boot-starter</module>
+        <module>property-guard-spring-boot-starter</module>
     </modules>
 
     <organization>
