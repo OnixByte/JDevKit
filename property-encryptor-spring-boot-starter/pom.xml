@@ -26,7 +26,7 @@
         <version>1.1.0-alpha</version>
     </parent>
 
-    <artifactId>guid</artifactId>
+    <artifactId>property-encryptor-spring-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -37,7 +37,28 @@
     <dependencies>
         <dependency>
             <groupId>cn.org.codecrafters</groupId>
-            <artifactId>devkit-core</artifactId>
+            <artifactId>devkit-utils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
