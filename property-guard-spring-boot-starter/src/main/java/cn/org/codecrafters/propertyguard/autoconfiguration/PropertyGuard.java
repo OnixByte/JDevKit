@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.propertyencryptor;
+package cn.org.codecrafters.propertyguard.autoconfiguration;
 
 import cn.org.codecrafters.devkit.utils.AesUtil;
 import org.springframework.boot.SpringApplication;
