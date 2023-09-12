@@ -45,17 +45,21 @@ import java.util.Optional;
  *     app.example-properties=Sample Value
  *
  *     # encrypted with key 3856faef0d2d4f33
- *     app.example-properties=pe:t4YBfv8M9ZmTzWgTi2gJqg==
+ *     app.example-properties=pg:t4YBfv8M9ZmTzWgTi2gJqg==
  * </pre>
  * Then, add the command line arguments like {@code --pe.key=3856faef0d2d4f33}.
  * <p>
  * This class is extracted from <a href="https://baomidou.com/pages/e0a5ce/"
  * >MyBatis-Plus</a>.
+ * <p>
+ * The prefix to specify the encrypted value is {@code pg}.
  *
  * @author hubin@baomidou
  * @see org.springframework.boot.env.EnvironmentPostProcessor
  */
 public class PropertyGuard implements EnvironmentPostProcessor {
+
+    private final String PREFIX = "pg";
 
     /**
      * Process the encryption environment variables.
@@ -69,7 +73,7 @@ public class PropertyGuard implements EnvironmentPostProcessor {
         var encryptionKey = "";
         for (var ps : environment.getPropertySources()) {
             if (ps instanceof SimpleCommandLinePropertySource source) {
-                encryptionKey = source.getProperty("pe.key");
+                encryptionKey = source.getProperty("%s.key".formatted(PREFIX));
                 break;
             }
         }
@@ -80,7 +84,7 @@ public class PropertyGuard implements EnvironmentPostProcessor {
                 if (propertySources instanceof OriginTrackedMapPropertySource source) {
                     for (var name : source.getPropertyNames()) {
                         if (source.getProperty(name) instanceof String str) {
-                            if (str.startsWith("pe:")) {
+                            if (str.startsWith("%s:".formatted(PREFIX))) {
                                 map.put(name, AesUtil.decrypt(str.substring(3), encryptionKey));
                             }
                         }
