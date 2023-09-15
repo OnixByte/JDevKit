@@ -24,7 +24,7 @@
  * <ul>
  *     <li>
  *         {@link cn.org.codecrafters.webcal.WebCalendar}: A class for
- *         generating web calendars with customizable settings and events.
+ *         generating web calendars with customisable settings and events.
  *     </li>
  *     <li>
  *         {@link cn.org.codecrafters.webcal.WebCalendarEvent}: A class

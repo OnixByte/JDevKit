@@ -19,7 +19,7 @@
  * This package contains classes related to the integration of the {@code
  * io.jsonwebtoken:jjwt-api} library in the Simple JWT project. {@code
  * io.jsonwebtoken:jjwt-api} is a powerful and widely-used Identity as a Service
- * (IDaaS) platform that provides secure authentication and authorization
+ * (IDaaS) platform that provides secure authentication and authorisation
  * solutions for web and mobile applications. The classes in this package
  * provide the necessary functionality to handle JSON Web Tokens (JWTs) using
  * the {@code io.jsonwebtoken:jjwt-api} library.

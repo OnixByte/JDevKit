@@ -31,7 +31,7 @@ import java.util.function.Function;
  * The ChainedCalcUtil class provides a convenient way to perform chained
  * high-precision calculations using BigDecimal. It allows users to perform
  * mathematical operations such as addition, subtraction, multiplication,
- * and division with customizable precision and scale. By using this utility
+ * and division with customisable precision and scale. By using this utility
  * class, developers can achieve accurate results and avoid precision loss
  * in their calculations.
  * <p>

@@ -24,7 +24,7 @@
  * the JWT handling process and provide convenient abstractions for JWT
  * generation, validation, and extraction.
  * <p>
- * The Simple JWT library is designed to be flexible and customizable, allowing
+ * The Simple JWT library is designed to be flexible and customisable, allowing
  * developers to use different algorithms, token resolvers, and token payload
  * classes based on their specific application requirements. It aims to
  * simplify the JWT handling process while maintaining security and best

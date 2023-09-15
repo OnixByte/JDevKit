@@ -19,7 +19,7 @@
  * This package contains classes related to the integration of the {@code
  * com.auth0:java-jwt} library in the Simple JWT project. {@code
  * com.auth0:java-jwt} is a powerful and widely-used Identity as a Service
- * (IDaaS) platform that provides secure authentication and authorization
+ * (IDaaS) platform that provides secure authentication and authorisation
  * solutions for web and mobile applications. The classes in this package
  * provide the necessary functionality to handle JSON Web Tokens (JWTs) using
  * the {@code com.auth0:java-jwt} library.

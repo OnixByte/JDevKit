@@ -46,7 +46,7 @@
  * to configure and use the {@link
  * cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver} effectively
  * in the Spring Boot environment to handle JWT authentication and
- * authorization securely and efficiently.
+ * authorisation securely and efficiently.
  *
  * @since 1.0.0
  */

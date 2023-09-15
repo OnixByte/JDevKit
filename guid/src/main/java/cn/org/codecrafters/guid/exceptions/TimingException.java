@@ -31,7 +31,7 @@ package cn.org.codecrafters.guid.exceptions;
  * information about the error.
  * <p>
  * TimingException is typically used to handle exceptions related to timing,
- * such as timeouts or synchronization issues. It is a subclass of
+ * such as timeouts or synchronisation issues. It is a subclass of
  * RuntimeException, which means it is an unchecked exception and does not need
  * to be caught or declared.
  *
