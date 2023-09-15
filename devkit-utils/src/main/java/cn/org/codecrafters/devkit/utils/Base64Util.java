@@ -22,18 +22,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
- * <p>
  * The {@code Base64Util} class provides static methods to encode and decode
  * strings using Base64 encoding. It utilizes the {@link Base64} class from the
  * Java standard library for performing the encoding and decoding operations.
  * This utility class offers convenient methods to encode and decode strings
  * with different character sets.
- * 
  * <p>
  * This class is designed as a final class with a private constructor to
  * prevent instantiation. All methods in this class are static, allowing easy
  * access to the Base64 encoding and decoding functionality.
- * 
  * <p>
  * Example usage:
  * <pre>
@@ -47,15 +44,13 @@ import java.util.Base64;
  * String decoded = Base64Util.decode(encoded);
  * System.out.println("Decoded string: " + decoded);
  * </pre>
- *
  * <p>
  * <b>Note:</b> This utility class uses the default charset (UTF-8) if no
  * specific charset is provided. It is recommended to specify the charset
  * explicitly to ensure consistent encoding and decoding.
- * 
  *
  * @author Zihlu Wang
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0
  */
 public final class Base64Util {

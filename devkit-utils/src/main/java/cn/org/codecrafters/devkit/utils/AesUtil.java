@@ -39,6 +39,7 @@ import java.util.UUID;
  *
  * @author hubin@baomidou
  * @since 1.1.0
+ * @version 1.1.0
  */
 @Slf4j
 public final class AesUtil {

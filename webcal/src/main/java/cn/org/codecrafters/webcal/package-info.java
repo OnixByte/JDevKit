@@ -19,7 +19,6 @@
  * The package {@code cn.org.codecrafters.webcal} contains classes and modules
  * related to web calendar generation and resolution. It provides functionality
  * to create and manage iCalendar content for web-based calendar applications.
- *
  * <p>
  * The main classes and modules in this package include:
  * <ul>

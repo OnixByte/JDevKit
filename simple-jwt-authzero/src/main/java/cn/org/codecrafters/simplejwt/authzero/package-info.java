@@ -23,7 +23,6 @@
  * solutions for web and mobile applications. The classes in this package
  * provide the necessary functionality to handle JSON Web Tokens (JWTs) using
  * the {@code com.auth0:java-jwt} library.
- *
  * <p>
  * The main class in this package is the {@link
  * cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver}, which
@@ -33,14 +32,12 @@
  * {@code com.auth0:java-jwt} library. Developers can use this class as the
  * main token resolver in the Simple JWT project when integrating {@code
  * com.auth0:java-jwt} as the JWT management library.
- *
  * <p>
  * The {@code AuthzeroTokenResolver} relies on the {@code com.auth0:java-jwt}
  * library to handle the underlying JWT operations, including token creation,
  * validation, and extraction. It utilizes the {@code com.auth0:java-jwt}
  * {@code Algorithm} class to define and use different algorithms for JWT
  * signing and verification.
- *
  * <p>
  * To use the {@code AuthzeroTokenResolver}, developers must provide the
  * necessary configurations and dependencies, such as the {@code GuidCreator}
@@ -48,7 +45,6 @@
  * issuer name, and the secret key used for token signing and validation. The
  * {@code AuthzeroTokenResolverConfig} class provides a convenient way to
  * configure these dependencies.
- *
  * <p>
  * Developers using the {@code com.auth0:java-jwt} integration should be
  * familiar with the concepts and usage of the {@code com.auth0:java-jwt}
