@@ -23,24 +23,24 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
- * The BranchUtil class provides static methods to simplify conditional logic
- * in Java development by leveraging lambda expressions. It offers convenient
- * methods to replace verbose if...else statements with more concise and
- * expressive functional constructs.
+ * The {@link BranchUtil} class provides static methods to simplify conditional
+ * logic in Java development by leveraging lambda expressions. It offers
+ * convenient methods to replace verbose {@code if...else} statements with more
+ * concise and expressive functional constructs.
  * <p>
- * Developers can use the methods in this utility class to streamline their
- * code, enhance readability, and promote a more functional style of
- * programming when dealing with branching logic and conditional statements.
+ * Developers can use methods in this utility class to streamline their code,
+ * enhance readability, and promote a more functional style of programming when
+ * dealing with branching logic and conditional statements.
  * <p>
  * <b>Example:</b>
  * <pre>
  * // If you want to simplify an if (exp1 || exp2), you can use the
  * // following code:
- * var r1 = BranchUtil.or(1 == 1, 2 == 1)
+ * String r1 = BranchUtil.or(1 == 1, 2 == 1)
  *     .handle(() -> "1 is equal to 1 or 2 is equal to 1.");
  *
  * // If you have an else branch, you can use the following code:
- * var r2 = BranchUtil.or(1 == 1, 2 == 1)
+ * String r2 = BranchUtil.or(1 == 1, 2 == 1)
  *     .handle(() -> "1 is equal to 1 or 2 is equal to 1.",
  *             () -> "1 is not equal to 1 and 2 is not equal to 1.");
  *

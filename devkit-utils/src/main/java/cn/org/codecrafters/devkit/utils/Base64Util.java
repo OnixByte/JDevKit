@@ -20,10 +20,11 @@ package cn.org.codecrafters.devkit.utils;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
- * The {@code Base64Util} class provides static methods to encode and decode
- * strings using Base64 encoding. It utilizes the {@link Base64} class from the
+ * The {@link Base64Util} class provides static methods to encode and decode
+ * strings with Base64 encoding. It utilizes the {@link Base64} class from the
  * Java standard library for performing the encoding and decoding operations.
  * This utility class offers convenient methods to encode and decode strings
  * with different character sets.
@@ -55,6 +56,34 @@ import java.util.Base64;
  */
 public final class Base64Util {
 
+    private static Base64.Encoder encoder;
+
+    private static Base64.Decoder decoder;
+
+    /**
+     * Ensure that there is only one Base64 Encoder.
+     *
+     * @return the {@link Base64.Encoder} instance
+     */
+    private static Base64.Encoder getEncoder() {
+        if (Objects.isNull(encoder)) {
+            encoder = Base64.getEncoder();
+        }
+        return encoder;
+    }
+
+    /**
+     * Ensure that there is only one Base64 Encoder.
+     *
+     * @return the {@link Base64.Encoder} instance
+     */
+    private static Base64.Decoder getDecoder() {
+        if (Objects.isNull(decoder)) {
+            decoder = Base64.getDecoder();
+        }
+        return decoder;
+    }
+
     /**
      * Private constructor to prevent instantiation of the class.
      */
@@ -69,8 +98,7 @@ public final class Base64Util {
      * @return the Base64 encoded string
      */
     public static String encode(String value, Charset charset) {
-        var encoder = Base64.getEncoder();
-        var encoded = encoder.encode(value.getBytes(charset));
+        var encoded = getEncoder().encode(value.getBytes(charset));
 
         return new String(encoded);
     }
@@ -93,8 +121,7 @@ public final class Base64Util {
      * @return the decoded string
      */
     public static String decode(String value, Charset charset) {
-        var decoder = Base64.getDecoder();
-        var decoded = decoder.decode(value.getBytes(charset));
+        var decoded = getDecoder().decode(value.getBytes(charset));
 
         return new String(decoded);
     }

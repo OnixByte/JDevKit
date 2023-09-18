@@ -18,8 +18,8 @@
 package cn.org.codecrafters.guid.exceptions;
 
 /**
- * The TimingException class represents an exception that is thrown when there
- * is an error related to time sequence.
+ * The {@code TimingException} class represents an exception that is thrown
+ * when there is an error related to time sequence.
  * <p>
  * Instances of TimingException can be created with or without a message and a
  * cause. The message provides a description of the exception, while the cause
@@ -40,9 +40,9 @@ public class TimingException extends RuntimeException {
 
     /**
      * A custom exception that is thrown when there is an issue with timing or
-     * scheduling with customized error message.
+     * scheduling with customised error message.
      *
-     * @param message customized message
+     * @param message customised message
      */
     public TimingException(String message) {
         super(message);
@@ -50,9 +50,9 @@ public class TimingException extends RuntimeException {
 
     /**
      * A custom exception that is thrown when there is an issue with timing or
-     * scheduling with customized error message.
+     * scheduling with customised error message.
      *
-     * @param message customized message
+     * @param message customised message
      * @param cause   the cause of this exception
      */
     public TimingException(String message, Throwable cause) {
@@ -61,7 +61,7 @@ public class TimingException extends RuntimeException {
 
     /**
      * A custom exception that is thrown when there is an issue with timing or
-     * scheduling with customized error message.
+     * scheduling with customised error message.
      *
      * @param cause the cause of this exception
      */

@@ -24,12 +24,10 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 /**
- * SnowflakeGuidCreator - GUID generator based on the Snowflake algorithm.
- * <p>
- * The SnowflakeGuidCreator generates unique identifiers using the Snowflake
- * algorithm, which combines a timestamp, worker ID, and data centre ID to
- * create 64-bit long integers. The bit distribution for the generated IDs is
- * as follows:
+ * The {@code SnowflakeGuidCreator} generates unique identifiers using the
+ * Snowflake algorithm, which combines a timestamp, worker ID, and data centre
+ * ID to create 64-bit long integers. The bit distribution for the generated
+ * IDs is as follows:
  * <ul>
  *     <li>1 bit for sign</li>
  *     <li>41 bits for timestamp (in milliseconds)</li>
@@ -38,10 +36,10 @@ import java.time.ZoneOffset;
  *     <li>12 bits for sequence number (per millisecond)</li>
  * </ul>
  * <p>
- * When initializing the SnowflakeGuidCreator, you must provide the worker ID
- * and data centre ID, ensuring they are within the valid range defined by the
- * bit size. The generator maintains an internal sequence number that
- * increments for IDs generated within the same millisecond. If the system
+ * When initializing a {@link SnowflakeGuidCreator}, you must provide the
+ * worker ID and data centre ID, ensuring they are within the valid range
+ * defined by the bit size. The generator maintains an internal sequence number
+ * that increments for IDs generated within the same millisecond. If the system
  * clock moves backward, an exception is thrown to prevent generating IDs with
  * repeated timestamps.
  *

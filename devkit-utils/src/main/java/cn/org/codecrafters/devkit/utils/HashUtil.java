@@ -25,12 +25,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Utility class for performing hash operations on strings.
- * <p>
- * The HashUtil class provides convenient methods for calculating various hash
- * functions on strings, including MD2, MD5, SHA-1, SHA-224, SHA-256, SHA-384,
- * and SHA-512. It allows developers to easily obtain the hash value of a given
- * string using different algorithms.
+ * The {@code HashUtil} class provides convenient methods for calculating
+ * various hash functions on strings, including MD2, MD5, SHA-1, SHA-224,
+ * SHA-256, SHA-384, and SHA-512. It allows developers to easily obtain the
+ * hash value of a given string using different algorithms.
  * <p>
  * Example usage:
  * <pre>
@@ -55,8 +53,8 @@ import java.util.Optional;
  * // Perform SHA-512 hash operation
  * String sha512Hash = HashUtil.sha512("someString");
  * </pre>
- * The above examples demonstrate how to use the HashUtil class to calculate
- * hash values for a given string using different algorithms.
+ * The above examples demonstrate how to use the {@code HashUtil} class to
+ * calculate hash values for a given string using different algorithms.
  * <p>
  * <b>Note:</b>
  * The hash functions provided by the HashUtil class are one-way hash

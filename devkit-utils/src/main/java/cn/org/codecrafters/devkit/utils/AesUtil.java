@@ -34,12 +34,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * AES Util helps you encrypt and decrypt data with specified key and AES
- * algorithm.
+ * {@link AesUtil} can help you encrypt and decrypt data with specified secret
+ * by AES algorithm.
  *
  * @author hubin@baomidou
- * @since 1.1.0
  * @version 1.1.0
+ * @since 1.1.0
  */
 @Slf4j
 public final class AesUtil {
@@ -52,17 +52,17 @@ public final class AesUtil {
     private static final String AES_CBC_CIPHER = "AES/CBC/PKCS5Padding";
 
     /**
-     * Encrypt the given data with given key with AES algorithm.
+     * Encrypts the data using the AES algorithm with the given secret.
      *
-     * @param data the data to be encrypted
-     * @param key  the key to encrypt the data
+     * @param data   the data to be encrypted
+     * @param secret the secret to encrypt the data
      * @return the encryption result or {@code null} if encryption failed
      */
-    public static byte[] encrypt(byte[] data, byte[] key) {
+    public static byte[] encrypt(byte[] data, byte[] secret) {
         try {
-            var secretKeySpec = new SecretKeySpec(new SecretKeySpec(key, AES).getEncoded(), AES);
+            var secretKeySpec = new SecretKeySpec(new SecretKeySpec(secret, AES).getEncoded(), AES);
             var cipher = Cipher.getInstance(AES_CBC_CIPHER);
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(key));
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(secret));
             return cipher.doFinal(data);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | UnsupportedOperationException |
                  InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException |
@@ -76,17 +76,17 @@ public final class AesUtil {
     }
 
     /**
-     * Decrypt the given data with given key with AES algorithm.
+     * Decrypts the data using the AES algorithm with the given secret.
      *
      * @param data the data to be decrypted
-     * @param key  the key to encrypt the data
+     * @param secret  the secret to encrypt the data
      * @return the decryption result or {@code null} if decryption failed
      */
-    public static byte[] decrypt(byte[] data, byte[] key) {
+    public static byte[] decrypt(byte[] data, byte[] secret) {
         try {
-            var secretKeySpec = new SecretKeySpec(new SecretKeySpec(key, AES).getEncoded(), AES);
+            var secretKeySpec = new SecretKeySpec(new SecretKeySpec(secret, AES).getEncoded(), AES);
             var cipher = Cipher.getInstance(AES_CBC_CIPHER);
-            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(key));
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(secret));
             return cipher.doFinal(data);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | UnsupportedOperationException |
                  InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException |
@@ -100,36 +100,36 @@ public final class AesUtil {
     }
 
     /**
-     * Encrypt the given data with given key with AES algorithm.
+     * Encrypts the data using the AES algorithm with the given secret.
      *
      * @param data the data to be encrypted
-     * @param key  the key to encrypt the data
+     * @param secret  the secret to encrypt the data
      * @return the encryption result or {@code null} if encryption failed
      */
-    public static String encrypt(String data, String key) {
-        return Base64.getEncoder().encodeToString(encrypt(data.getBytes(StandardCharsets.UTF_8), key.getBytes(StandardCharsets.UTF_8)));
+    public static String encrypt(String data, String secret) {
+        return Base64.getEncoder().encodeToString(encrypt(data.getBytes(StandardCharsets.UTF_8), secret.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**
-     * Decrypt the given data with given key with AES algorithm.
+     * Decrypts the data using the AES algorithm with the given secret.
      *
      * @param data the data to be decrypted
-     * @param key  the key to encrypt the data
+     * @param secret  the secret to encrypt the data
      * @return the decryption result or {@code null} if decryption failed
      */
-    public static String decrypt(String data, String key) {
+    public static String decrypt(String data, String secret) {
         return new String(Objects.requireNonNull(
                 decrypt(Base64.getDecoder().decode(data.getBytes()),
-                        key.getBytes(StandardCharsets.UTF_8)))
+                        secret.getBytes(StandardCharsets.UTF_8)))
         );
     }
 
     /**
-     * Generates 16 characters-long random key.
+     * Generates 16 characters-long random secret.
      *
      * @return the generated secure secret
      */
-    public static String generateRandomKey() {
+    public static String generateRandomSecret() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 16);
     }
 
