@@ -18,31 +18,23 @@
 package cn.org.codecrafters.devkit.core.exceptions;
 
 /**
- * NotImplementedException - Custom Runtime Exception
- * <p>
  * The {@code NotImplementedException} class is a custom runtime exception
  * that represents a situation where a particular method or functionality is
- * not implemented or is currently unavailable in the codebase. It extends the
- * standard {@code RuntimeException} class, making it an unchecked exception.
- *
+ * not implemented or is currently unavailable in the codebase.
  * <p>
  * This exception is typically thrown when developers need to indicate that a
  * specific part of the code is incomplete or requires further implementation.
  * It serves as a placeholder to highlight unfinished sections of the
  * application during development and testing phases.
- *
  * <p>
  * Usage Example:
- *
  * <pre>
  * public void someMethod() {
  *     // Some code...
  *     throw new NotImplementedException("""
- *     This feature will be implemented in a future release.
- *     """);
+ *     This feature will be implemented in a future release.""");
  * }
  * </pre>
- *
  * <b>Contact</b>
  * <ul>
  *     <li>
@@ -55,7 +47,7 @@ package cn.org.codecrafters.devkit.core.exceptions;
  * </ul>
  *
  * @author Zihlu Wang
- * @version 1.0.0
+ * @version 1.1.0
  * @see RuntimeException
  * @since 1.0.0
  */
