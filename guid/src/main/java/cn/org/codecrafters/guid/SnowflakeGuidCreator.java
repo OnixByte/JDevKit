@@ -20,6 +20,7 @@ package cn.org.codecrafters.guid;
 import cn.org.codecrafters.guid.exceptions.TimingException;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 /**
@@ -203,7 +204,7 @@ public final class SnowflakeGuidCreator implements GuidCreator<Long> {
      * @return the current timestamp
      */
     private long currentTimestamp() {
-        return LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
+        return LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 }
 
