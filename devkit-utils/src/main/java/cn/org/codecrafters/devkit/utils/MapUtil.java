@@ -24,17 +24,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
- * MapUtil is a utility class that provides methods for converting objects to
- * maps and maps to objects.
- *
+ * {@code MapUtil} is a utility class that provides methods for converting
+ * objects to maps and maps to objects.
  * <p>
  * It also provides methods for getting and setting field values using
  * reflection.
  *
  * @author Zihlu Wang
- * @version 1.0.0
- * @since 16 Jul 2023
+ * @version 1.1.0
+ * @since 1.0.0
  */
 @Slf4j
 public final class MapUtil {
@@ -181,6 +179,22 @@ public final class MapUtil {
     }
 
     /**
+     * Casts the specified value to the required type.
+     *
+     * @param value        the value to be cast
+     * @param requiredType the type to which the value should be cast
+     * @param <T>          the type to which the value should be cast
+     * @return the cast value, or null if the value cannot be cast to the
+     * required type
+     */
+    public static <T> T cast(Object value, Class<T> requiredType) {
+        if (requiredType.isInstance(value)) {
+            return requiredType.cast(value);
+        }
+        return null;
+    }
+
+    /**
      * Constructs a method name based on the given prefix and field name.
      *
      * @param prefix    the prefix to be added to the field name
@@ -204,21 +218,5 @@ public final class MapUtil {
         } else {
             return String.valueOf(obj);
         }
-    }
-
-    /**
-     * Casts the specified value to the required type.
-     *
-     * @param value        the value to be casted
-     * @param requiredType the type to which the value should be casted
-     * @param <T>          the type to which the value should be casted
-     * @return the casted value, or null if the value cannot be casted to the
-     * required type
-     */
-    public static <T> T cast(Object value, Class<T> requiredType) {
-        if (requiredType.isInstance(value)) {
-            return requiredType.cast(value);
-        }
-        return null;
     }
 }

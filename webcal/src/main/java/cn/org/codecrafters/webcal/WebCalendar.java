@@ -21,13 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The WebCalendar class represents a web calendar in iCalendar format.
- *
+ * {@code WebCalendar} class represents a web calendar in iCalendar format.
  * <p>
- * It allows users to create and customize calendar components and events and
- * generate an iCalendar string containing all the calendar information.
- *
- * <p>Usage Example:
+ * It allows users to create and customise calendar components and events and
+ * generate an <b>iCalendar</b> string containing all the calendar information.
+ * <p>
+ * Usage Example:
  * <pre>
  * WebCalendar calendar = new WebCalendar()
  *         .setName("My Web Calendar")
@@ -39,20 +38,19 @@ import java.util.List;
  *         .addEvent(event2);
  * String iCalendarString = calendar.resolve();
  * </pre>
- *
  * <p>
- * The WebCalendar class is designed to generate an iCalendar string conforming
- * to the iCalendar specification, which can be used to share calendar data
- * with other calendar applications or services.
+ * The {@code WebCalendar} class is designed to generate an iCalendar string
+ * conforming to the iCalendar specification, which can be used to share
+ * calendar data with other calendar applications or services.
  *
  * @author Zihlu Wang
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0
  */
 public final class WebCalendar {
 
     /**
-     * The VCALENDAR tag for iCalendar format
+     * The {@code VCALENDAR} tag for iCalendar format
      */
     private final static String TAG = "VCALENDAR";
 
@@ -63,7 +61,6 @@ public final class WebCalendar {
 
     /**
      * The company who produces this calendar.
-     *
      * <p>
      * This property will be used in {@code PRODID}.
      */
@@ -71,7 +68,6 @@ public final class WebCalendar {
 
     /**
      * The product name.
-     *
      * <p>
      * This property will be used in {@code PRODID}
      */

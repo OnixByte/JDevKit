@@ -19,8 +19,8 @@
  * This package is the main part of JDevKit, an open-source Java class library
  * that provides a set of convenient tools to streamline code development and
  * enhance productivity. This package serves as the root package for several
- * modules, containing devkit-core, guid and dev-utils module.
- *
+ * modules, containing {@code devkit-core}, {@code guid} and {@code dev-utils}
+ * module.
  * <p>
  * For more information and the latest version of JDevKit, please visit our
  * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.

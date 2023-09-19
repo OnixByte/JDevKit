@@ -23,29 +23,24 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
+ * The {@link BranchUtil} class provides static methods to simplify conditional
+ * logic in Java development by leveraging lambda expressions. It offers
+ * convenient methods to replace verbose {@code if...else} statements with more
+ * concise and expressive functional constructs.
  * <p>
- * The BranchUtil class provides static methods to simplify conditional logic
- * in Java development by leveraging lambda expressions. It offers convenient
- * methods to replace verbose if...else statements with more concise and
- * expressive functional constructs.
- *
- *
- * <p>
- * Developers can use the methods in this utility class to streamline their
- * code, enhance readability, and promote a more functional style of
- * programming when dealing with branching logic and conditional statements.
- *
- *
+ * Developers can use methods in this utility class to streamline their code,
+ * enhance readability, and promote a more functional style of programming when
+ * dealing with branching logic and conditional statements.
  * <p>
  * <b>Example:</b>
  * <pre>
  * // If you want to simplify an if (exp1 || exp2), you can use the
  * // following code:
- * var r1 = BranchUtil.or(1 == 1, 2 == 1)
+ * String r1 = BranchUtil.or(1 == 1, 2 == 1)
  *     .handle(() -> "1 is equal to 1 or 2 is equal to 1.");
  *
  * // If you have an else branch, you can use the following code:
- * var r2 = BranchUtil.or(1 == 1, 2 == 1)
+ * String r2 = BranchUtil.or(1 == 1, 2 == 1)
  *     .handle(() -> "1 is equal to 1 or 2 is equal to 1.",
  *             () -> "1 is not equal to 1 and 2 is not equal to 1.");
  *
@@ -67,7 +62,6 @@ import java.util.function.Supplier;
  *         // do something
  *     });
  * </pre>
- *
  * <p>
  * <b>Note:</b>
  * The {@link #and(Boolean...)} and {@link #or(Boolean...)} methods accept any
@@ -75,7 +69,7 @@ import java.util.function.Supplier;
  *
  * @param <T> the type of the result to be handled by the methods
  * @author Zihlu Wang
- * @version 1.0.0
+ * @version 1.1.0
  * @see java.util.function.Supplier
  * @see java.util.function.BooleanSupplier
  * @see java.lang.Runnable
@@ -164,15 +158,12 @@ public final class BranchUtil<T> {
     }
 
     /**
-     * <p>
      * Handles the result of the boolean expressions by executing the
      * appropriate handler based on the result.
-     *
      * <p>
      * If the result is {@code true}, the {@code ifHandler} is executed. If the
      * result is {@code false} and an {@code elseHandler} is provided, it is
      * executed.
-     *
      * <p>
      * Returns the result of the executed handler.
      *
@@ -181,7 +172,8 @@ public final class BranchUtil<T> {
      * @param elseHandler the handler to be executed if the result is
      *                    {@code false} (optional)
      * @return the result of the executed handler, or {@code null} if no
-     * {@code elseHandler} is provided
+     * {@code elseHandler} is provided and the result of the evaluation is
+     * {@code false}
      */
     public T handle(Supplier<T> ifHandler, Supplier<T> elseHandler) {
         if (this.result && Objects.nonNull(ifHandler)) {
@@ -196,26 +188,23 @@ public final class BranchUtil<T> {
     }
 
     /**
-     * <p>
      * Handles the result of the boolean expressions by executing the provided
      * handler if the result is {@code true}.
-     *
      * <p>
      * Returns the result of the executed handler.
      *
      * @param ifHandler the handler to be executed if the result is
      *                  {@code true}
-     * @return the result of the executed handler
+     * @return the result of the executed handler, or {@code null} if result of
+     * evaluation is {@code false}
      */
     public T handle(Supplier<T> ifHandler) {
         return handle(ifHandler, null);
     }
 
     /**
-     * <p>
      * Handles the result of the boolean expressions by executing the
      * appropriate handler based on the result.
-     *
      * <p>
      * If the result is {@code true}, the {@code ifHandler} is executed. If the
      * result is {@code false} and an {@code elseHandler} is provided, it is
