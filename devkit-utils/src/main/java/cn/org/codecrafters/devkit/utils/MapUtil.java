@@ -179,6 +179,22 @@ public final class MapUtil {
     }
 
     /**
+     * Casts the specified value to the required type.
+     *
+     * @param value        the value to be cast
+     * @param requiredType the type to which the value should be cast
+     * @param <T>          the type to which the value should be cast
+     * @return the cast value, or null if the value cannot be cast to the
+     * required type
+     */
+    public static <T> T cast(Object value, Class<T> requiredType) {
+        if (requiredType.isInstance(value)) {
+            return requiredType.cast(value);
+        }
+        return null;
+    }
+
+    /**
      * Constructs a method name based on the given prefix and field name.
      *
      * @param prefix    the prefix to be added to the field name
@@ -202,21 +218,5 @@ public final class MapUtil {
         } else {
             return String.valueOf(obj);
         }
-    }
-
-    /**
-     * Casts the specified value to the required type.
-     *
-     * @param value        the value to be cast
-     * @param requiredType the type to which the value should be cast
-     * @param <T>          the type to which the value should be cast
-     * @return the cast value, or null if the value cannot be cast to the
-     * required type
-     */
-    public static <T> T cast(Object value, Class<T> requiredType) {
-        if (requiredType.isInstance(value)) {
-            return requiredType.cast(value);
-        }
-        return null;
     }
 }
