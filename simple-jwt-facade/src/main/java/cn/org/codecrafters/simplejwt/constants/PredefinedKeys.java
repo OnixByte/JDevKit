@@ -41,6 +41,7 @@ import java.util.List;
  * Note: This class is final and cannot be instantiated. It only serves as a utility class to hold the standard JWT
  * claim constants.
  *
+ * @author Zihlu Wang
  * @version 1.1.0
  * @since 1.0.0
  */

@@ -39,6 +39,7 @@ import lombok.Getter;
  *     <li>{@link TokenAlgorithm#ES512}: ECDSA with SHA-512</li>
  * </ul>
  *
+ * @author Zihlu Wang
  * @version 1.1.0
  * @since 1.0.0
  */
