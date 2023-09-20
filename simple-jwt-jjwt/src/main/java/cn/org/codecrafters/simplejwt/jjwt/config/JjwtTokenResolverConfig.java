@@ -28,19 +28,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The {@code JjwtTokenResolverConfig} class provides the configuration for the
- * {@link JjwtTokenResolver}.
+ * The {@code JjwtTokenResolverConfig} class provides the configuration for
+ * the {@link JjwtTokenResolver}.
  * <p>
- * This configuration class is used to establish the mapping between the
- * standard {@link TokenAlgorithm} defined within the
- * {@code JjwtTokenResolverConfig} and the specific algorithms used by the
- * {@code io.jsonwebtoken:jjwt} library, which is the underlying library used
- * by {@code JjwtTokenResolver} to handle JSON Web Tokens (JWTs).
+ * This configuration is used to establish the mapping between the standard
+ * {@link TokenAlgorithm} defined in the
+ * {@code cn.org.codecrafters:simple-jwt-facade} and the specific algorithms
+ * used by the {@code io.jsonwebtoken:jjwt} library, which is the underlying
+ * library used by {@link JjwtTokenResolver} to handle JSON Web Tokens
+ * (JWTs).
  * <p>
  * <b>Algorithm Mapping:</b>
- * The {@code JjwtTokenResolverConfig} allows specifying the relationship
- * between the standard {@link TokenAlgorithm} instances supported by {@link
- * JjwtTokenResolver} and the corresponding algorithms used by the
+ * The {@code JjwtTokenResolverConfig} allows specifying the relationships
+ * between the standard {@link TokenAlgorithm} instances supported by
+ * {@link JjwtTokenResolver} and the corresponding algorithms used by the
  * {@code io.jsonwebtoken:jjwt} library. The mapping is achieved using a Map,
  * where the keys are the standard {@link TokenAlgorithm} instances, and the
  * values represent the algorithm functions used by
@@ -53,7 +54,7 @@ import java.util.Map;
  * validation and processing within the {@link JjwtTokenResolver}.
  *
  * @author Zihlu Wang
- * @version 1.1.0
+ * @version 1.1.1
  * @since 1.0.0
  */
 public final class JjwtTokenResolverConfig implements TokenResolverConfig<SignatureAlgorithm> {

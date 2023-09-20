@@ -49,11 +49,6 @@ import java.util.UUID;
  * This resolver provides functionality to create, extract, verify, and renew
  * JWT tokens using various algorithms and custom payload data.
  * <p>
- * <b>Dependencies:</b>
- * This implementation relies on the {@code io.jsonwebtoken:jjwt} library. Please
- * ensure you have added this library as a dependency to your project before
- * using this resolver.
- * <p>
  * <b>Usage:</b>
  * To use the {@code JjwtTokenResolver}, first, create an instance of this
  * class:

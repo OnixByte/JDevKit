@@ -45,11 +45,6 @@ import java.util.*;
  * resolver provides functionality to create, extract, verify, and renew JWT
  * tokens using various algorithms and custom payload data.
  * <p>
- * <b>Dependencies:</b>
- * This implementation relies on the {@code com.auth0:java-jwt} library. Please
- * ensure you have added this library as a dependency to your project before
- * using this resolver.
- * <p>
  * <b>Usage:</b>
  * To use the {@code AuthzeroTokenResolver}, first, create an instance of this
  * class:
@@ -87,7 +82,7 @@ import java.util.*;
  * correctly configured in your project's dependencies.
  *
  * @author Zihlu Wang
- * @version 1.1.0
+ * @version 1.1.1
  * @see GuidCreator
  * @see Algorithm
  * @see JWTVerifier
@@ -279,7 +274,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 builder.withClaim(name, v);
             } else {
                 log.warn("""
-                        Unable to determine the type of field {}, converting it to a string now.""", name);
+                        Unable to determine the type of field {}, we will handle it as a String.""", name);
                 builder.withClaim(name, value.toString());
             }
         } else {
