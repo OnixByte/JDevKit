@@ -90,6 +90,11 @@ public abstract sealed class WebCalendarNode
         return this;
     }
 
+    /**
+     * Get the domain name.
+     *
+     * @return the domain name of this event
+     */
     public String getDomainName() {
         return this.domainName;
     }
