@@ -90,6 +90,10 @@ public abstract sealed class WebCalendarNode
         return this;
     }
 
+    public String getDomainName() {
+        return this.domainName;
+    }
+
     /**
      * Resolve the list of categories into a comma-separated string.
      *
