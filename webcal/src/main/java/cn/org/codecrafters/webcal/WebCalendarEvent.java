@@ -18,10 +18,12 @@
 package cn.org.codecrafters.webcal;
 
 import cn.org.codecrafters.webcal.config.Classification;
+import cn.org.codecrafters.webcal.config.Formatter;
 
+import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
@@ -257,30 +259,34 @@ public final class WebCalendarEvent extends WebCalendarNode {
      */
     @Override
     public String resolve() {
-        return "\nBEGIN:" + TAG + "\n" +
-                "UID:" + Optional.ofNullable(uid).orElse(UUID.randomUUID().toString()) + "@" + domainName + "\n" +
-                Optional.ofNullable(summary).map((item) -> "SUMMARY:" + item + "\n").orElse("") +
-                "DTSTART" + Optional.ofNullable(timezone).map(item -> ";TZID=" + item).orElse("") + ":" + start.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n" +
+        var now = LocalDateTime.now().atZone(ZoneId.systemDefault());
+        return MessageFormat.format("""
+                        BEGIN:{0}
+                        UID:{1}
+                        DTSTAMP:{2}
+                        DTSTART:{3}
+                        DURATION:PT{6}S
+                        {4}{5}{7}{8}{9}{10}{11}{12}
+                        END:{0}""",
+                TAG, // 0 - tag
+                Optional.ofNullable(uid).orElse(UUID.randomUUID().toString()) + "@" + domainName, // 1 - uid
+                now.format(Formatter.getUtcDatetimeFormatter()), // 2 - dtstamp
+                start.atZone(ZoneId.systemDefault()).format(Formatter.getUtcDatetimeFormatter()), // 3 - start time
+                Optional.ofNullable(summary).map((item) -> "\nSUMMARY:" + item).orElse(""), // 4 - summary
                 Optional.ofNullable(categories)
-                        .map((item) -> {
-                            if (!item.isEmpty()) {
-                                return "CATEGORIES:" + resolveCategories() + "\n";
-                            }
-                            return null;
-                        }).orElse("") +
+                        .map((item) -> !item.isEmpty() ? "\nCATEGORIES:" + resolveCategories() : null).orElse(""), // 5 - categories
                 Optional.ofNullable(duration)
-                        .map((item) -> "DURATION:PT" + item.getSeconds() + "S\n").orElse("") +
-                Optional.ofNullable(end)
-                        .map((item) -> "DTEND" + Optional.ofNullable(timezone).map(tz -> ";TZID=" + tz).orElse("") + ":" +
-                                end.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n").orElse("") +
-                Optional.ofNullable(classification)
-                        .map((item) -> "CLASS:" + item.name() + "\n").orElse("") +
-                Optional.ofNullable(comment).map((item) -> "COMMENT:" + item + "\n").orElse("") +
-                Optional.ofNullable(description).map((item) -> "DESCRIPTION:" + item + "\n").orElse("") +
-                Optional.ofNullable(location).map((item) -> "LOCATION:" + item + "\n").orElse("") +
-                Optional.ofNullable(percentComplete).map((item) -> "PERCENT-COMPLETE:" + item + "\n").orElse("") +
-                Optional.ofNullable(priority).map((item) -> "PRIORITY:" + item + "\n").orElse("") +
-                "END:" + TAG + "\n";
+                        .map((_duration) -> String.valueOf(_duration.getSeconds()))
+                        .orElse(Optional.ofNullable(end)
+                                .map((_end) -> String.valueOf(Duration.between(_end, start).getSeconds()))
+                                .orElse("0")), // 6 - duration
+                Optional.ofNullable(classification).map((_classification) -> "\nCLASS:" + _classification + "\n").orElse(""), /* 7 - classification */
+                Optional.ofNullable(comment).map((_comment) -> "\nCOMMENT:" + _comment + "\n").orElse(""), /* 8 - comment */
+                Optional.ofNullable(location).map((_location) -> "\nLOCATION:" + _location).orElse("") /* 9 - location */,
+                Optional.ofNullable(percentComplete).map((_percentComplete) -> "\nPERCENT-COMPLETE:" + _percentComplete).orElse("") /* 10 = percentComplete */,
+                Optional.ofNullable(description).map((_description) -> "\nDESCRIPTION:" + _description).orElse("") /* 11 - description */,
+                Optional.ofNullable(priority).map((_priority) -> "\nPRIORITY:" + _priority).orElse("") /* 12 - priority */
+        );
     }
 
 }

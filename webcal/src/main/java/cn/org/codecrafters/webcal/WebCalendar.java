@@ -19,6 +19,7 @@ package cn.org.codecrafters.webcal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * {@code WebCalendar} class represents a web calendar in iCalendar format.
@@ -189,18 +190,22 @@ public final class WebCalendar {
      * @return the resolved iCalendar string
      */
     public String resolve() {
-        var events = new StringBuilder();
+        var eventBuilder = new StringBuilder();
         if (!nodes.isEmpty()) {
-            nodes.forEach(item ->
-                    events.append(item.setDomainName(domainName)
-                            .resolve()));
+            for (var node : nodes) {
+                if (Objects.isNull(node.getDomainName()) || node.getDomainName().isBlank()) {
+                    node.setDomainName(this.domainName);
+                }
+
+                eventBuilder.append(node.resolve());
+            }
         }
 
         return "BEGIN:" + TAG + "\n" +
                 "PRODID:-//" + companyName + "//" + productName + "//EN\n" +
                 "VERSION:" + version + "\n" +
                 "X-WR-CALNAME:" + name + "\n" +
-                events + "\n" +
+                eventBuilder + "\n" +
                 "END:" + TAG;
     }
 

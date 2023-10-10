@@ -91,6 +91,15 @@ public abstract sealed class WebCalendarNode
     }
 
     /**
+     * Get the domain name.
+     *
+     * @return the domain name of this event
+     */
+    public String getDomainName() {
+        return this.domainName;
+    }
+
+    /**
      * Resolve the list of categories into a comma-separated string.
      *
      * @return the comma-separated string of categories

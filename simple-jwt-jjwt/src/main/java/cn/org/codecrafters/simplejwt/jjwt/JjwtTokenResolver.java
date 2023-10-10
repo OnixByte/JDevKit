@@ -40,6 +40,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -48,11 +49,6 @@ import java.util.UUID;
  * io.jsonwebtoken:jjwt} library to handle JSON Web Token (JWT) resolution.
  * This resolver provides functionality to create, extract, verify, and renew
  * JWT tokens using various algorithms and custom payload data.
- * <p>
- * <b>Dependencies:</b>
- * This implementation relies on the {@code io.jsonwebtoken:jjwt} library. Please
- * ensure you have added this library as a dependency to your project before
- * using this resolver.
  * <p>
  * <b>Usage:</b>
  * To use the {@code JjwtTokenResolver}, first, create an instance of this
@@ -113,7 +109,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
     private final JjwtTokenResolverConfig config = JjwtTokenResolverConfig.getInstance();
 
     public JjwtTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret) {
-        if (secret == null || secret.isBlank()) {
+        if (Objects.isNull(secret) || secret.isBlank()) {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
 
@@ -209,8 +205,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public String createToken(Duration expireAfter, String audience, String subject) {
-        var now = LocalDateTime.now();
-        return buildToken(expireAfter, audience, subject, now, null);
+        return buildToken(expireAfter, audience, subject, LocalDateTime.now(), null);
     }
 
     /**
@@ -225,8 +220,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public String createToken(Duration expireAfter, String audience, String subject, Map<String, Object> payload) {
-        var now = LocalDateTime.now();
-        return buildToken(expireAfter, audience, subject, now, payload);
+        return buildToken(expireAfter, audience, subject, LocalDateTime.now(), payload);
     }
 
     /**
@@ -244,10 +238,9 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public <T extends TokenPayload> String createToken(Duration expireAfter, String audience, String subject, T payload) {
-        var now = LocalDateTime.now();
         try {
             var claims = MapUtil.objectToMap(payload);
-            return buildToken(expireAfter, audience, subject, now, claims);
+            return buildToken(expireAfter, audience, subject, LocalDateTime.now(), claims);
         } catch (IllegalAccessException e) {
             log.error("An error occurs while accessing the fields of the object");
         }

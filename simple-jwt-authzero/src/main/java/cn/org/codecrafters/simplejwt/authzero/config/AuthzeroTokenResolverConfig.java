@@ -35,19 +35,20 @@ import java.util.function.Function;
  * the {@link AuthzeroTokenResolver}.
  * <p>
  * This configuration is used to establish the mapping between the standard
- * {@link TokenAlgorithm} defined within the {@link AuthzeroTokenResolver}
- * facade and the specific algorithms used by the {@code com.auth0:java-jwt}
- * library, which is the underlying library used by {@link
- * AuthzeroTokenResolver} to handle JSON Web Tokens (JWTs).
+ * {@link TokenAlgorithm} defined in the
+ * {@code cn.org.codecrafters:simple-jwt-facade} and the specific algorithms
+ * used by the {@code com.auth0:java-jwt} library, which is the underlying
+ * library used by {@link AuthzeroTokenResolver} to handle JSON Web Tokens
+ * (JWTs).
  * <p>
  * <b>Algorithm Mapping:</b>
- * The {@code AuthzeroTokenResolverConfig} allows specifying the relationship
+ * The {@code AuthzeroTokenResolverConfig} allows specifying the relationships
  * between the standard {@link TokenAlgorithm} instances supported by
  * {@link AuthzeroTokenResolver} and the corresponding algorithms used by the
  * {@code com.auth0:java-jwt} library. The mapping is achieved using a Map,
- * where the keys are the standard TokenAlgorithm instances, and the values
- * represent the algorithm functions used by Auth0 Java JWT library for each
- * corresponding key.
+ * where the keys are the standard {@link TokenAlgorithm} instances, and the
+ * values represent the algorithm functions used by {@code com.auth0:java-jwt}
+ * library for each corresponding key.
  * <p>
  * <b>Note:</b>
  * The provided algorithm mapping should be consistent with the actual
@@ -56,7 +57,7 @@ import java.util.function.Function;
  * validation and processing within the {@link AuthzeroTokenResolver}.
  *
  * @author Zihlu Wang
- * @version 1.1.0
+ * @version 1.1.1
  * @since 1.0.0
  */
 public final class AuthzeroTokenResolverConfig implements TokenResolverConfig<Function<String, Algorithm>> {
