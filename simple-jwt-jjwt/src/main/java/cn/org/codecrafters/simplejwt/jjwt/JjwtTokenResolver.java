@@ -23,6 +23,7 @@ import cn.org.codecrafters.simplejwt.SecretCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
+import cn.org.codecrafters.simplejwt.annotations.TokenEnum;
 import cn.org.codecrafters.simplejwt.constants.PredefinedKeys;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import cn.org.codecrafters.simplejwt.exceptions.WeakSecretException;
@@ -247,14 +248,24 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
                 continue;
 
             try {
-                field.setAccessible(true);
+                var getter = payload.getClass().getDeclaredMethod("get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1));
                 // Build Claims
                 /*
                  * Note (17 Oct, 2023): The jjwt can only add a map to be added.
                  */
-                payloadMap.put(field.getName(), field.get(payload));
-            } catch (IllegalAccessException e) {
+                var fieldValue = getter.invoke(payload);
+
+                // Handle enum fields.
+                if (field.isAnnotationPresent(TokenEnum.class)) {
+                    var annotation = field.getAnnotation(TokenEnum.class);
+                    var enumGetter = field.getType().getDeclaredMethod("get" + annotation.propertyName().substring(0, 1).toUpperCase() + annotation.propertyName().substring(1));
+                    fieldValue = enumGetter.invoke(fieldValue);
+                }
+                payloadMap.put(field.getName(), fieldValue);
+            } catch (IllegalAccessException | NoSuchMethodException e) {
                 log.error("Cannot access field {}!", field.getName());
+            } catch (InvocationTargetException e) {
+                log.error("Cannot invoke getter.", e);
             }
         }
 
@@ -298,17 +309,27 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
                 if (PredefinedKeys.KEYS.contains(entry.getKey()) || targetType.getDeclaredField(entry.getKey()).isAnnotationPresent(ExcludeFromPayload.class))
                     continue;
 
-                var setter = targetType.getDeclaredMethod("set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1), entry.getValue().getClass());
+                var field = targetType.getDeclaredField(entry.getKey());
+                var fieldValue = entry.getValue();
+                if (field.isAnnotationPresent(TokenEnum.class)) {
+                    var annotation = field.getAnnotation(TokenEnum.class);
+                    var enumStaticLoader = field.getType().getDeclaredMethod("loadBy" + annotation.propertyName().substring(0, 1).toUpperCase() + annotation.propertyName().substring(1), annotation.dataType().getMappedClass());
+                    fieldValue = enumStaticLoader.invoke(null, entry.getValue());
+                }
+
+                var setter = targetType.getDeclaredMethod("set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1), fieldValue.getClass());
                 if (setter.canAccess(bean)) {
-                    setter.invoke(bean, entry.getValue());
+                    setter.invoke(bean, fieldValue);
                 } else {
                     log.error("Setter for field {} can't be accessed.", entry.getKey());
                 }
             }
+
+            return bean;
         } catch (InvocationTargetException e) {
-            log.error("An error occurs while invoking the constructor of type {}.", targetType.getCanonicalName());
+            log.error("Target is not invokable.", e);
         } catch (NoSuchMethodException e) {
-            log.error("The constructor of the required type {} is not found.", targetType.getCanonicalName());
+            log.error("Cannot find method according to given data.", e);
         } catch (InstantiationException e) {
             log.error("The required type {} is abstract or an interface.", targetType.getCanonicalName());
         } catch (IllegalAccessException e) {

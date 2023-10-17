@@ -23,6 +23,7 @@ import cn.org.codecrafters.simplejwt.SecretCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
+import cn.org.codecrafters.simplejwt.annotations.TokenEnum;
 import cn.org.codecrafters.simplejwt.authzero.config.AuthzeroTokenResolverConfig;
 import cn.org.codecrafters.simplejwt.config.TokenResolverConfig;
 import cn.org.codecrafters.simplejwt.constants.PredefinedKeys;
@@ -41,6 +42,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -375,16 +377,28 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         var fields = payloadClass.getDeclaredFields();
 
         for (var field : fields) {
-            // Skip the fields which are annotated with ExcludeFromPayload
-            if (field.isAnnotationPresent(ExcludeFromPayload.class))
-                continue;
-
             try {
-                field.setAccessible(true);
+                var fieldName = field.getName();
+                // Skip the fields which are annotated with ExcludeFromPayload
+                if (field.isAnnotationPresent(ExcludeFromPayload.class))
+                    continue;
+
+                Object invokeObj = payload;
+                var getter = payloadClass.getDeclaredMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
+                if (field.isAnnotationPresent(TokenEnum.class)) {
+                    var tokenEnum = field.getAnnotation(TokenEnum.class);
+                    invokeObj = getter.invoke(payload);
+                    getter = field.getType().getDeclaredMethod("get" + tokenEnum.propertyName().substring(0, 1).toUpperCase() + tokenEnum.propertyName().substring(1));
+                }
+
                 // Build Claims
-                addClaim(builder, field.getName(), field.get(payload));
+                addClaim(builder, fieldName, getter.invoke(invokeObj));
             } catch (IllegalAccessException e) {
                 log.error("Cannot access field {}!", field.getName());
+            } catch (NoSuchMethodException e) {
+                log.error("Unable to find setter according to given field name.", e);
+            } catch (InvocationTargetException e) {
+                log.info("Cannot invoke method.", e);
             }
         }
 
@@ -424,9 +438,17 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 if (PredefinedKeys.KEYS.contains(entry.getKey()) || targetType.getDeclaredField(entry.getKey()).isAnnotationPresent(ExcludeFromPayload.class))
                     continue;
 
-                var setter = targetType.getDeclaredMethod("set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1), entry.getValue().getClass());
+                var field = targetType.getDeclaredField(entry.getKey());
+                var setter = targetType.getDeclaredMethod("set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1), field.getType());
+                var fieldValue = entry.getValue();
+                if (field.isAnnotationPresent(TokenEnum.class)) {
+                    var annotation = field.getAnnotation(TokenEnum.class);
+                    var enumStaticLoader = field.getType().getDeclaredMethod("loadBy" + annotation.propertyName().substring(0, 1).toUpperCase() + annotation.propertyName().substring(1), annotation.dataType().getMappedClass());
+                    fieldValue = enumStaticLoader.invoke(null, fieldValue);
+                }
+
                 if (setter.canAccess(bean)) {
-                    setter.invoke(bean, entry.getValue());
+                    setter.invoke(bean, fieldValue);
                 } else {
                     log.error("Setter for field {} can't be accessed.", entry.getKey());
                 }
