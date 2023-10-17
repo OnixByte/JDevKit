@@ -291,7 +291,20 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
 
         var claims = resolvedToken.getBody();
         try {
-            return MapUtil.mapToObject(claims, targetType);
+            var bean = targetType.getConstructor().newInstance();
+
+            for (var entry : claims.entrySet()) {
+                // Jump all JWT pre-defined properties and the fields that are annotated to be excluded.
+                if (PredefinedKeys.KEYS.contains(entry.getKey()) || targetType.getDeclaredField(entry.getKey()).isAnnotationPresent(ExcludeFromPayload.class))
+                    continue;
+
+                var setter = targetType.getDeclaredMethod("set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1), entry.getValue().getClass());
+                if (setter.canAccess(bean)) {
+                    setter.invoke(bean, entry.getValue());
+                } else {
+                    log.error("Setter for field {} can't be accessed.", entry.getKey());
+                }
+            }
         } catch (InvocationTargetException e) {
             log.error("An error occurs while invoking the constructor of type {}.", targetType.getCanonicalName());
         } catch (NoSuchMethodException e) {
@@ -299,7 +312,9 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         } catch (InstantiationException e) {
             log.error("The required type {} is abstract or an interface.", targetType.getCanonicalName());
         } catch (IllegalAccessException e) {
-            log.error("An error occurs while accessing the fields of the object.");
+            log.error("An error occurs while accessing the fields of the object.", e);
+        } catch (NoSuchFieldException e) {
+            log.error("Cannot load field according to given field name.", e);
         }
 
         return null;

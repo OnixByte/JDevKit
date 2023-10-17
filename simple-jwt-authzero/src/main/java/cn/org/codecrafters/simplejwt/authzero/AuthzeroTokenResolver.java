@@ -413,42 +413,32 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      */
     @Override
     public <T extends TokenPayload> T extract(String token, Class<T> targetType) {
-        // Get claims from token.
-        var claims = resolve(token).getClaims();
-
         try {
+            // Get claims from token.
+            var payloads = objectMapper.readValue(Base64Util.decode(resolve(token).getPayload()), new MapTypeReference());
             // Get the no-argument constructor to create an instance.
-            T bean = targetType.getConstructor().newInstance();
+            var bean = targetType.getConstructor().newInstance();
 
-            var fields = targetType.getDeclaredFields();
-            for (var field : fields) {
-                // Ignore the field annotated with @ExcludeFromPayload.
-                if (field.isAnnotationPresent(ExcludeFromPayload.class))
+            for (var entry : payloads.entrySet()) {
+                // Jump all JWT pre-defined properties and the fields that are annotated to be excluded.
+                if (PredefinedKeys.KEYS.contains(entry.getKey()) || targetType.getDeclaredField(entry.getKey()).isAnnotationPresent(ExcludeFromPayload.class))
                     continue;
 
-                // Get the name of this field.
-                var fieldName = field.getName();
-
-                // Prevent this class is annotated @Slf4j or added logger.
-                if ("log".equalsIgnoreCase(fieldName) || "logger".equalsIgnoreCase(fieldName))
-                    continue;
-
-                // Get the value of this field.
-                var fieldValue = Optional.ofNullable(claims.get(fieldName))
-                        .map(claim -> claim.as(field.getType()))
-                        .orElse(null);
-                if (fieldValue != null) {
-                    // Set the field value by invoking the setter method.
-                    var setter = targetType.getDeclaredMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), fieldValue.getClass());
-                    setter.invoke(bean, fieldValue);
+                var setter = targetType.getDeclaredMethod("set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1), entry.getValue().getClass());
+                if (setter.canAccess(bean)) {
+                    setter.invoke(bean, entry.getValue());
+                } else {
+                    log.error("Setter for field {} can't be accessed.", entry.getKey());
                 }
             }
-
             return bean;
-        } catch (NoSuchMethodException e) {
-            log.error("Unable to find a no-argument constructor declaration for class {}.", targetType.getCanonicalName());
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            log.error("Unable to create a new instance of class {}.", targetType.getCanonicalName());
+        } catch (JsonProcessingException e) {
+            log.error("Unable to read payload as a Map<String, Object>.", e);
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
+            log.error("Unable to load the constructor or setter.", e);
+        } catch (NoSuchFieldException e) {
+            log.error("Unable to load the field.", e);
         }
         return null;
     }
