@@ -186,7 +186,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
                 .setId(jtiCreator.nextId().toString());
 
         if (claims != null && !claims.isEmpty()) {
-            builder.setClaims(claims);
+            builder.addClaims(claims);
         }
 
         return builder.signWith(key, algorithm)
