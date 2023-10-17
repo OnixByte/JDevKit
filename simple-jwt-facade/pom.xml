@@ -42,6 +42,11 @@
 
         <dependency>
             <groupId>cn.org.codecrafters</groupId>
+            <artifactId>devkit-utils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.org.codecrafters</groupId>
             <artifactId>guid</artifactId>
         </dependency>
     </dependencies>
