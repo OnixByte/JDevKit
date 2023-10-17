@@ -113,9 +113,9 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
 
-        if (secret.length() <= 32) {
+        if (secret.length() < 32) {
             log.error("""
-                      The provided secret which owns {} characters is too weak. Please replace it with a stronger one.""",
+                            The provided secret which owns {} characters is too weak. Please replace it with a stronger one.""",
                     secret.length());
             throw new WeakSecretException("""
                     The provided secret which owns %s characters is too weak. Please replace it with a stronger one."""
@@ -133,7 +133,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
 
-        if (secret.length() <= 32) {
+        if (secret.length() < 32) {
             log.error(
                     "The provided secret which owns {} characters is too weak. Please replace it with a stronger one.",
                     secret.length());
@@ -153,7 +153,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
 
-        if (secret.length() <= 32) {
+        if (secret.length() < 32) {
             log.error(
                     "The provided secret which owns {} characters is too weak. Please replace it with a stronger one.",
                     secret.length());
