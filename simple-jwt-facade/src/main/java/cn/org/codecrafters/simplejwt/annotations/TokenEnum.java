@@ -25,7 +25,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * JwtEnum
+ * This annotation marks the enum field declared in payload class will be
+ * handled as basic data types in {@link TokenDataType}.
  *
  * @author Zihlu Wang
  */
@@ -33,8 +34,16 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 public @interface TokenEnum {
 
+    /**
+     * The name of the field of the base data corresponding to the
+     * enumeration data.
+     */
     String propertyName();
 
+    /**
+     * The attribute {@code dataType} specifies what base data type to treat
+     * this enum as.
+     */
     TokenDataType dataType();
 
 }

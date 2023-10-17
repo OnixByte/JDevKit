@@ -20,21 +20,47 @@ package cn.org.codecrafters.simplejwt.constants;
 import lombok.Getter;
 
 /**
- * TokenDataType
+ * The base data types used to process enum data.
  *
  * @author Zihlu Wang
  */
 @Getter
 public enum TokenDataType {
 
+    /**
+     * Marks enumeration being processed as Boolean.
+     */
     BOOLEAN(Boolean.class),
+
+    /**
+     * Marks enumeration being processed as Double.
+     */
     DOUBLE(Long.class),
+
+    /**
+     * Marks enumeration being processed as Float.
+     */
     FLOAT(Float.class),
+
+    /**
+     * Marks enumeration being processed as Integer.
+     */
     INTEGER(Integer.class),
+
+    /**
+     * Marks enumeration being processed as Long.
+     */
     LONG(Long.class),
+
+    /**
+     * Marks enumeration being processed as String.
+     */
     STRING(String.class),
     ;
 
+    /**
+     * The mapped class to this mark.
+     */
     private final Class<?> mappedClass;
 
     TokenDataType(Class<?> mappedClass) {
