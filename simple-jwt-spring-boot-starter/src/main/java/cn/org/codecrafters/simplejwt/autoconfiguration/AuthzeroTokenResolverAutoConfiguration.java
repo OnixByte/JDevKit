@@ -22,6 +22,7 @@ import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.authzero.AuthzeroTokenResolver;
 import cn.org.codecrafters.simplejwt.autoconfiguration.properties.SimpleJwtProperties;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -31,7 +32,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
 
 /**
  * {@code AuthzeroTokenResolverAutoConfiguration} is responsible for
@@ -75,16 +75,20 @@ public class AuthzeroTokenResolverAutoConfiguration {
      */
     private final SimpleJwtProperties simpleJwtProperties;
 
+    private final ObjectMapper objectMapper;
+
     /**
      * Constructs a new {@code SimpleJwtAutoConfiguration} instance with the
      * provided SimpleJwtProperties.
      *
      * @param simpleJwtProperties the SimpleJwtProperties instance
+     * @param objectMapper Jackson JSON Handler
      */
     @Autowired
-    public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, GuidCreator<?> jtiCreator) {
+    public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, GuidCreator<?> jtiCreator, ObjectMapper objectMapper) {
         this.jtiCreator = jtiCreator;
         this.simpleJwtProperties = simpleJwtProperties;
+        this.objectMapper = objectMapper;
     }
 
     /**
@@ -102,7 +106,8 @@ public class AuthzeroTokenResolverAutoConfiguration {
                 jtiCreator,
                 simpleJwtProperties.algorithm(),
                 simpleJwtProperties.issuer(),
-                simpleJwtProperties.secret()
+                simpleJwtProperties.secret(),
+                objectMapper
         );
     }
 

@@ -17,6 +17,7 @@
 
 package cn.org.codecrafters.simplejwt.authzero;
 
+import cn.org.codecrafters.devkit.utils.Base64Util;
 import cn.org.codecrafters.guid.GuidCreator;
 import cn.org.codecrafters.simplejwt.SecretCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
@@ -24,12 +25,20 @@ import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
 import cn.org.codecrafters.simplejwt.authzero.config.AuthzeroTokenResolverConfig;
 import cn.org.codecrafters.simplejwt.config.TokenResolverConfig;
+import cn.org.codecrafters.simplejwt.constants.PredefinedKeys;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationTargetException;
@@ -114,21 +123,27 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      */
     private final JWTVerifier verifier;
 
+    /**
+     * Jackson JSON handler.
+     */
+    private final ObjectMapper objectMapper;
+
     private final AuthzeroTokenResolverConfig config = AuthzeroTokenResolverConfig.getInstance();
 
     /**
      * Creates a new instance of {@code AuthzeroTokenResolver} with the
      * provided configurations.
      *
-     * @param jtiCreator the {@link GuidCreator} used for generating unique
-     *                   identifiers for "jti" claim in JWT tokens
-     * @param algorithm  the algorithm used for signing and verifying JWT
-     *                   tokens
-     * @param issuer     the issuer claim value to be included in JWT tokens
-     * @param secret     the secret used for HMAC-based algorithms (HS256,
-     *                   HS384, HS512) for token signing and verification
+     * @param jtiCreator   the {@link GuidCreator} used for generating unique
+     *                     identifiers for "jti" claim in JWT tokens
+     * @param algorithm    the algorithm used for signing and verifying JWT
+     *                     tokens
+     * @param issuer       the issuer claim value to be included in JWT tokens
+     * @param secret       the secret used for HMAC-based algorithms (HS256,
+     *                     HS384, HS512) for token signing and verification
+     * @param objectMapper JSON handler
      */
-    public AuthzeroTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret) {
+    public AuthzeroTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret, ObjectMapper objectMapper) {
         if (secret == null || secret.isBlank()) {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
@@ -143,6 +158,21 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 .apply(secret);
         this.issuer = issuer;
         this.verifier = JWT.require(this.algorithm).build();
+        this.objectMapper = objectMapper;
+    }
+
+    /**
+     * Creates a new instance of {@link AuthzeroTokenResolver} with the
+     * provided configurations and a simple UUID GuidCreator.
+     *
+     * @param algorithm    the algorithm used for signing and verifying JWT tokens
+     * @param issuer       the issuer claim value to be included in JWT tokens
+     * @param secret       the secret used for HMAC-based algorithms (HS256,
+     *                     HS384, HS512) for token signing and verification
+     * @param objectMapper Jackson Databind JSON Handler
+     */
+    public AuthzeroTokenResolver(TokenAlgorithm algorithm, String issuer, String secret, ObjectMapper objectMapper) {
+        this(UUID::randomUUID, algorithm, issuer, secret, objectMapper);
     }
 
     /**
@@ -155,20 +185,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      *                  HS384, HS512) for token signing and verification
      */
     public AuthzeroTokenResolver(TokenAlgorithm algorithm, String issuer, String secret) {
-        if (secret == null || secret.isBlank()) {
-            throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
-        }
-
-        if (secret.length() <= 32) {
-            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
-        }
-
-        this.jtiCreator = UUID::randomUUID;
-        this.algorithm = config
-                .getAlgorithm(algorithm)
-                .apply(secret);
-        this.issuer = issuer;
-        this.verifier = JWT.require(this.algorithm).build();
+        this(UUID::randomUUID, algorithm, issuer, secret, new ObjectMapper());
     }
 
     /**
@@ -181,20 +198,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      *               HS384, HS512) for token signing and verification
      */
     public AuthzeroTokenResolver(String issuer, String secret) {
-        if (secret == null || secret.isBlank()) {
-            throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
-        }
-
-        if (secret.length() <= 32) {
-            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
-        }
-
-        this.jtiCreator = UUID::randomUUID;
-        this.algorithm = config
-                .getAlgorithm(TokenAlgorithm.HS256)
-                .apply(secret);
-        this.issuer = issuer;
-        this.verifier = JWT.require(this.algorithm).build();
+        this(UUID::randomUUID, TokenAlgorithm.HS256, issuer, secret, new ObjectMapper());
     }
 
     /**
@@ -213,6 +217,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 .apply(secret);
         this.issuer = issuer;
         this.verifier = JWT.require(this.algorithm).build();
+        this.objectMapper = new ObjectMapper();
 
         log.info("The secret has been set to {}.", secret);
     }
@@ -449,6 +454,31 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     }
 
     /**
+     * Re-generate a new token with the payload in the old one.
+     *
+     * @param oldToken    the old token
+     * @param expireAfter how long the new token can be valid for
+     * @return re-generated token with the payload in the old one or
+     * {@code null} if an {@link JsonProcessingException} occurred.
+     */
+    @Override
+    public String renew(String oldToken, Duration expireAfter) {
+        var resolved = resolve(oldToken);
+
+        try {
+            var payload = objectMapper.readValue(Base64Util.decode(resolved.getPayload()), ObjectNode.class);
+            payload.remove(PredefinedKeys.KEYS);
+
+            var payloadMap = objectMapper.convertValue(payload, new MapTypeReference());
+            return createToken(expireAfter, resolved.getAudience().get(0), resolved.getSubject(), payloadMap);
+        } catch (JsonProcessingException e) {
+            log.error("Cannot read payload content, error details:", e);
+        }
+
+        return null;
+    }
+
+    /**
      * Renews the given expired token with the specified custom payload data.
      *
      * @param oldToken the expired token to be renewed
@@ -508,5 +538,10 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     @Override
     public <T extends TokenPayload> String renew(String oldToken, T payload) {
         return renew(oldToken, Duration.ofMinutes(30), payload);
+    }
+
+    private static class MapTypeReference extends TypeReference<Map<String, Object>> {
+        MapTypeReference() {
+        }
     }
 }
