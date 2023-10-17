@@ -22,6 +22,7 @@ import cn.org.codecrafters.guid.GuidCreator;
 import cn.org.codecrafters.simplejwt.SecretCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
+import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import cn.org.codecrafters.simplejwt.exceptions.WeakSecretException;
 import cn.org.codecrafters.simplejwt.jjwt.config.JjwtTokenResolverConfig;
@@ -38,10 +39,7 @@ import java.security.Key;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The {@link JjwtTokenResolver} class is an implementation of the {@link
@@ -175,7 +173,8 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         this.key = Keys.hmacShaKeyFor(SecretCreator.createSecret(32, true, true, true).getBytes(StandardCharsets.UTF_8));
     }
 
-    private String buildToken(Duration expireAfter, String audience, String subject, LocalDateTime now, Map<String, Object> claims) {
+    private String buildToken(Duration expireAfter, String audience, String subject, Map<String, Object> claims) {
+        var now = LocalDateTime.now();
         var builder = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
@@ -205,7 +204,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public String createToken(Duration expireAfter, String audience, String subject) {
-        return buildToken(expireAfter, audience, subject, LocalDateTime.now(), null);
+        return buildToken(expireAfter, audience, subject, null);
     }
 
     /**
@@ -220,7 +219,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public String createToken(Duration expireAfter, String audience, String subject, Map<String, Object> payload) {
-        return buildToken(expireAfter, audience, subject, LocalDateTime.now(), payload);
+        return buildToken(expireAfter, audience, subject, payload);
     }
 
     /**
@@ -238,14 +237,26 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public <T extends TokenPayload> String createToken(Duration expireAfter, String audience, String subject, T payload) {
-        try {
-            var claims = MapUtil.objectToMap(payload);
-            return buildToken(expireAfter, audience, subject, LocalDateTime.now(), claims);
-        } catch (IllegalAccessException e) {
-            log.error("An error occurs while accessing the fields of the object");
+        var fields = payload.getClass().getDeclaredFields();
+        var payloadMap = new HashMap<String, Object>();
+
+        for (var field : fields) {
+            if (field.isAnnotationPresent(ExcludeFromPayload.class))
+                continue;
+
+            try {
+                field.setAccessible(true);
+                // Build Claims
+                /*
+                 * Note (17 Oct, 2023): The jjwt can only add a map to be added.
+                 */
+                payloadMap.put(field.getName(), field.get(payload));
+            } catch (IllegalAccessException e) {
+                log.error("Cannot access field {}!", field.getName());
+            }
         }
 
-        return null;
+        return buildToken(expireAfter, audience, subject, payloadMap);
     }
 
     /**
