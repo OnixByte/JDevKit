@@ -23,9 +23,11 @@ import cn.org.codecrafters.simplejwt.SecretCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
+import cn.org.codecrafters.simplejwt.constants.PredefinedKeys;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import cn.org.codecrafters.simplejwt.exceptions.WeakSecretException;
 import cn.org.codecrafters.simplejwt.jjwt.config.JjwtTokenResolverConfig;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -301,6 +303,26 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         }
 
         return null;
+    }
+
+    /**
+     * Re-generate a new token with the payload in the old one.
+     *
+     * @param oldToken    the old token
+     * @param expireAfter how long the new token can be valid for
+     * @return re-generated token with the payload in the old one
+     */
+    @Override
+    public String renew(String oldToken, Duration expireAfter) {
+        var resolvedToken = resolve(oldToken);
+        var tokenPayloads = resolvedToken.getBody();
+
+        var audience = tokenPayloads.getAudience();
+        var subject = tokenPayloads.getSubject();
+
+        PredefinedKeys.KEYS.forEach(tokenPayloads::remove);
+
+        return createToken(expireAfter, audience, subject, tokenPayloads);
     }
 
     /**
