@@ -111,6 +111,26 @@ public interface TokenResolver<ResolvedTokenType> {
     <T extends TokenPayload> T extract(String token, Class<T> targetType);
 
     /**
+     * Re-generate a new token with the payload in the old one.
+     *
+     * @param oldToken the old token
+     * @param expireAfter how long the new token can be valid for
+     * @return re-generated token with the payload in the old one
+     */
+    String renew(String oldToken, Duration expireAfter);
+
+    /**
+     * Re-generate a new token with the payload in the old one.
+     *
+     * @param oldToken the old token
+     * @return re-generated token with the payload in the old one
+     * @see #renew(String, Duration)
+     */
+     default String renew(String oldToken) {
+         return renew(oldToken, Duration.ofMinutes(30));
+     }
+
+    /**
      * Renews the given expired token with the specified custom payload data.
      *
      * @param oldToken    the expired token to be renewed
@@ -129,7 +149,9 @@ public interface TokenResolver<ResolvedTokenType> {
      *                 token
      * @return the renewed token as a {@code String}
      */
-    String renew(String oldToken, Map<String, Object> payload);
+    default String renew(String oldToken, Map<String, Object> payload) {
+        return renew(oldToken, Duration.ofMinutes(30), payload);
+    }
 
     /**
      * Renews the given expired token with the specified strongly-typed
@@ -156,6 +178,8 @@ public interface TokenResolver<ResolvedTokenType> {
      *                 renewed token
      * @return the renewed token as a {@code String}
      */
-    <T extends TokenPayload> String renew(String oldToken, T payload);
+    default <T extends TokenPayload> String renew(String oldToken, T payload) {
+        return renew(oldToken, Duration.ofMinutes(30), payload);
+    }
 
 }

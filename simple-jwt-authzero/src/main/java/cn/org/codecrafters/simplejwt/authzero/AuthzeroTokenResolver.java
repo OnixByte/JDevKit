@@ -17,21 +17,32 @@
 
 package cn.org.codecrafters.simplejwt.authzero;
 
+import cn.org.codecrafters.devkit.utils.Base64Util;
 import cn.org.codecrafters.guid.GuidCreator;
 import cn.org.codecrafters.simplejwt.SecretCreator;
 import cn.org.codecrafters.simplejwt.TokenPayload;
 import cn.org.codecrafters.simplejwt.TokenResolver;
 import cn.org.codecrafters.simplejwt.annotations.ExcludeFromPayload;
+import cn.org.codecrafters.simplejwt.annotations.TokenEnum;
 import cn.org.codecrafters.simplejwt.authzero.config.AuthzeroTokenResolverConfig;
 import cn.org.codecrafters.simplejwt.config.TokenResolverConfig;
+import cn.org.codecrafters.simplejwt.constants.PredefinedKeys;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -114,21 +125,27 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      */
     private final JWTVerifier verifier;
 
+    /**
+     * Jackson JSON handler.
+     */
+    private final ObjectMapper objectMapper;
+
     private final AuthzeroTokenResolverConfig config = AuthzeroTokenResolverConfig.getInstance();
 
     /**
      * Creates a new instance of {@code AuthzeroTokenResolver} with the
      * provided configurations.
      *
-     * @param jtiCreator the {@link GuidCreator} used for generating unique
-     *                   identifiers for "jti" claim in JWT tokens
-     * @param algorithm  the algorithm used for signing and verifying JWT
-     *                   tokens
-     * @param issuer     the issuer claim value to be included in JWT tokens
-     * @param secret     the secret used for HMAC-based algorithms (HS256,
-     *                   HS384, HS512) for token signing and verification
+     * @param jtiCreator   the {@link GuidCreator} used for generating unique
+     *                     identifiers for "jti" claim in JWT tokens
+     * @param algorithm    the algorithm used for signing and verifying JWT
+     *                     tokens
+     * @param issuer       the issuer claim value to be included in JWT tokens
+     * @param secret       the secret used for HMAC-based algorithms (HS256,
+     *                     HS384, HS512) for token signing and verification
+     * @param objectMapper JSON handler
      */
-    public AuthzeroTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret) {
+    public AuthzeroTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret, ObjectMapper objectMapper) {
         if (secret == null || secret.isBlank()) {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
@@ -143,6 +160,21 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 .apply(secret);
         this.issuer = issuer;
         this.verifier = JWT.require(this.algorithm).build();
+        this.objectMapper = objectMapper;
+    }
+
+    /**
+     * Creates a new instance of {@link AuthzeroTokenResolver} with the
+     * provided configurations and a simple UUID GuidCreator.
+     *
+     * @param algorithm    the algorithm used for signing and verifying JWT tokens
+     * @param issuer       the issuer claim value to be included in JWT tokens
+     * @param secret       the secret used for HMAC-based algorithms (HS256,
+     *                     HS384, HS512) for token signing and verification
+     * @param objectMapper Jackson Databind JSON Handler
+     */
+    public AuthzeroTokenResolver(TokenAlgorithm algorithm, String issuer, String secret, ObjectMapper objectMapper) {
+        this(UUID::randomUUID, algorithm, issuer, secret, objectMapper);
     }
 
     /**
@@ -155,20 +187,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      *                  HS384, HS512) for token signing and verification
      */
     public AuthzeroTokenResolver(TokenAlgorithm algorithm, String issuer, String secret) {
-        if (secret == null || secret.isBlank()) {
-            throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
-        }
-
-        if (secret.length() <= 32) {
-            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
-        }
-
-        this.jtiCreator = UUID::randomUUID;
-        this.algorithm = config
-                .getAlgorithm(algorithm)
-                .apply(secret);
-        this.issuer = issuer;
-        this.verifier = JWT.require(this.algorithm).build();
+        this(UUID::randomUUID, algorithm, issuer, secret, new ObjectMapper());
     }
 
     /**
@@ -181,20 +200,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      *               HS384, HS512) for token signing and verification
      */
     public AuthzeroTokenResolver(String issuer, String secret) {
-        if (secret == null || secret.isBlank()) {
-            throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
-        }
-
-        if (secret.length() <= 32) {
-            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
-        }
-
-        this.jtiCreator = UUID::randomUUID;
-        this.algorithm = config
-                .getAlgorithm(TokenAlgorithm.HS256)
-                .apply(secret);
-        this.issuer = issuer;
-        this.verifier = JWT.require(this.algorithm).build();
+        this(UUID::randomUUID, TokenAlgorithm.HS256, issuer, secret, new ObjectMapper());
     }
 
     /**
@@ -213,6 +219,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
                 .apply(secret);
         this.issuer = issuer;
         this.verifier = JWT.require(this.algorithm).build();
+        this.objectMapper = new ObjectMapper();
 
         log.info("The secret has been set to {}.", secret);
     }
@@ -370,16 +377,28 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         var fields = payloadClass.getDeclaredFields();
 
         for (var field : fields) {
-            // Skip the fields which are annotated with ExcludeFromPayload
-            if (field.isAnnotationPresent(ExcludeFromPayload.class))
-                continue;
-
             try {
-                field.setAccessible(true);
+                var fieldName = field.getName();
+                // Skip the fields which are annotated with ExcludeFromPayload
+                if (field.isAnnotationPresent(ExcludeFromPayload.class))
+                    continue;
+
+                Object invokeObj = payload;
+                var getter = payloadClass.getDeclaredMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
+                if (field.isAnnotationPresent(TokenEnum.class)) {
+                    var tokenEnum = field.getAnnotation(TokenEnum.class);
+                    invokeObj = getter.invoke(payload);
+                    getter = field.getType().getDeclaredMethod("get" + tokenEnum.propertyName().substring(0, 1).toUpperCase() + tokenEnum.propertyName().substring(1));
+                }
+
                 // Build Claims
-                addClaim(builder, field.getName(), field.get(payload));
+                addClaim(builder, fieldName, getter.invoke(invokeObj));
             } catch (IllegalAccessException e) {
                 log.error("Cannot access field {}!", field.getName());
+            } catch (NoSuchMethodException e) {
+                log.error("Unable to find setter according to given field name.", e);
+            } catch (InvocationTargetException e) {
+                log.info("Cannot invoke method.", e);
             }
         }
 
@@ -408,43 +427,66 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      */
     @Override
     public <T extends TokenPayload> T extract(String token, Class<T> targetType) {
-        // Get claims from token.
-        var claims = resolve(token).getClaims();
-
         try {
+            // Get claims from token.
+            var payloads = objectMapper.readValue(Base64Util.decode(resolve(token).getPayload()), new MapTypeReference());
             // Get the no-argument constructor to create an instance.
-            T bean = targetType.getConstructor().newInstance();
+            var bean = targetType.getConstructor().newInstance();
 
-            var fields = targetType.getDeclaredFields();
-            for (var field : fields) {
-                // Ignore the field annotated with @ExcludeFromPayload.
-                if (field.isAnnotationPresent(ExcludeFromPayload.class))
+            for (var entry : payloads.entrySet()) {
+                // Jump all JWT pre-defined properties and the fields that are annotated to be excluded.
+                if (PredefinedKeys.KEYS.contains(entry.getKey()) || targetType.getDeclaredField(entry.getKey()).isAnnotationPresent(ExcludeFromPayload.class))
                     continue;
 
-                // Get the name of this field.
-                var fieldName = field.getName();
+                var field = targetType.getDeclaredField(entry.getKey());
+                var setter = targetType.getDeclaredMethod("set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1), field.getType());
+                var fieldValue = entry.getValue();
+                if (field.isAnnotationPresent(TokenEnum.class)) {
+                    var annotation = field.getAnnotation(TokenEnum.class);
+                    var enumStaticLoader = field.getType().getDeclaredMethod("loadBy" + annotation.propertyName().substring(0, 1).toUpperCase() + annotation.propertyName().substring(1), annotation.dataType().getMappedClass());
+                    fieldValue = enumStaticLoader.invoke(null, fieldValue);
+                }
 
-                // Prevent this class is annotated @Slf4j or added logger.
-                if ("log".equalsIgnoreCase(fieldName) || "logger".equalsIgnoreCase(fieldName))
-                    continue;
-
-                // Get the value of this field.
-                var fieldValue = Optional.ofNullable(claims.get(fieldName))
-                        .map(claim -> claim.as(field.getType()))
-                        .orElse(null);
-                if (fieldValue != null) {
-                    // Set the field value by invoking the setter method.
-                    var setter = targetType.getDeclaredMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), fieldValue.getClass());
+                if (setter.canAccess(bean)) {
                     setter.invoke(bean, fieldValue);
+                } else {
+                    log.error("Setter for field {} can't be accessed.", entry.getKey());
                 }
             }
-
             return bean;
-        } catch (NoSuchMethodException e) {
-            log.error("Unable to find a no-argument constructor declaration for class {}.", targetType.getCanonicalName());
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            log.error("Unable to create a new instance of class {}.", targetType.getCanonicalName());
+        } catch (JsonProcessingException e) {
+            log.error("Unable to read payload as a Map<String, Object>.", e);
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
+            log.error("Unable to load the constructor or setter.", e);
+        } catch (NoSuchFieldException e) {
+            log.error("Unable to load the field.", e);
         }
+        return null;
+    }
+
+    /**
+     * Re-generate a new token with the payload in the old one.
+     *
+     * @param oldToken    the old token
+     * @param expireAfter how long the new token can be valid for
+     * @return re-generated token with the payload in the old one or
+     * {@code null} if an {@link JsonProcessingException} occurred.
+     */
+    @Override
+    public String renew(String oldToken, Duration expireAfter) {
+        var resolved = resolve(oldToken);
+
+        try {
+            var payload = objectMapper.readValue(Base64Util.decode(resolved.getPayload()), ObjectNode.class);
+            payload.remove(PredefinedKeys.KEYS);
+
+            var payloadMap = objectMapper.convertValue(payload, new MapTypeReference());
+            return createToken(expireAfter, resolved.getAudience().get(0), resolved.getSubject(), payloadMap);
+        } catch (JsonProcessingException e) {
+            log.error("Cannot read payload content, error details:", e);
+        }
+
         return null;
     }
 
@@ -508,5 +550,10 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     @Override
     public <T extends TokenPayload> String renew(String oldToken, T payload) {
         return renew(oldToken, Duration.ofMinutes(30), payload);
+    }
+
+    private static class MapTypeReference extends TypeReference<Map<String, Object>> {
+        MapTypeReference() {
+        }
     }
 }
