@@ -29,7 +29,7 @@
 
     <groupId>cn.org.codecrafters</groupId>
     <artifactId>jdevkit</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <inceptionYear>2023</inceptionYear>
 
     <packaging>pom</packaging>
@@ -86,7 +86,7 @@
         <jar-plugin.version>3.3.0</jar-plugin.version>
 
         <!-- Dependency Versions -->
-        <logback.version>1.4.11</logback.version>
+        <logback.version>1.4.13</logback.version>
         <junit.version>5.10.0</junit.version>
         <slf4j-api.version>2.0.9</slf4j-api.version>
         <lombok.version>1.18.30</lombok.version>
