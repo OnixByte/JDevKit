@@ -60,6 +60,10 @@ public final class Base64Util {
 
     private static Base64.Decoder decoder;
 
+    private static Base64.Encoder urlEncoder;
+
+    private static Base64.Decoder urlDecoder;
+
     /**
      * Ensure that there is only one Base64 Encoder.
      *
@@ -82,6 +86,20 @@ public final class Base64Util {
             decoder = Base64.getDecoder();
         }
         return decoder;
+    }
+
+    private static Base64.Encoder getUrlEncoder() {
+        if (Objects.isNull(urlEncoder)) {
+            urlEncoder = Base64.getUrlEncoder();
+        }
+        return urlEncoder;
+    }
+
+    public static Base64.Decoder getUrlDecoder() {
+        if (Objects.isNull(urlDecoder)) {
+            urlDecoder = Base64.getUrlDecoder();
+        }
+        return urlDecoder;
     }
 
     /**
@@ -134,6 +152,52 @@ public final class Base64Util {
      */
     public static String decode(String value) {
         return decode(value, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Encodes the given string using the specified charset.
+     *
+     * @param value   the string to be encoded
+     * @param charset the charset to be used for encoding
+     * @return the Base64 encoded string
+     */
+    public static String encodeUrlComponents(String value, Charset charset) {
+        var encoded = getUrlEncoder().encode(value.getBytes(charset));
+
+        return new String(encoded);
+    }
+
+    /**
+     * Encodes the given string using the default UTF-8 charset.
+     *
+     * @param value the string to be encoded
+     * @return the Base64 encoded string
+     */
+    public static String encodeUrlComponents(String value) {
+        return encodeUrlComponents(value, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Decodes the given Base64 encoded string using the specified charset.
+     *
+     * @param value   the Base64 encoded string to be decoded
+     * @param charset the charset to be used for decoding
+     * @return the decoded string
+     */
+    public static String decodeUrlComponents(String value, Charset charset) {
+        var decoded = getUrlDecoder().decode(value.getBytes(charset));
+
+        return new String(decoded);
+    }
+
+    /**
+     * Decodes the given Base64 encoded string using the default UTF-8 charset.
+     *
+     * @param value the Base64 encoded string to be decoded
+     * @return the decoded string
+     */
+    public static String decodeUrlComponents(String value) {
+        return decodeUrlComponents(value, StandardCharsets.UTF_8);
     }
 
 }
