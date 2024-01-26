@@ -29,7 +29,7 @@
 
     <groupId>cn.org.codecrafters</groupId>
     <artifactId>jdevkit</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <inceptionYear>2023</inceptionYear>
 
     <packaging>pom</packaging>
@@ -93,6 +93,7 @@
         <jackson.version>2.15.2</jackson.version>
         <auth0-jwt.version>4.4.0</auth0-jwt.version>
         <jjwt-jwt.version>0.11.5</jjwt-jwt.version>
+        <ok-http.version>4.11.0</ok-http.version>
 
         <!-- Spring Dependency Versions -->
         <spring.version>6.0.9</spring.version>

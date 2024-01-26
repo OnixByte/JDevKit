@@ -429,7 +429,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     public <T extends TokenPayload> T extract(String token, Class<T> targetType) {
         try {
             // Get claims from token.
-            var payloads = objectMapper.readValue(Base64Util.decode(resolve(token).getPayload()), new MapTypeReference());
+            var payloads = objectMapper.readValue(Base64Util.decodeUrlComponents(resolve(token).getPayload()), new MapTypeReference());
             // Get the no-argument constructor to create an instance.
             var bean = targetType.getConstructor().newInstance();
 
@@ -478,7 +478,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         var resolved = resolve(oldToken);
 
         try {
-            var payload = objectMapper.readValue(Base64Util.decode(resolved.getPayload()), ObjectNode.class);
+            var payload = objectMapper.readValue(Base64Util.decodeUrlComponents(resolved.getPayload()), ObjectNode.class);
             payload.remove(PredefinedKeys.KEYS);
 
             var payloadMap = objectMapper.convertValue(payload, new MapTypeReference());
