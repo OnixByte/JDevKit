@@ -26,12 +26,6 @@ val logbackVersion: String by project
 val junitVersion: String by project
 val slf4jVersion: String by project
 val lombokVersion: String by project
-val jacksonVersion: String by project
-val javaJwtVersion: String by project
-val jjwtVersion: String by project
-val okhttpVersion: String by project
-val springVersion: String by project
-val springBootVersion: String by project
 
 subprojects {
     apply(plugin = "java")
