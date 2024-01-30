@@ -35,6 +35,7 @@ group = globalGroupId
 version = globalVersion
 
 dependencies {
+    implementation(project(":guid"))
     implementation(project(":simple-jwt-facade"))
     compileOnly("com.auth0:java-jwt:$javaJwtVersion")
     compileOnly(project(":simple-jwt-authzero"))

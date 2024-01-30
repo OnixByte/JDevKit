@@ -19,6 +19,7 @@ version = globalVersion
 
 dependencies {
     implementation(project(":devkit-utils"))
+    implementation(project(":guid"))
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
     implementation("io.jsonwebtoken:jjwt-impl:$jjwtVersion")

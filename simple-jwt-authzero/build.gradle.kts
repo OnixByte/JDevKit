@@ -18,6 +18,8 @@ group = globalGroupId
 version = globalVersion
 
 dependencies {
+    implementation(project(":devkit-utils"))
+    implementation(project(":guid"))
     implementation(project(":simple-jwt-facade"))
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.auth0:java-jwt:$javaJwtVersion")

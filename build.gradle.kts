@@ -18,7 +18,7 @@
 val projectUrl by extra("https://codecrafters.org.cn/JDevKit")
 val projectGithubUrl by extra("https://github.com/CodeCraftersCN/JDevKit")
 val globalGroupId by extra("cn.org.codecrafters")
-val globalVersion by extra("1.2.3")
+val globalVersion by extra("1.2.2-gradle")
 val licenseName by extra("The Apache License, Version 2.0")
 val licenseUrl by extra("https://www.apache.org/licenses/LICENSE-2.0.txt")
 
@@ -37,6 +37,8 @@ subprojects {
     val testImplementation by configurations
     val compileOnly by configurations
     val annotationProcessor by configurations
+    val testAnnotationProcessor by configurations
+    val testCompileOnly by configurations
 
     dependencies {
         compileOnly("org.slf4j:slf4j-api:$slf4jVersion")
@@ -44,7 +46,12 @@ subprojects {
         implementation("ch.qos.logback:logback-classic:$logbackVersion")
         annotationProcessor("org.slf4j:slf4j-api:$slf4jVersion")
         annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+        testCompileOnly("org.slf4j:slf4j-api:$slf4jVersion")
+        testCompileOnly("org.projectlombok:lombok:$lombokVersion")
         testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+        testAnnotationProcessor("org.slf4j:slf4j-api:$slf4jVersion")
+        testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
     }
 
     repositories {
