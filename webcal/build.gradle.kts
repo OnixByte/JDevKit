@@ -27,14 +27,14 @@ tasks.test {
 
 publishing {
     publications {
-        create<MavenPublication>("guid") {
+        create<MavenPublication>("webcal") {
             groupId = sGroupId
-            artifactId = "guid"
+            artifactId = "webcal"
             version = sVersion
 
             pom {
-                name = "DevKit - GUID"
-                description = "The guid module of JDevKit."
+                name = "DevKit :: WebCal"
+                description = "The web calendar module of JDevKit."
                 url = projectUrl
 
                 licenses {
@@ -63,7 +63,7 @@ publishing {
             from(components["java"])
 
             signing {
-                sign(publishing.publications["guid"])
+                sign(publishing.publications["webcal"])
             }
         }
 

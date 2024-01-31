@@ -59,14 +59,14 @@ tasks.test {
 
 publishing {
     publications {
-        create<MavenPublication>("guid") {
+        create<MavenPublication>("simpleJwtSpringBootStarter") {
             groupId = sGroupId
-            artifactId = "guid"
+            artifactId = "simple-jwt-spring-boot-starter"
             version = sVersion
 
             pom {
-                name = "DevKit - GUID"
-                description = "The guid module of JDevKit."
+                name = "Simple JWT :: Spring Boot Starter"
+                description = "The Spring Boot Starter of Simple JWT."
                 url = projectUrl
 
                 licenses {
@@ -95,7 +95,7 @@ publishing {
             from(components["java"])
 
             signing {
-                sign(publishing.publications["guid"])
+                sign(publishing.publications["simpleJwtSpringBootStarter"])
             }
         }
 
