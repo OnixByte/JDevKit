@@ -43,7 +43,7 @@ publishing {
 
             pom {
                 name = "Simple JWT :: JJWT"
-                description = "Simple JWT implemented by io.jsonwebtoken:jjwt library."
+                description = "SSimple JWT implemented with io.jsonwebtoken:jjwt."
                 url = projectUrl
 
                 licenses {

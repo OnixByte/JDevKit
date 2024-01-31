@@ -40,6 +40,7 @@ publishing {
 
             pom {
                 name = "Property Guard Spring Boot Starter"
+                description = "This module is made for protecting your secret properties in your spring application properties."
                 url = projectUrl
 
                 licenses {

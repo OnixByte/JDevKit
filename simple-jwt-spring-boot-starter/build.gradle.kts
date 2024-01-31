@@ -66,7 +66,7 @@ publishing {
 
             pom {
                 name = "Simple JWT :: Spring Boot Starter"
-                description = "The Spring Boot Starter of Simple JWT."
+                description = "Simple JWT all-in-one package for Spring Boot."
                 url = projectUrl
 
                 licenses {

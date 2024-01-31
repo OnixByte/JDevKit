@@ -36,7 +36,7 @@ publishing {
 
             pom {
                 name = "Simple JWT :: Facade"
-                description = "The facade of Simple JWT."
+                description = "Declaration of simple JWT module."
                 url = projectUrl
 
                 licenses {

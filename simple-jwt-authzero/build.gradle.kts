@@ -41,7 +41,7 @@ publishing {
 
             pom {
                 name = "Simple JWT :: Auth0"
-                description = "The implementation of Simple JWT using com.auth0 library."
+                description = "Simple JWT implemented with com.auth0:java-jwt."
                 url = projectUrl
 
                 licenses {

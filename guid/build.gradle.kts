@@ -34,7 +34,7 @@ publishing {
 
             pom {
                 name = "DevKit - GUID"
-                description = "The guid module of JDevKit."
+                description = "The module for generating GUIDs of JDevKit."
                 url = projectUrl
 
                 licenses {
