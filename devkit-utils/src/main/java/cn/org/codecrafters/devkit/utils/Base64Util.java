@@ -88,6 +88,11 @@ public final class Base64Util {
         return decoder;
     }
 
+    /**
+     * Ensure that there is only one Base64 URL Encoder.
+     *
+     * @return the {@link Base64.Encoder} instance
+     */
     private static Base64.Encoder getUrlEncoder() {
         if (Objects.isNull(urlEncoder)) {
             urlEncoder = Base64.getUrlEncoder();
@@ -95,6 +100,11 @@ public final class Base64Util {
         return urlEncoder;
     }
 
+    /**
+     * Ensure that there is only one Base64 URL Decoder.
+     *
+     * @return the {@link Base64.Encoder} instance
+     */
     public static Base64.Decoder getUrlDecoder() {
         if (Objects.isNull(urlDecoder)) {
             urlDecoder = Base64.getUrlDecoder();
