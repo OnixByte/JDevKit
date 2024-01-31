@@ -1,21 +1,17 @@
 import java.net.URI
 
-val globalGroupId: String by rootProject.extra
-val globalVersion: String by rootProject.extra
-val projectUrl: String by rootProject.extra
-val projectGithubUrl: String by rootProject.extra
-val licenseName: String by rootProject.extra
-val licenseUrl: String by rootProject.extra
+val sGroupId: String by project
+val sVersion: String by project
+val projectUrl: String by project
+val projectGithubUrl: String by project
+val licenseName: String by project
+val licenseUrl: String by project
 
 val jacksonVersion: String by project
-val javaJwtVersion: String by project
 val jjwtVersion: String by project
-val okhttpVersion: String by project
-val springVersion: String by project
-val springBootVersion: String by project
 
-group = globalGroupId
-version = globalVersion
+group = sGroupId
+version = sVersion
 
 dependencies {
     implementation(project(":devkit-utils"))
@@ -41,9 +37,9 @@ tasks.test {
 publishing {
     publications {
         create<MavenPublication>("simpleJwtJjwt") {
-            groupId = globalGroupId
+            groupId = sGroupId
             artifactId = "simple-jwt-jjwt"
-            version = globalVersion
+            version = sVersion
 
             pom {
                 name = "Simple JWT :: JJWT"

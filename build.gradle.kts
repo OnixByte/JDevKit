@@ -15,13 +15,6 @@
  * limitations under the License.
  */
 
-val projectUrl by extra("https://codecrafters.org.cn/JDevKit")
-val projectGithubUrl by extra("https://github.com/CodeCraftersCN/JDevKit")
-val globalGroupId by extra("cn.org.codecrafters")
-val globalVersion by extra("1.2.2-gradle")
-val licenseName by extra("The Apache License, Version 2.0")
-val licenseUrl by extra("https://www.apache.org/licenses/LICENSE-2.0.txt")
-
 val logbackVersion: String by project
 val junitVersion: String by project
 val slf4jVersion: String by project

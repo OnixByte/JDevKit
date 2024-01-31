@@ -1,14 +1,14 @@
 import java.net.URI
 
-val globalGroupId: String by rootProject.extra
-val globalVersion: String by rootProject.extra
-val projectUrl: String by rootProject.extra
-val projectGithubUrl: String by rootProject.extra
-val licenseName: String by rootProject.extra
-val licenseUrl: String by rootProject.extra
+val sGroupId: String by project
+val sVersion: String by project
+val projectUrl: String by project
+val projectGithubUrl: String by project
+val licenseName: String by project
+val licenseUrl: String by project
 
-group = globalGroupId
-version = globalVersion
+group = sGroupId
+version = sVersion
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -24,9 +24,9 @@ tasks.test {
 publishing {
     publications {
         create<MavenPublication>("devkitCore") {
-            groupId = globalGroupId
+            groupId = sGroupId
             artifactId = "devkit-core"
-            version = globalVersion
+            version = sVersion
 
             pom {
                 name = "DevKit - Core"
@@ -39,7 +39,7 @@ publishing {
                         url = licenseUrl
                     }
                 }
-                
+
                 scm {
                     connection = "scm:git:git://github.com:CodeCraftersCN/JDevKit.git"
                     developerConnection = "scm:git:git://github.com:CodeCraftersCN/JDevKit.git"
