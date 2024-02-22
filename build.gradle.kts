@@ -33,6 +33,10 @@ subprojects {
     val testAnnotationProcessor by configurations
     val testCompileOnly by configurations
 
+    tasks.withType<Jar>() {
+        exclude("logback.xml")
+    }
+
     dependencies {
         compileOnly("org.slf4j:slf4j-api:$slf4jVersion")
         compileOnly("org.projectlombok:lombok:$lombokVersion")
@@ -49,8 +53,8 @@ subprojects {
 
     repositories {
         mavenLocal()
-        maven(url = "https://codecrafters.coding.net/public-artifacts/base/public/packages/")
-        maven(url = "https://maven.proxy.ustclug.org.cn/maven2/")
+        maven(url = "https://codecrafters.coding.net/public-artifacts/common-productions/maven-packages/packages")
+        maven(url = "https://maven.proxy.ustclug.org/maven2/")
         mavenCentral()
     }
 
