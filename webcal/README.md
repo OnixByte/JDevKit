@@ -22,20 +22,18 @@ Please note that the `webcal` module adheres to the iCalendar standard specified
 
 ## Installation
 
-## Installation
-
 ### If you are using `Maven`
 
 It is quite simple to install this module by `Maven`. The only thing you need to do is find your `pom.xml` file in the project, then find the `<dependencies>` node in the `<project>` node, and add the following codes to `<dependencies>` node:
 
 ```xml
 <dependency>
-	<groupId>${implementation-builder-group-id}</groupId>
+    <groupId>${implementation-builder-group-id}</groupId>
     <artifactId>simple-jwt-${any-implementation}</artifactId>
     <version>${simple-jwt-${any-implementation}.version}</version>
 </dependency>
 <dependency>
-	<groupId>cn.org.codecrafters</groupId>
+    <groupId>cn.org.codecrafters</groupId>
     <artifactId>simple-jwt-spring-boot-starter</artifactId>
     <version>${simple-jwt-spring-boot-starter.version}</version>
 </dependency>

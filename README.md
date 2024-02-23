@@ -1,4 +1,5 @@
 # JDevKit
+
 JDevKit is a Java Development Kit that offers a set of convenient tools for writing code efficiently.
 
 ## Modules
@@ -55,23 +56,64 @@ A Simple JWT implementation using the `io.jsonwebtoken:jjwt-api` library.
 
 <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/simple-jwt-spring-boot-starter/README.md)_</span>
 
-A Spring Boot auto-configuration wrapper for the simple-jwt module, making it easier to integrate JWT functionality into Spring Boot applications.
+A Spring Boot autoconfiguration wrapper for the simple-jwt module, making it easier to integrate JWT functionality into Spring Boot applications.
 
 ## Installation and Usage
-If you are using `maven`, please paste the following codes to `pom.xml` in your project.
+
+### Before Installation
+
+For **Chinese Mainland** users, it is suggested to use maven packages services provided by coding.net.
+
+You could follow the following steps to configure.
+
+#### For Maven
+
+You could add the following codes to register Coding Nexus to your Maven.
+
+```xml
+<repository>
+    <id>codecrafters-coding-nexus</id>
+    <name>codecrafters-coding-nexus</name>
+    <url>https://codecrafters-maven.pkg.coding.net/repository/common-productions/maven-packages/</url>
+    <releases>
+        <enabled>true</enabled>
+    </releases>
+    <snapshots>
+        <enabled>true</enabled>
+    </snapshots>
+</repository>
+```
+
+#### For Gradle
+
+You could add a new repository to Gradle repositories closure.
+
+```groovy
+maven { url 'https://codecrafters-maven.pkg.coding.net/repository/common-productions/maven-packages/' }
+```
+
+```kotlin
+maven(url = "https://codecrafters-maven.pkg.coding.net/repository/common-productions/maven-packages/")
+```
+
+If you are using **Maven**, please paste the following codes to _pom.xml_ in your project.
 
 ```xml 
 <dependency>
-	<groupId>cn.org.codecrafters</groupId>
+    <groupId>cn.org.codecrafters</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
 </dependency>
 ```
 
-If you are using `gradle`, please paste the following codes to `buile.gradle` in your project.
+If you are using **Gradle**, please paste the following codes to _buile.gradle\[.kts\]_ in your project.
 
 ```groovy
 implementation 'cn.org.codecrafters:$artifactId:$version'
+```
+
+```kotlin
+implementation("cn.org.codecrafters:$artifactId:$version")
 ```
 
 If you want to check the available versions, please check out at our [official site](https://codecrafters.org.cn/devkit/changelog).
