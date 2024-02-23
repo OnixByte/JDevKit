@@ -25,6 +25,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -82,7 +83,7 @@ public class JjwtTokenResolverAutoConfiguration {
      * @param simpleJwtProperties the SimpleJwtProperties instance
      */
     @Autowired
-    public JjwtTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, GuidCreator<?> jtiCreator) {
+    public JjwtTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, @Qualifier("jtiCreator") GuidCreator<?> jtiCreator) {
         this.jtiCreator = jtiCreator;
         this.simpleJwtProperties = simpleJwtProperties;
     }

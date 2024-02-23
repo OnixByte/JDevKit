@@ -39,7 +39,7 @@ import java.util.UUID;
 @AutoConfiguration
 public class GuidAutoConfiguration {
 
-    @Bean
+    @Bean(name = "jtiCreator")
     @Conditional(GuidCreatorCondition.class)
     public GuidCreator<?> jtiCreator() {
         return UUID::randomUUID;

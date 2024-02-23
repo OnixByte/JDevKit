@@ -25,6 +25,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -85,7 +86,7 @@ public class AuthzeroTokenResolverAutoConfiguration {
      * @param objectMapper Jackson JSON Handler
      */
     @Autowired
-    public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, GuidCreator<?> jtiCreator, ObjectMapper objectMapper) {
+    public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, @Qualifier("jtiCreator") GuidCreator<?> jtiCreator, ObjectMapper objectMapper) {
         this.jtiCreator = jtiCreator;
         this.simpleJwtProperties = simpleJwtProperties;
         this.objectMapper = objectMapper;
