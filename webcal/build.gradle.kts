@@ -1,14 +1,14 @@
 import java.net.URI
 
-val sGroupId: String by project
-val sVersion: String by project
+val buildGroupId: String by project
+val buildVersion: String by project
 val projectUrl: String by project
 val projectGithubUrl: String by project
 val licenseName: String by project
 val licenseUrl: String by project
 
-group = sGroupId
-version = sVersion
+group = buildGroupId
+version = buildVersion
 
 dependencies {
     implementation(project(":devkit-core"))
@@ -28,9 +28,9 @@ tasks.test {
 publishing {
     publications {
         create<MavenPublication>("webcal") {
-            groupId = sGroupId
+            groupId = buildGroupId
             artifactId = "webcal"
-            version = sVersion
+            version = buildVersion
 
             pom {
                 name = "DevKit :: WebCal"
