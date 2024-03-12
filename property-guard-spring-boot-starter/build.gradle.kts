@@ -17,8 +17,8 @@
 
 import java.net.URI
 
-val sGroupId: String by project
-val sVersion: String by project
+val buildGroupId: String by project
+val buildVersion: String by project
 val projectUrl: String by project
 val projectGithubUrl: String by project
 val licenseName: String by project
@@ -26,8 +26,8 @@ val licenseUrl: String by project
 
 val springBootVersion: String by project
 
-group = sGroupId
-version = sVersion
+group = buildGroupId
+version = buildVersion
 
 dependencies {
     implementation(project(":devkit-utils"))
@@ -51,9 +51,9 @@ tasks.test {
 publishing {
     publications {
         create<MavenPublication>("propertyGuardSpringBootStarter") {
-            groupId = sGroupId
+            groupId = buildGroupId
             artifactId = "property-guard-spring-boot-starter"
-            version = sVersion
+            version = buildVersion
 
             pom {
                 name = "Property Guard Spring Boot Starter"

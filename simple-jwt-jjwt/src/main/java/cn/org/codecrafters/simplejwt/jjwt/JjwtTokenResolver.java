@@ -111,9 +111,10 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
     /**
      * Create a resolver with specified algorithm, issuer, secret and guid strategy.
      *
-     * @param algorithm specified algorithm
-     * @param issuer    specified issuer
-     * @param secret    specified secret
+     * @param jtiCreator jwt id creator
+     * @param algorithm  specified algorithm
+     * @param issuer     specified issuer
+     * @param secret     specified secret
      */
     public JjwtTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret) {
         if (Objects.isNull(secret) || secret.isBlank()) {
