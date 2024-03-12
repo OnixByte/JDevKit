@@ -28,17 +28,16 @@ import cn.org.codecrafters.simplejwt.constants.PredefinedKeys;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import cn.org.codecrafters.simplejwt.exceptions.WeakSecretException;
 import cn.org.codecrafters.simplejwt.jjwt.config.JjwtTokenResolverConfig;
-import com.fasterxml.jackson.core.type.TypeReference;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.crypto.SecretKey;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -46,7 +45,7 @@ import java.util.*;
 
 /**
  * The {@link JjwtTokenResolver} class is an implementation of the {@link
- * cn.org.codecrafters.simplejwt.TokenResolver} interface. It uses the {@code
+ * TokenResolver} interface. It uses the {@code
  * io.jsonwebtoken:jjwt} library to handle JSON Web Token (JWT) resolution.
  * This resolver provides functionality to create, extract, verify, and renew
  * JWT tokens using various algorithms and custom payload data.
@@ -92,7 +91,7 @@ import java.util.*;
  * @see Claims
  * @see Jws
  * @see Jwts
- * @see SignatureAlgorithm
+ * @see SecureDigestAlgorithm
  * @see Keys
  * @since 1.0.0
  */
@@ -101,14 +100,21 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
 
     private final GuidCreator<?> jtiCreator;
 
-    private final SignatureAlgorithm algorithm;
+    private final SecureDigestAlgorithm<SecretKey, SecretKey> algorithm;
 
     private final String issuer;
 
-    private final Key key;
+    private final SecretKey key;
 
     private final JjwtTokenResolverConfig config = JjwtTokenResolverConfig.getInstance();
 
+    /**
+     * Create a resolver with specified algorithm, issuer, secret and guid strategy.
+     *
+     * @param algorithm specified algorithm
+     * @param issuer    specified issuer
+     * @param secret    specified secret
+     */
     public JjwtTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret) {
         if (Objects.isNull(secret) || secret.isBlank()) {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
@@ -129,6 +135,13 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Create a resolver with specified algorithm, issuer, secret and default guid strategy.
+     *
+     * @param algorithm specified algorithm
+     * @param issuer    specified issuer
+     * @param secret    specified secret
+     */
     public JjwtTokenResolver(TokenAlgorithm algorithm, String issuer, String secret) {
         if (secret == null || secret.isBlank()) {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
@@ -149,6 +162,13 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Create a resolver with specified issuer, secret, default algorithm and guid strategy.
+     *
+     * @param issuer specified issuer
+     * @param secret specified secret
+     * @see #JjwtTokenResolver(TokenAlgorithm, String, String)
+     */
     public JjwtTokenResolver(String issuer, String secret) {
         if (secret == null || secret.isBlank()) {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
@@ -169,31 +189,17 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Create a resolver with specified issuer, random secret string, default algorithm and guid strategy.
+     *
+     * @param issuer specified issuer
+     * @see #JjwtTokenResolver(String, String)
+     */
     public JjwtTokenResolver(String issuer) {
         this.jtiCreator = UUID::randomUUID;
         this.algorithm = config.getAlgorithm(TokenAlgorithm.HS256);
         this.issuer = issuer;
         this.key = Keys.hmacShaKeyFor(SecretCreator.createSecret(32, true, true, true).getBytes(StandardCharsets.UTF_8));
-    }
-
-    private String buildToken(Duration expireAfter, String audience, String subject, Map<String, Object> claims) {
-        var now = LocalDateTime.now();
-        var builder = Jwts.builder()
-                .setHeaderParam("typ", "JWT")
-                .setIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
-                .setNotBefore(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
-                .setExpiration(Date.from(now.plus(expireAfter).atZone(ZoneId.systemDefault()).toInstant()))
-                .setSubject(subject)
-                .setAudience(audience)
-                .setIssuer(this.issuer)
-                .setId(jtiCreator.nextId().toString());
-
-        if (claims != null && !claims.isEmpty()) {
-            builder.addClaims(claims);
-        }
-
-        return builder.signWith(key, algorithm)
-                .compact();
     }
 
     /**
@@ -280,10 +286,10 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public Jws<Claims> resolve(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
+        return Jwts.parser()
+                .verifyWith(key)
                 .build()
-                .parseClaimsJws(token);
+                .parseSignedClaims(token);
     }
 
     /**
@@ -300,7 +306,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
     public <T extends TokenPayload> T extract(String token, Class<T> targetType) {
         var resolvedToken = resolve(token);
 
-        var claims = resolvedToken.getBody();
+        var claims = resolvedToken.getPayload();
         try {
             var bean = targetType.getConstructor().newInstance();
 
@@ -351,9 +357,9 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
     @Override
     public String renew(String oldToken, Duration expireAfter) {
         var resolvedToken = resolve(oldToken);
-        var tokenPayloads = resolvedToken.getBody();
+        var tokenPayloads = resolvedToken.getPayload();
 
-        var audience = tokenPayloads.getAudience();
+        var audience = tokenPayloads.getAudience().toArray(new String[]{})[0];
         var subject = tokenPayloads.getSubject();
 
         PredefinedKeys.KEYS.forEach(tokenPayloads::remove);
@@ -372,8 +378,8 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public String renew(String oldToken, Duration expireAfter, Map<String, Object> payload) {
-        var resolvedTokenClaims = resolve(oldToken).getBody();
-        var audience = resolvedTokenClaims.getAudience();
+        var resolvedTokenClaims = resolve(oldToken).getPayload();
+        var audience = resolvedTokenClaims.getAudience().toArray(new String[]{})[0];
         var subject = resolvedTokenClaims.getSubject();
 
         return createToken(expireAfter, audience, subject, payload);
@@ -404,8 +410,8 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      */
     @Override
     public <T extends TokenPayload> String renew(String oldToken, Duration expireAfter, T payload) {
-        var resolvedTokenClaims = resolve(oldToken).getBody();
-        var audience = resolvedTokenClaims.getAudience();
+        var resolvedTokenClaims = resolve(oldToken).getPayload();
+        var audience = resolvedTokenClaims.getAudience().toArray(new String[]{})[0];
         var subject = resolvedTokenClaims.getSubject();
 
         return createToken(expireAfter, audience, subject, payload);
@@ -423,5 +429,27 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
     @Override
     public <T extends TokenPayload> String renew(String oldToken, T payload) {
         return renew(oldToken, Duration.ofMinutes(30), payload);
+    }
+
+    private String buildToken(Duration expireAfter, String audience, String subject, Map<String, Object> claims) {
+        var now = LocalDateTime.now();
+        var builder = Jwts.builder()
+                .header().add("typ", "JWT")
+                .and()
+                .issuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
+                .notBefore(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
+                .expiration(Date.from(now.plus(expireAfter).atZone(ZoneId.systemDefault()).toInstant()))
+                .subject(subject)
+                .issuer(this.issuer)
+                .audience().add(audience)
+                .and()
+                .id(jtiCreator.nextId().toString());
+
+        if (claims != null && !claims.isEmpty()) {
+            builder.claims(claims);
+        }
+
+        return builder.signWith(key, algorithm)
+                .compact();
     }
 }

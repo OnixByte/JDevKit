@@ -22,8 +22,12 @@ import cn.org.codecrafters.simplejwt.config.TokenResolverConfig;
 import cn.org.codecrafters.simplejwt.constants.TokenAlgorithm;
 import cn.org.codecrafters.simplejwt.exceptions.UnsupportedAlgorithmException;
 import cn.org.codecrafters.simplejwt.jjwt.JjwtTokenResolver;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.MacAlgorithm;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 
+import javax.crypto.SecretKey;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,15 +61,15 @@ import java.util.Map;
  * @version 1.1.1
  * @since 1.0.0
  */
-public final class JjwtTokenResolverConfig implements TokenResolverConfig<SignatureAlgorithm> {
+public final class JjwtTokenResolverConfig implements TokenResolverConfig<SecureDigestAlgorithm<SecretKey, SecretKey>> {
 
     private JjwtTokenResolverConfig() {
     }
 
-    private static final Map<TokenAlgorithm, SignatureAlgorithm> SUPPORTED_ALGORITHMS = new HashMap<>() {{
-        put(TokenAlgorithm.HS256, SignatureAlgorithm.HS256);
-        put(TokenAlgorithm.HS384, SignatureAlgorithm.HS384);
-        put(TokenAlgorithm.HS512, SignatureAlgorithm.HS512);
+    private static final Map<TokenAlgorithm, SecureDigestAlgorithm<SecretKey, SecretKey>> SUPPORTED_ALGORITHMS = new HashMap<>() {{
+        put(TokenAlgorithm.HS256, Jwts.SIG.HS256);
+        put(TokenAlgorithm.HS384, Jwts.SIG.HS384);
+        put(TokenAlgorithm.HS512, Jwts.SIG.HS512);
     }};
 
     private static JjwtTokenResolverConfig instance;
@@ -95,7 +99,7 @@ public final class JjwtTokenResolverConfig implements TokenResolverConfig<Signat
      * TokenAlgorithm}
      */
     @Override
-    public SignatureAlgorithm getAlgorithm(TokenAlgorithm algorithm) {
+    public SecureDigestAlgorithm<SecretKey, SecretKey> getAlgorithm(TokenAlgorithm algorithm) {
         if (!SUPPORTED_ALGORITHMS.containsKey(algorithm)) {
             throw new UnsupportedAlgorithmException("""
                     The request algorithm is not supported by our system yet. Please change to supported ones.""");
