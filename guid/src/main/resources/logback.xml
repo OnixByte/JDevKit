@@ -15,24 +15,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <configuration>
+    <property name="COLOURFUL_OUTPUT" value="%black(%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK}) %highlight(%-5level) %black(---) %black([%10.10t]) %cyan(%-20.20logger{20}) %black(:) %msg%n"/>
+    <property name="STANDARD_OUTPUT" value="%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK} %-5level %black(---) [%10.10t] %-20.20logger{20} : %msg%n"/>
 
     <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
-
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} : %msg%n</pattern>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${COLOURFUL_OUTPUT}</pattern>
         </encoder>
     </appender>
-
-    <appender name="STDOUT-C" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%date{yyyy-MM-dd HH:mm:ss} [%thread] %highlight(%-5level) %cyan(%logger{50}) : %msg%n</pattern>
-        </encoder>
-    </appender>
-
     <root level="INFO">
-        <appender-ref ref="STDOUT-C"/>
+        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
