@@ -267,24 +267,24 @@ public final class WebCalendarEvent extends WebCalendarNode {
                         DURATION:PT{6}S
                         {4}{5}{7}{8}{9}{10}{11}{12}
                         END:{0}""",
-                TAG, // 0 - tag
-                Optional.ofNullable(uid).orElse(UUID.randomUUID().toString()) + "@" + domainName, // 1 - uid
-                now.format(DateAndTimeFormatter.getUtcDatetimeFormatter()), // 2 - dtstamp
-                start.atZone(ZoneId.systemDefault()).format(DateAndTimeFormatter.getUtcDatetimeFormatter()), // 3 - start time
-                Optional.ofNullable(summary).map((item) -> "\nSUMMARY:" + item).orElse(""), // 4 - summary
-                Optional.ofNullable(categories)
-                        .map((item) -> !item.isEmpty() ? "\nCATEGORIES:" + resolveCategories() : null).orElse(""), // 5 - categories
-                Optional.ofNullable(duration)
+                /* 0 - tag */TAG,
+                /* 1 - uid */ Optional.ofNullable(uid).orElse(UUID.randomUUID().toString()) + "@" + domainName,
+                /* 2 - dtstamp */ now.format(DateAndTimeFormatter.getUtcDatetimeFormatter()),
+                /* 3 - start time */ start.atZone(ZoneId.systemDefault()).format(DateAndTimeFormatter.getUtcDatetimeFormatter()),
+                /* 4 - summary */ Optional.ofNullable(summary).map((item) -> "\nSUMMARY:" + item).orElse(""),
+                /* 5 - categories */ Optional.ofNullable(categories)
+                        .map((item) -> !item.isEmpty() ? "\nCATEGORIES:" + resolveCategories() : null).orElse(""),
+                /* 6 - duration */ Optional.ofNullable(duration)
                         .map((_duration) -> String.valueOf(_duration.getSeconds()))
                         .orElse(Optional.ofNullable(end)
                                 .map((_end) -> String.valueOf(Duration.between(_end, start).getSeconds()))
-                                .orElse("0")), // 6 - duration
-                Optional.ofNullable(classification).map((_classification) -> "\nCLASS:" + _classification + "\n").orElse(""), /* 7 - classification */
-                Optional.ofNullable(comment).map((_comment) -> "\nCOMMENT:" + _comment + "\n").orElse(""), /* 8 - comment */
-                Optional.ofNullable(location).map((_location) -> "\nLOCATION:" + _location).orElse("") /* 9 - location */,
-                Optional.ofNullable(percentComplete).map((_percentComplete) -> "\nPERCENT-COMPLETE:" + _percentComplete).orElse("") /* 10 = percentComplete */,
-                Optional.ofNullable(description).map((_description) -> "\nDESCRIPTION:" + _description).orElse("") /* 11 - description */,
-                Optional.ofNullable(priority).map((_priority) -> "\nPRIORITY:" + _priority).orElse("") /* 12 - priority */
+                                .orElse("0")),
+                /* 7 - classification */ Optional.ofNullable(classification).map((_classification) -> "\nCLASS:" + _classification + "\n").orElse(""),
+                /* 8 - comment */ Optional.ofNullable(comment).map((_comment) -> "\nCOMMENT:" + _comment + "\n").orElse(""),
+                /* 9 - location */ Optional.ofNullable(location).map((_location) -> "\nLOCATION:" + _location).orElse(""),
+                /* 10 = percentComplete */ Optional.ofNullable(percentComplete).map((_percentComplete) -> "\nPERCENT-COMPLETE:" + _percentComplete).orElse(""),
+                /* 11 - description */ Optional.ofNullable(description).map((_description) -> "\nDESCRIPTION:" + _description).orElse(""),
+                /* 12 - priority */ Optional.ofNullable(priority).map((_priority) -> "\nPRIORITY:" + _priority).orElse("")
         );
     }
 
