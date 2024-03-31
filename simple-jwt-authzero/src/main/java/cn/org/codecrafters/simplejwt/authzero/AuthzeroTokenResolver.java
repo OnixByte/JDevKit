@@ -105,34 +105,6 @@ import java.util.*;
 public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
 
     /**
-     * GuidCreator used for generating unique identifiers for "jti" claim in
-     * JWT tokens.
-     */
-    private final GuidCreator<?> jtiCreator;
-
-    /**
-     * The algorithm used for signing and verifying JWT tokens.
-     */
-    private final Algorithm algorithm;
-
-    /**
-     * The issuer claim value to be included in JWT tokens.
-     */
-    private final String issuer;
-
-    /**
-     * The JSON Web Token resolver.
-     */
-    private final JWTVerifier verifier;
-
-    /**
-     * Jackson JSON handler.
-     */
-    private final ObjectMapper objectMapper;
-
-    private final AuthzeroTokenResolverConfig config = AuthzeroTokenResolverConfig.getInstance();
-
-    /**
      * Creates a new instance of {@code AuthzeroTokenResolver} with the
      * provided configurations.
      *
@@ -150,7 +122,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
             throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
         }
 
-        if (secret.length() <= 32) {
+        if (secret.length() < 32) {
             log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
         }
 
@@ -222,104 +194,6 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         this.objectMapper = new ObjectMapper();
 
         log.info("The secret has been set to {}.", secret);
-    }
-
-    /**
-     * Builds the basic information of the JSON Web Token (JWT) using the
-     * provided parameters and adds it to the JWTCreator.Builder.
-     *
-     * @param subject     the subject claim value to be included in the JWT
-     * @param audience    an array of audience claim values to be included in
-     *                    the JWT
-     * @param expireAfter the duration after which the JWT will expire
-     * @param builder     the JWTCreator.Builder instance to which the basic
-     *                    information will be added
-     */
-    private void buildBasicInfo(JWTCreator.Builder builder, Duration expireAfter, String subject, String... audience) {
-        var now = LocalDateTime.now();
-
-        // bind issuer (iss)
-        builder.withIssuer(issuer);
-        // bind issued at (iat)
-        builder.withIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
-        // bind not before (nbf)
-        builder.withNotBefore(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
-        // bind audience (aud)
-        builder.withAudience(audience);
-        // bind subject (sub)
-        builder.withSubject(subject);
-        // bind expire at (exp)
-        builder.withExpiresAt(Date.from(now.plus(expireAfter).atZone(ZoneId.systemDefault()).toInstant()));
-        // bind JWT Id (jti)
-        builder.withJWTId(jtiCreator.nextId().toString());
-    }
-
-    /**
-     * Add a claim to a builder.
-     *
-     * @param builder the builder to build this JSON Web Token
-     * @param name    the property name
-     * @param value   the property value
-     */
-    private void addClaim(JWTCreator.Builder builder, String name, Object value) {
-        if (Objects.nonNull(value)) {
-            if (value instanceof Boolean v) {
-                builder.withClaim(name, v);
-            } else if (value instanceof Double v) {
-                builder.withClaim(name, v);
-            } else if (value instanceof Float v) {
-                builder.withClaim(name, v.doubleValue());
-            } else if (value instanceof Integer v) {
-                builder.withClaim(name, v);
-            } else if (value instanceof Long v) {
-                builder.withClaim(name, v);
-            } else if (value instanceof String v) {
-                builder.withClaim(name, v);
-            } else if (value instanceof Date v) {
-                builder.withClaim(name, v);
-            } else if (value instanceof List<?> v) {
-                builder.withClaim(name, v);
-            } else {
-                log.warn("""
-                        Unable to determine the type of field {}, we will handle it as a String.""", name);
-                builder.withClaim(name, value.toString());
-            }
-        } else {
-            builder.withNullClaim(name);
-        }
-    }
-
-    /**
-     * Builds the custom claims of the JSON Web Token (JWT) using the provided
-     * Map of claims and adds them to the JWTCreator.Builder.
-     * <p>
-     * This method is used to add custom claims to the JWT. It takes a Map of
-     * claims, where each entry represents a custom claim name (key) and its
-     * corresponding value (value). The custom claims will be added to the JWT
-     * using the JWTCreator.Builder.
-     *
-     * @param claims  a Map containing the custom claims to be added to the JWT
-     * @param builder the JWTCreator.Builder instance to which the custom
-     *                claims will be added
-     */
-    private void buildMapClaims(JWTCreator.Builder builder, Map<String, Object> claims) {
-        if (Objects.nonNull(claims)) {
-            for (var e : claims.entrySet()) {
-                addClaim(builder, e.getKey(), e.getValue());
-            }
-        }
-    }
-
-    /**
-     * Finish creating a token.
-     * <p>
-     * This is the final step of create a token, to sign this token.
-     *
-     * @param builder the builder to build this JWT
-     * @return the generated token as a {@code String}
-     */
-    private String buildToken(JWTCreator.Builder builder) {
-        return builder.sign(algorithm);
     }
 
     /**
@@ -552,8 +426,137 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         return renew(oldToken, Duration.ofMinutes(30), payload);
     }
 
+    /**
+     * Builds the basic information of the JSON Web Token (JWT) using the
+     * provided parameters and adds it to the JWTCreator.Builder.
+     *
+     * @param subject     the subject claim value to be included in the JWT
+     * @param audience    an array of audience claim values to be included in
+     *                    the JWT
+     * @param expireAfter the duration after which the JWT will expire
+     * @param builder     the JWTCreator.Builder instance to which the basic
+     *                    information will be added
+     */
+    private void buildBasicInfo(JWTCreator.Builder builder, Duration expireAfter, String subject, String... audience) {
+        var now = LocalDateTime.now();
+
+        // bind issuer (iss)
+        builder.withIssuer(issuer);
+        // bind issued at (iat)
+        builder.withIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+        // bind not before (nbf)
+        builder.withNotBefore(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+        // bind audience (aud)
+        builder.withAudience(audience);
+        // bind subject (sub)
+        builder.withSubject(subject);
+        // bind expire at (exp)
+        builder.withExpiresAt(Date.from(now.plus(expireAfter).atZone(ZoneId.systemDefault()).toInstant()));
+        // bind JWT Id (jti)
+        builder.withJWTId(jtiCreator.nextId().toString());
+    }
+
+    /**
+     * Add a claim to a builder.
+     *
+     * @param builder the builder to build this JSON Web Token
+     * @param name    the property name
+     * @param value   the property value
+     */
+    private void addClaim(JWTCreator.Builder builder, String name, Object value) {
+        if (Objects.nonNull(value)) {
+            if (value instanceof Boolean v) {
+                builder.withClaim(name, v);
+            } else if (value instanceof Double v) {
+                builder.withClaim(name, v);
+            } else if (value instanceof Float v) {
+                builder.withClaim(name, v.doubleValue());
+            } else if (value instanceof Integer v) {
+                builder.withClaim(name, v);
+            } else if (value instanceof Long v) {
+                builder.withClaim(name, v);
+            } else if (value instanceof String v) {
+                builder.withClaim(name, v);
+            } else if (value instanceof Date v) {
+                builder.withClaim(name, v);
+            } else if (value instanceof List<?> v) {
+                builder.withClaim(name, v);
+            } else {
+                log.warn("""
+                        Unable to determine the type of field {}, we will handle it as a String.""", name);
+                builder.withClaim(name, value.toString());
+            }
+        } else {
+            builder.withNullClaim(name);
+        }
+    }
+
+    /**
+     * Builds the custom claims of the JSON Web Token (JWT) using the provided
+     * Map of claims and adds them to the JWTCreator.Builder.
+     * <p>
+     * This method is used to add custom claims to the JWT. It takes a Map of
+     * claims, where each entry represents a custom claim name (key) and its
+     * corresponding value (value). The custom claims will be added to the JWT
+     * using the JWTCreator.Builder.
+     *
+     * @param claims  a Map containing the custom claims to be added to the JWT
+     * @param builder the JWTCreator.Builder instance to which the custom
+     *                claims will be added
+     */
+    private void buildMapClaims(JWTCreator.Builder builder, Map<String, Object> claims) {
+        if (Objects.nonNull(claims)) {
+            for (var e : claims.entrySet()) {
+                addClaim(builder, e.getKey(), e.getValue());
+            }
+        }
+    }
+
+    /**
+     * Finish creating a token.
+     * <p>
+     * This is the final step of create a token, to sign this token.
+     *
+     * @param builder the builder to build this JWT
+     * @return the generated token as a {@code String}
+     */
+    private String buildToken(JWTCreator.Builder builder) {
+        return builder.sign(algorithm);
+    }
+
+    /**
+     * Default type reference for Map.
+     */
     private static class MapTypeReference extends TypeReference<Map<String, Object>> {
         MapTypeReference() {
         }
     }
+
+    /**
+     * GuidCreator used for generating unique identifiers for "jti" claim in
+     * JWT tokens.
+     */
+    private final GuidCreator<?> jtiCreator;
+
+    /**
+     * The algorithm used for signing and verifying JWT tokens.
+     */
+    private final Algorithm algorithm;
+
+    /**
+     * The issuer claim value to be included in JWT tokens.
+     */
+    private final String issuer;
+
+    /**
+     * The JSON Web Token resolver.
+     */
+    private final JWTVerifier verifier;
+
+    /**
+     * Jackson JSON handler.
+     */
+    private final ObjectMapper objectMapper;
+
+    private final AuthzeroTokenResolverConfig config = AuthzeroTokenResolverConfig.getInstance();
 }

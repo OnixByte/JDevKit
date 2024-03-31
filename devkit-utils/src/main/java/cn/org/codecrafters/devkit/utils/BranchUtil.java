@@ -78,11 +78,6 @@ import java.util.function.Supplier;
 public final class BranchUtil<T> {
 
     /**
-     * The final result of the boolean expression.
-     */
-    private final boolean result;
-
-    /**
      * Create a {@code BranchUtil} instance.
      *
      * @param result the result of the boolean expressions.
@@ -238,5 +233,10 @@ public final class BranchUtil<T> {
     public void handle(Runnable ifHandler) {
         handle(ifHandler, null);
     }
+
+    /**
+     * The final result of the boolean expression.
+     */
+    private final boolean result;
 
 }

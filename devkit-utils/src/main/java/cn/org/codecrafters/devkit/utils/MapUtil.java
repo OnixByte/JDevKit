@@ -38,12 +38,6 @@ import java.util.Map;
 public final class MapUtil {
 
     /**
-     * Private constructor to prevent instantiation of MapUtil.
-     */
-    private MapUtil() {
-    }
-
-    /**
      * Converts an object to a map by mapping the field names to their
      * corresponding values.
      *
@@ -218,5 +212,11 @@ public final class MapUtil {
         } else {
             return String.valueOf(obj);
         }
+    }
+
+    /**
+     * Private constructor will protect this class from being instantiated.
+     */
+    private MapUtil() {
     }
 }

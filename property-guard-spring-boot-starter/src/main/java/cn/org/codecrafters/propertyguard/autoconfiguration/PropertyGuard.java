@@ -70,8 +70,6 @@ import java.util.Optional;
  */
 public class PropertyGuard implements EnvironmentPostProcessor {
 
-    private final String PREFIX = "pg";
-
     /**
      * Process the encryption environment variables.
      *
@@ -108,4 +106,6 @@ public class PropertyGuard implements EnvironmentPostProcessor {
             }
         }
     }
+
+    private static final String PREFIX = "pg";
 }

@@ -56,14 +56,6 @@ import java.util.Objects;
  */
 public final class Base64Util {
 
-    private static Base64.Encoder encoder;
-
-    private static Base64.Decoder decoder;
-
-    private static Base64.Encoder urlEncoder;
-
-    private static Base64.Decoder urlDecoder;
-
     /**
      * Ensure that there is only one Base64 Encoder.
      *
@@ -209,5 +201,13 @@ public final class Base64Util {
     public static String decodeUrlComponents(String value) {
         return decodeUrlComponents(value, StandardCharsets.UTF_8);
     }
+
+    private static Base64.Encoder encoder;
+
+    private static Base64.Decoder decoder;
+
+    private static Base64.Encoder urlEncoder;
+
+    private static Base64.Decoder urlDecoder;
 
 }

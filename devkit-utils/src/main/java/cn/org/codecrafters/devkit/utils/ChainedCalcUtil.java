@@ -96,12 +96,6 @@ import java.util.function.Function;
 public final class ChainedCalcUtil {
 
     /**
-     * -- GETTER --
-     * Returns the current value as a BigDecimal.
-     */
-    private BigDecimal value;
-
-    /**
      * Creates a {@code ChainedCalcUtil} instance with the specified initial
      * value.
      *
@@ -358,5 +352,11 @@ public final class ChainedCalcUtil {
         }
         return res;
     }
+
+    /**
+     * -- GETTER --
+     * Returns the current value as a BigDecimal.
+     */
+    private BigDecimal value;
 
 }

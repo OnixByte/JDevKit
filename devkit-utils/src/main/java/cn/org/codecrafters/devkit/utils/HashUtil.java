@@ -70,48 +70,6 @@ import java.util.Optional;
 public final class HashUtil {
 
     /**
-     * Private constructor to prevent instantiation
-     */
-    private HashUtil() {
-    }
-
-    /**
-     * Calculates the hash value of the specified string using the specified
-     * algorithm and charset.
-     *
-     * @param method  the hash algorithm to use
-     * @param value   the string to calculate the hash value for
-     * @param charset the charset to use for encoding the string (default is
-     *                UTF-8 if null)
-     * @return the hash value as a hexadecimal string, or an empty string if
-     * the algorithm is not available
-     * @throws RuntimeException if an unknown algorithm name is provided
-     *                          (should not occur under controlled usage)
-     */
-    private static String hash(String method, String value, Charset charset) {
-        try {
-            var messageDigest = MessageDigest.getInstance(method);
-            messageDigest.update(value.getBytes(charset));
-            var bytes = messageDigest.digest();
-            var builder = new StringBuilder();
-
-            for (var b : bytes) {
-                var str = Integer.toHexString(b & 0xff);
-                if (str.length() == 1) {
-                    builder.append(0);
-                }
-                builder.append(str);
-            }
-
-            return builder.toString();
-        } catch (NoSuchAlgorithmException ignored) {
-            // This should not occur under controlled usage
-            // Only trusted algorithms are allowed
-            return "";
-        }
-    }
-
-    /**
      * Calculates the MD2 hash value of the specified string using the given
      * charset.
      *
@@ -284,6 +242,48 @@ public final class HashUtil {
      */
     public static String sha512(String value) {
         return hash("SHA-512", value, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Private constructor will protect this class from being instantiated.
+     */
+    private HashUtil() {
+    }
+
+    /**
+     * Calculates the hash value of the specified string using the specified
+     * algorithm and charset.
+     *
+     * @param method  the hash algorithm to use
+     * @param value   the string to calculate the hash value for
+     * @param charset the charset to use for encoding the string (default is
+     *                UTF-8 if null)
+     * @return the hash value as a hexadecimal string, or an empty string if
+     * the algorithm is not available
+     * @throws RuntimeException if an unknown algorithm name is provided
+     *                          (should not occur under controlled usage)
+     */
+    private static String hash(String method, String value, Charset charset) {
+        try {
+            var messageDigest = MessageDigest.getInstance(method);
+            messageDigest.update(value.getBytes(charset));
+            var bytes = messageDigest.digest();
+            var builder = new StringBuilder();
+
+            for (var b : bytes) {
+                var str = Integer.toHexString(b & 0xff);
+                if (str.length() == 1) {
+                    builder.append(0);
+                }
+                builder.append(str);
+            }
+
+            return builder.toString();
+        } catch (NoSuchAlgorithmException ignored) {
+            // This should not occur under controlled usage
+            // Only trusted algorithms are allowed
+            return "";
+        }
     }
 
 }

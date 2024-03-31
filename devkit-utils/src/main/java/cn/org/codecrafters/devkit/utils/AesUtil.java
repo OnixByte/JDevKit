@@ -44,13 +44,6 @@ import java.util.UUID;
 @Slf4j
 public final class AesUtil {
 
-    private AesUtil() {
-    }
-
-    private static final String AES = "AES";
-
-    private static final String AES_CBC_CIPHER = "AES/CBC/PKCS5Padding";
-
     /**
      * Encrypts the data using the AES algorithm with the given secret.
      *
@@ -132,5 +125,21 @@ public final class AesUtil {
     public static String generateRandomSecret() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 16);
     }
+
+    /**
+     * Private constructor will protect this class from being instantiated.
+     */
+    private AesUtil() {
+    }
+
+    /**
+     * The algorithm AES.
+     */
+    private static final String AES = "AES";
+
+    /**
+     * The algorithm AES/CBC/PKCS5Padding.
+     */
+    private static final String AES_CBC_CIPHER = "AES/CBC/PKCS5Padding";
 
 }

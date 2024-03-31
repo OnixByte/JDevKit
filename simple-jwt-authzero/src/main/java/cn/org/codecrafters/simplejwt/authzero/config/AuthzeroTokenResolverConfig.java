@@ -63,42 +63,6 @@ import java.util.function.Function;
 public final class AuthzeroTokenResolverConfig implements TokenResolverConfig<Function<String, Algorithm>> {
 
     /**
-     * Constructs a new instance of {@code AuthzeroTokenResolverConfig}.
-     * <p>
-     * The constructor is set as private to enforce the singleton pattern for
-     * this configuration class. Instances of
-     * {@code AuthzeroTokenResolverConfig} should be obtained through the
-     * {@link #getInstance()} method.
-     */
-    private AuthzeroTokenResolverConfig() {
-    }
-
-    /**
-     * The singleton instance of {@code AuthzeroTokenResolverConfig}.
-     * <p>
-     * This instance is used to ensure that only one instance of
-     * {@code AuthzeroTokenResolverConfig} is created and shared throughout the
-     * application. The singleton pattern is implemented to provide centralised
-     * configuration and avoid redundant object creation.
-     */
-    private static AuthzeroTokenResolverConfig instance;
-
-    /**
-     * The supported algorithms and their corresponding algorithm functions.
-     * <p>
-     * This map stores the supported algorithms as keys and their corresponding
-     * algorithm functions as values. The algorithm functions represent the
-     * functions used by the {@code com.auth0:java-jwt} library to handle the
-     * specific algorithms. The mapping is used to provide proper algorithm
-     * resolution and processing within the {@link AuthzeroTokenResolver}.
-     */
-    private static final Map<TokenAlgorithm, Function<String, Algorithm>> SUPPORTED_ALGORITHMS = new HashMap<>() {{
-        put(TokenAlgorithm.HS256, Algorithm::HMAC256);
-        put(TokenAlgorithm.HS384, Algorithm::HMAC384);
-        put(TokenAlgorithm.HS512, Algorithm::HMAC512);
-    }};
-
-    /**
      * Gets the instance of {@code AuthzeroTokenResolverConfig}.
      * <p>
      * This method returns the singleton instance of
@@ -140,4 +104,40 @@ public final class AuthzeroTokenResolverConfig implements TokenResolverConfig<Fu
         return Optional.of(SUPPORTED_ALGORITHMS).map((entry) -> entry.get(algorithm))
                 .orElseThrow(() -> new UnsupportedAlgorithmException("The specified algorithm is not supported yet."));
     }
+
+    /**
+     * Constructs a new instance of {@code AuthzeroTokenResolverConfig}.
+     * <p>
+     * The constructor is set as private to enforce the singleton pattern for
+     * this configuration class. Instances of
+     * {@code AuthzeroTokenResolverConfig} should be obtained through the
+     * {@link #getInstance()} method.
+     */
+    private AuthzeroTokenResolverConfig() {
+    }
+
+    /**
+     * The singleton instance of {@code AuthzeroTokenResolverConfig}.
+     * <p>
+     * This instance is used to ensure that only one instance of
+     * {@code AuthzeroTokenResolverConfig} is created and shared throughout the
+     * application. The singleton pattern is implemented to provide centralised
+     * configuration and avoid redundant object creation.
+     */
+    private static AuthzeroTokenResolverConfig instance;
+
+    /**
+     * The supported algorithms and their corresponding algorithm functions.
+     * <p>
+     * This map stores the supported algorithms as keys and their corresponding
+     * algorithm functions as values. The algorithm functions represent the
+     * functions used by the {@code com.auth0:java-jwt} library to handle the
+     * specific algorithms. The mapping is used to provide proper algorithm
+     * resolution and processing within the {@link AuthzeroTokenResolver}.
+     */
+    private static final Map<TokenAlgorithm, Function<String, Algorithm>> SUPPORTED_ALGORITHMS = new HashMap<>() {{
+        put(TokenAlgorithm.HS256, Algorithm::HMAC256);
+        put(TokenAlgorithm.HS384, Algorithm::HMAC384);
+        put(TokenAlgorithm.HS512, Algorithm::HMAC512);
+    }};
 }

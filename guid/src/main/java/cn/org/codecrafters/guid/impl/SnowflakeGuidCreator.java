@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.guid;
+package cn.org.codecrafters.guid.impl;
 
+import cn.org.codecrafters.guid.GuidCreator;
 import cn.org.codecrafters.guid.exceptions.TimingException;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 
 /**
  * The {@code SnowflakeGuidCreator} generates unique identifiers using the
@@ -48,48 +48,6 @@ import java.time.ZoneOffset;
  * @since 1.0.0
  */
 public final class SnowflakeGuidCreator implements GuidCreator<Long> {
-
-    /**
-     * Default custom epoch.
-     *
-     * @value 2015-01-01T00:00:00Z
-     */
-    private static final long DEFAULT_CUSTOM_EPOCH = 1_420_070_400_000L;
-
-    /**
-     * The start epoch timestamp to generate IDs from.
-     */
-    private final long startEpoch;
-
-    /**
-     * The number of bits reserved for the worker ID.
-     */
-    private final long workerIdBits = 5L;
-
-    /**
-     * The number of bits reserved for the data centre ID.
-     */
-    private final long dataCentreIdBits = 5L;
-
-    /**
-     * The worker ID assigned to this generator.
-     */
-    private final long workerId;
-
-    /**
-     * The data centre ID assigned to this generator.
-     */
-    private final long dataCentreId;
-
-    /**
-     * The current sequence number.
-     */
-    private long sequence = 0L;
-
-    /**
-     * The timestamp of the last generated ID.
-     */
-    private long lastTimestamp = -1L;
 
     /**
      * Constructs a SnowflakeGuidGenerator with the default start epoch and
@@ -204,5 +162,48 @@ public final class SnowflakeGuidCreator implements GuidCreator<Long> {
     private long currentTimestamp() {
         return LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
+
+    /**
+     * Default custom epoch.
+     *
+     * @value 2015-01-01T00:00:00Z
+     */
+    private static final long DEFAULT_CUSTOM_EPOCH = 1_420_070_400_000L;
+
+    /**
+     * The start epoch timestamp to generate IDs from.
+     */
+    private final long startEpoch;
+
+    /**
+     * The number of bits reserved for the worker ID.
+     */
+    private final long workerIdBits = 5L;
+
+    /**
+     * The number of bits reserved for the data centre ID.
+     */
+    private final long dataCentreIdBits = 5L;
+
+    /**
+     * The worker ID assigned to this generator.
+     */
+    private final long workerId;
+
+    /**
+     * The data centre ID assigned to this generator.
+     */
+    private final long dataCentreId;
+
+    /**
+     * The current sequence number.
+     */
+    private long sequence = 0L;
+
+    /**
+     * The timestamp of the last generated ID.
+     */
+    private long lastTimestamp = -1L;
+
 }
 
