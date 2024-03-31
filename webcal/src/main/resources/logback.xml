@@ -15,14 +15,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <configuration>
-    <property name="COLOURFUL_OUTPUT"
-              value="%black(%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK}) %highlight(%-5level) %black(---) %black([%10.10t]) %cyan(%-20.20logger{20}) %black(:) %msg%n"/>
-    <property name="STANDARD_OUTPUT"
-              value="%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK} %-5level %black(---) [%10.10t] %-20.20logger{20} : %msg%n"/>
+    <property name="COLOURFUL_OUTPUT" value="%black(%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK}) %highlight(%-5level) %black(---) %black([%10.10t]) %cyan(%-20.20logger{20}) %black(:) %msg%n"/>
+    <property name="STANDARD_OUTPUT" value="%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK} %-5level %black(---) [%10.10t] %-20.20logger{20} : %msg%n"/>
 
-    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${COLOURFUL_OUTPUT}</pattern>

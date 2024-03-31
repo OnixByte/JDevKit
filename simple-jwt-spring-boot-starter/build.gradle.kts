@@ -17,8 +17,8 @@
 
 import java.net.URI
 
-val sGroupId: String by project
-val sVersion: String by project
+val buildGroupId: String by project
+val buildVersion: String by project
 val projectUrl: String by project
 val projectGithubUrl: String by project
 val licenseName: String by project
@@ -28,8 +28,8 @@ val javaJwtVersion: String by project
 val jjwtVersion: String by project
 val springBootVersion: String by project
 
-group = sGroupId
-version = sVersion
+group = buildGroupId
+version = buildVersion
 
 dependencies {
     implementation(project(":guid"))
@@ -60,9 +60,9 @@ tasks.test {
 publishing {
     publications {
         create<MavenPublication>("simpleJwtSpringBootStarter") {
-            groupId = sGroupId
+            groupId = buildGroupId
             artifactId = "simple-jwt-spring-boot-starter"
-            version = sVersion
+            version = buildVersion
 
             pom {
                 name = "Simple JWT :: Spring Boot Starter"
