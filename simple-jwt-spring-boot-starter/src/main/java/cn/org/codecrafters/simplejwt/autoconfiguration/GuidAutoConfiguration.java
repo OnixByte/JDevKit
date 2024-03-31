@@ -39,6 +39,11 @@ import java.util.UUID;
 @AutoConfiguration
 public class GuidAutoConfiguration {
 
+    /**
+     * Create a default {@code jtiCreator} with UUID.
+     *
+     * @return UUID creator
+     */
     @Bean(name = "jtiCreator")
     @Conditional(GuidCreatorCondition.class)
     public GuidCreator<?> jtiCreator() {

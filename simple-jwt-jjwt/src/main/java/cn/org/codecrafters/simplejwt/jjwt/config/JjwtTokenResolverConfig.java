@@ -63,17 +63,6 @@ import java.util.Map;
  */
 public final class JjwtTokenResolverConfig implements TokenResolverConfig<SecureDigestAlgorithm<SecretKey, SecretKey>> {
 
-    private JjwtTokenResolverConfig() {
-    }
-
-    private static final Map<TokenAlgorithm, SecureDigestAlgorithm<SecretKey, SecretKey>> SUPPORTED_ALGORITHMS = new HashMap<>() {{
-        put(TokenAlgorithm.HS256, Jwts.SIG.HS256);
-        put(TokenAlgorithm.HS384, Jwts.SIG.HS384);
-        put(TokenAlgorithm.HS512, Jwts.SIG.HS512);
-    }};
-
-    private static JjwtTokenResolverConfig instance;
-
     public static JjwtTokenResolverConfig getInstance() {
         if (instance == null) {
             instance = new JjwtTokenResolverConfig();
@@ -106,4 +95,25 @@ public final class JjwtTokenResolverConfig implements TokenResolverConfig<Secure
         }
         return SUPPORTED_ALGORITHMS.get(algorithm);
     }
+
+    /**
+     * Private constructor will protect this class from being instantiated.
+     */
+    private JjwtTokenResolverConfig() {
+    }
+
+    /**
+     * A {@code Map} to map a {@link TokenAlgorithm} to {@link SecureDigestAlgorithm}.
+     */
+    private static final Map<TokenAlgorithm, SecureDigestAlgorithm<SecretKey, SecretKey>> SUPPORTED_ALGORITHMS = new HashMap<>() {{
+        put(TokenAlgorithm.HS256, Jwts.SIG.HS256);
+        put(TokenAlgorithm.HS384, Jwts.SIG.HS384);
+        put(TokenAlgorithm.HS512, Jwts.SIG.HS512);
+    }};
+
+    /**
+     * The instance of this config class.
+     */
+    private static JjwtTokenResolverConfig instance;
+
 }

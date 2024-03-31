@@ -33,36 +33,6 @@ import java.util.Random;
 public final class SecretCreator {
 
     /**
-     * Private constructor to prevent instantiation
-     */
-    private SecretCreator() {
-    }
-
-    /**
-     * The string containing all lowercase characters that can be used to
-     * generate the secret.
-     */
-    private static final String LOWERCASE_CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
-
-    /**
-     * The string containing all uppercase characters that can be used to
-     * generate the secret.
-     */
-    private static final String UPPERCASE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    /**
-     * The string containing all digit characters that can be used to generate
-     * the secret.
-     */
-    private static final String DIGITS = "0123456789";
-
-    /**
-     * The string containing all special sign characters that can be used to
-     * generate the secret.
-     */
-    private static final String SPECIAL_SIGNS = "!@#$%^&,*()_+-=,[]{}|;:,'\",.<>/?";
-
-    /**
      * Generates a secure secret with the specified length and character sets.
      *
      * @param length               the length of the secret to be generated
@@ -153,4 +123,33 @@ public final class SecretCreator {
         return createSecret(length, false, false, false);
     }
 
+    /**
+     * Private constructor will protect this class from being instantiated.
+     */
+    private SecretCreator() {
+    }
+
+    /**
+     * The string containing all lowercase characters that can be used to
+     * generate the secret.
+     */
+    private static final String LOWERCASE_CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
+
+    /**
+     * The string containing all uppercase characters that can be used to
+     * generate the secret.
+     */
+    private static final String UPPERCASE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    /**
+     * The string containing all digit characters that can be used to generate
+     * the secret.
+     */
+    private static final String DIGITS = "0123456789";
+
+    /**
+     * The string containing all special sign characters that can be used to
+     * generate the secret.
+     */
+    private static final String SPECIAL_SIGNS = "!@#$%^&,*()_+-=,[]{}|;:,'\",.<>/?";
 }

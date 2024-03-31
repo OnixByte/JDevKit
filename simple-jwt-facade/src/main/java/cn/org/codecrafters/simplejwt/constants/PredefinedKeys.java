@@ -88,11 +88,7 @@ public final class PredefinedKeys {
     public static final List<String> KEYS = List.of(ISSUER, SUBJECT, AUDIENCE, EXPIRATION_TIME, NOT_BEFORE, ISSUED_AT, JWT_ID);
 
     /**
-     * Private constructor to prevent instantiation of the
-     * {@code PredefinedKeys} class.
-     * <p>
-     * This class is intended to be used as a utility class with only static
-     * constants and methods.
+     * Private constructor will protect this class from being instantiated.
      */
     private PredefinedKeys() {
     }

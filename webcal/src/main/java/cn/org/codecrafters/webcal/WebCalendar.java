@@ -17,6 +17,8 @@
 
 package cn.org.codecrafters.webcal;
 
+import cn.org.codecrafters.webcal.impl.WebCalendarEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,55 +51,6 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public final class WebCalendar {
-
-    /**
-     * The {@code VCALENDAR} tag for iCalendar format
-     */
-    private final static String TAG = "VCALENDAR";
-
-    /**
-     * The name of this calendar.
-     */
-    private String name;
-
-    /**
-     * The company who produces this calendar.
-     * <p>
-     * This property will be used in {@code PRODID}.
-     */
-    private String companyName;
-
-    /**
-     * The product name.
-     * <p>
-     * This property will be used in {@code PRODID}
-     */
-    private String productName;
-
-    /**
-     * The producer's domain name.
-     */
-    private String domainName;
-
-    /**
-     * Scale of this calendar.
-     */
-    private final String scale = "GREGORIAN";
-
-    /**
-     * The method of this calendar.
-     */
-    private String method;
-
-    /**
-     * The version of this calendar.
-     */
-    private final String version = "2.0";
-
-    /**
-     * List of calendar components and events
-     */
-    private final List<WebCalendarNode> nodes;
 
     /**
      * Constructor for WebCalendar class, initializes the list of calendar
@@ -208,6 +161,55 @@ public final class WebCalendar {
                 eventBuilder + "\n" +
                 "END:" + TAG;
     }
+
+    /**
+     * The {@code VCALENDAR} tag for iCalendar format
+     */
+    private final static String TAG = "VCALENDAR";
+
+    /**
+     * The name of this calendar.
+     */
+    private String name;
+
+    /**
+     * The company who produces this calendar.
+     * <p>
+     * This property will be used in {@code PRODID}.
+     */
+    private String companyName;
+
+    /**
+     * The product name.
+     * <p>
+     * This property will be used in {@code PRODID}
+     */
+    private String productName;
+
+    /**
+     * The producer's domain name.
+     */
+    private String domainName;
+
+    /**
+     * Scale of this calendar.
+     */
+    private final String scale = "GREGORIAN";
+
+    /**
+     * The method of this calendar.
+     */
+    private String method;
+
+    /**
+     * The version of this calendar.
+     */
+    private final String version = "2.0";
+
+    /**
+     * List of calendar components and events
+     */
+    private final List<WebCalendarNode> nodes;
 
 }
 

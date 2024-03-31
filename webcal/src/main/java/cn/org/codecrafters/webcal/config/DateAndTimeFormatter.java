@@ -22,13 +22,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
- * DatetimeFormatters
+ * A formatter to format {@link java.time.LocalDateTime}.
  *
  * @author Zihlu Wang
- * @since 21 Sept, 2023
  */
-public final class Formatter {
+public final class DateAndTimeFormatter {
 
+    /**
+     * Get the {@link java.time.format.DateTimeFormatter datetime formatter}
+     * with UTC pattern and timezone.
+     *
+     * @return the {@link java.time.format.DateTimeFormatter datetime formatter}
+     * with UTC pattern and timezone
+     */
     public static DateTimeFormatter getUtcDatetimeFormatter() {
         if (Objects.isNull(utcDateTimeFormatter)) {
             utcDateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'").withZone(ZoneOffset.UTC);
@@ -37,16 +43,6 @@ public final class Formatter {
         return utcDateTimeFormatter;
     }
 
-    // public static DateTimeFormatter getLocalDatetimeFormatter() {
-    //     if (Objects.isNull(localDatetimeFormatter)) {
-    //         localDatetimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
-    //     }
-    //
-    //     return localDatetimeFormatter;
-    // }
-
     private static DateTimeFormatter utcDateTimeFormatter;
-
-    // private static DateTimeFormatter localDatetimeFormatter;
 
 }

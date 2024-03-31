@@ -98,16 +98,6 @@ import java.util.*;
 @Slf4j
 public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
 
-    private final GuidCreator<?> jtiCreator;
-
-    private final SecureDigestAlgorithm<SecretKey, SecretKey> algorithm;
-
-    private final String issuer;
-
-    private final SecretKey key;
-
-    private final JjwtTokenResolverConfig config = JjwtTokenResolverConfig.getInstance();
-
     /**
      * Create a resolver with specified algorithm, issuer, secret and guid strategy.
      *
@@ -432,6 +422,15 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         return renew(oldToken, Duration.ofMinutes(30), payload);
     }
 
+    /**
+     * Build a new token with specified data.
+     *
+     * @param expireAfter the validity time of the token
+     * @param audience    the audience of the token
+     * @param subject     the subject of the token
+     * @param claims      the data to be included in the token
+     * @return the built token
+     */
     private String buildToken(Duration expireAfter, String audience, String subject, Map<String, Object> claims) {
         var now = LocalDateTime.now();
         var builder = Jwts.builder()
@@ -453,4 +452,29 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         return builder.signWith(key, algorithm)
                 .compact();
     }
+
+    /**
+     * The ID creator for creating unique JWT IDs.
+     */
+    private final GuidCreator<?> jtiCreator;
+
+    /**
+     * The algorithm to sign this token.
+     */
+    private final SecureDigestAlgorithm<SecretKey, SecretKey> algorithm;
+
+    /**
+     * The issuer of this token.
+     */
+    private final String issuer;
+
+    /**
+     * The signature key of this token.
+     */
+    private final SecretKey key;
+
+    /**
+     * The config of this token resolver.
+     */
+    private final JjwtTokenResolverConfig config = JjwtTokenResolverConfig.getInstance();
 }

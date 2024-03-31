@@ -18,6 +18,7 @@
 package cn.org.codecrafters.webcal;
 
 import cn.org.codecrafters.webcal.config.Classification;
+import cn.org.codecrafters.webcal.impl.WebCalendarEvent;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -37,8 +38,7 @@ import java.util.List;
  * @version 1.1.0
  * @since 1.0.0
  */
-public abstract sealed class WebCalendarNode
-        permits WebCalendarEvent {
+public abstract class WebCalendarNode {
 
     // Common properties for all calendar components and events
     protected List<String> categories;

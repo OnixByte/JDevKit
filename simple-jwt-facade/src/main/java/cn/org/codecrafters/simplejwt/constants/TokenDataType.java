@@ -63,6 +63,9 @@ public enum TokenDataType {
      */
     private final Class<?> mappedClass;
 
+    /**
+     * Create a TokenDataType with a mapped class.
+     */
     TokenDataType(Class<?> mappedClass) {
         this.mappedClass = mappedClass;
     }

@@ -66,19 +66,6 @@ import org.springframework.context.annotation.Bean;
 public class AuthzeroTokenResolverAutoConfiguration {
 
     /**
-     * The GuidCreator instance to be used for generating JWT IDs (JTI).
-     */
-    private final GuidCreator<?> jtiCreator;
-
-    /**
-     * The {@code SimpleJwtProperties} instance containing the configuration
-     * properties for Simple JWT.
-     */
-    private final SimpleJwtProperties simpleJwtProperties;
-
-    private final ObjectMapper objectMapper;
-
-    /**
      * Constructs a new {@code SimpleJwtAutoConfiguration} instance with the
      * provided SimpleJwtProperties.
      *
@@ -111,5 +98,18 @@ public class AuthzeroTokenResolverAutoConfiguration {
                 objectMapper
         );
     }
+
+    /**
+     * The GuidCreator instance to be used for generating JWT IDs (JTI).
+     */
+    private final GuidCreator<?> jtiCreator;
+
+    /**
+     * The {@code SimpleJwtProperties} instance containing the configuration
+     * properties for Simple JWT.
+     */
+    private final SimpleJwtProperties simpleJwtProperties;
+
+    private final ObjectMapper objectMapper;
 
 }

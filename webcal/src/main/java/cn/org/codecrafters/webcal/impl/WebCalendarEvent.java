@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-package cn.org.codecrafters.webcal;
+package cn.org.codecrafters.webcal.impl;
 
+import cn.org.codecrafters.webcal.WebCalendarNode;
 import cn.org.codecrafters.webcal.config.Classification;
-import cn.org.codecrafters.webcal.config.Formatter;
+import cn.org.codecrafters.webcal.config.DateAndTimeFormatter;
 
 import java.text.MessageFormat;
 import java.time.Duration;
@@ -46,8 +47,6 @@ import java.util.UUID;
  * @since 1.0.0
  */
 public final class WebCalendarEvent extends WebCalendarNode {
-
-    private final static String TAG = "VEVENT";
 
     /**
      * Add categories to the event.
@@ -270,8 +269,8 @@ public final class WebCalendarEvent extends WebCalendarNode {
                         END:{0}""",
                 TAG, // 0 - tag
                 Optional.ofNullable(uid).orElse(UUID.randomUUID().toString()) + "@" + domainName, // 1 - uid
-                now.format(Formatter.getUtcDatetimeFormatter()), // 2 - dtstamp
-                start.atZone(ZoneId.systemDefault()).format(Formatter.getUtcDatetimeFormatter()), // 3 - start time
+                now.format(DateAndTimeFormatter.getUtcDatetimeFormatter()), // 2 - dtstamp
+                start.atZone(ZoneId.systemDefault()).format(DateAndTimeFormatter.getUtcDatetimeFormatter()), // 3 - start time
                 Optional.ofNullable(summary).map((item) -> "\nSUMMARY:" + item).orElse(""), // 4 - summary
                 Optional.ofNullable(categories)
                         .map((item) -> !item.isEmpty() ? "\nCATEGORIES:" + resolveCategories() : null).orElse(""), // 5 - categories
@@ -288,5 +287,7 @@ public final class WebCalendarEvent extends WebCalendarNode {
                 Optional.ofNullable(priority).map((_priority) -> "\nPRIORITY:" + _priority).orElse("") /* 12 - priority */
         );
     }
+
+    private final static String TAG = "VEVENT";
 
 }

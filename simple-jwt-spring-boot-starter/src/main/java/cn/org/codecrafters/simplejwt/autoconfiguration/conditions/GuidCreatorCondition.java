@@ -17,6 +17,18 @@ import java.util.Objects;
  */
 @Slf4j
 public class GuidCreatorCondition implements Condition {
+
+    /**
+     * The condition to create bean {@code jtiCreator}.
+     * <p>
+     * If Spring does not have a bean of type
+     * {@link cn.org.codecrafters.guid.GuidCreator} named {@code jtiCreator}
+     * in the application context, then create {@code jtiCreator}.
+     *
+     * @param context  the spring application context
+     * @param metadata the metadata of the {@link org.springframework.core.type.AnnotationMetadata class}
+     *                 or {@link org.springframework.core.type.MethodMetadata method} being checked
+     */
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         final var beanFactory = Objects.requireNonNull(context.getBeanFactory());

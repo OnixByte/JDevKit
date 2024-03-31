@@ -18,7 +18,7 @@
 package cn.org.codecrafters.webcal.test;
 
 import cn.org.codecrafters.webcal.WebCalendar;
-import cn.org.codecrafters.webcal.WebCalendarEvent;
+import cn.org.codecrafters.webcal.impl.WebCalendarEvent;
 import cn.org.codecrafters.webcal.config.Classification;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
