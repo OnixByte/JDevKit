@@ -33,7 +33,7 @@ subprojects {
     val testAnnotationProcessor by configurations
     val testCompileOnly by configurations
 
-    tasks.withType<Jar>() {
+    tasks.withType<Jar> {
         exclude("logback.xml")
     }
 
@@ -53,7 +53,6 @@ subprojects {
 
     repositories {
         mavenLocal()
-        maven(url = "https://codecrafters.coding.net/public-artifacts/common-productions/maven-packages/packages")
         maven(url = "https://maven.proxy.ustclug.org/maven2/")
         mavenCentral()
     }
