@@ -48,12 +48,12 @@ implementation 'cn.org.codecrafters:property-guard-spring-boot-starter:${propert
 
 ## Usage
 
-First, you need a 16-bit-long secret. If you don't have a good way to get a secret, you could consider using our `cn.org.codecrafters.devkit.utils.AesUtil` or `cn.org.codecrafters.simplejwt.SecretCreator` to create a secret.
+First, you need a 16-bit-long secret. If you don't have a good way to get a secret, you could consider using our `utils.com.onixbyte.devkit.AesUtil` or `com.onixbyte.simplejwt.SecretCreator` to create a secret.
 
 For example:
 ```java
-import cn.org.codecrafters.devkit.utils.AesUtil;
-import cn.org.codecrafters.simplejwt.SecretCreator;
+import utils.com.onixbyte.devkit.AesUtil;
+import com.onixbyte.simplejwt.SecretCreator;
 
 class GenerateRandomKeySample {
     public static void main(String[] args) {
@@ -66,7 +66,7 @@ class GenerateRandomKeySample {
 Then, remember this secret and encrypt the configuration properties that are required high security. For example:
 
 ```java
-import cn.org.codecrafters.devkit.utils.AesUtil;
+import utils.com.onixbyte.devkit.AesUtil;
 
 class EncryptSample {
     public static void main(String[] args) {

@@ -51,7 +51,7 @@ implementation 'cn.org.codecrafters:devkit-utils:${devkit-utils.version}'
 If you are trying to encode a string to Base64 string or decode a Base64 string to normal string, then you can try this:
 
 ```java
-import cn.org.codecrafters.devkit.utils.Base64Util;
+import utils.com.onixbyte.devkit.Base64Util;
 
 // To reduce sample codes, let me use the simplified main method that is upcoming in Java 21
 void main(String... args) {
@@ -68,7 +68,7 @@ void main(String... args) {
 I believe those `if...else...` blocks make you headache, and Java imported lambda since Java 8, why not try to replace those `if...else` with lambda expressions?
 
 ```java
-import cn.org.codecrafters.devkit.utils.BranchUtil;
+import utils.com.onixbyte.devkit.BranchUtil;
 
 void main(String... args) {
     var a = 1;
@@ -106,7 +106,7 @@ If you have faced high-precision mathematical calculation in Java, you might kno
 In Java, we usually do high-precision mathematical calculation with `BigDecimal` which is quite tricky when using it.
 
 ```java
-import cn.org.codecrafters.devkit.utils.ChainedCalcUtil;
+import utils.com.onixbyte.devkit.ChainedCalcUtil;
 
 void main(String... args) {
     // If you are trying to calculate the expression of 1 * 2 / 2 - 3 + 4
@@ -133,7 +133,7 @@ This `HashUtil` supports these following hash or message digest algorithms:
 If you want to run a hash calculation to a string, you can use the following codes:
 
 ```java
-import cn.org.codecrafters.devkit.utils.HashUtil;
+import utils.com.onixbyte.devkit.HashUtil;
 
 void main(String... args) {
     var plaintext = "This is a plain text";
@@ -156,7 +156,7 @@ Imagine you are developing a website where users can register an account and sto
 In order to store the Map in a database, you need to convert the Map to an Object. An Object is a generic data type that can store any type of data.
 
 ```java
-import cn.org.codecrafters.devkit.utils.MapUtil;
+import utils.com.onixbyte.devkit.MapUtil;
 
 class Data {
     private String name;
