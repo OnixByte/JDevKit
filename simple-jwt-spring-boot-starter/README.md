@@ -66,7 +66,7 @@ implementation 'cn.org.codecrafters:simple-jwt-spring-boot-starter:${simple-jwt-
 
 We need a `GuidCreator` instance to create JWT ID, though we did implemented a simple `GuidCreator`, but you can still customize it.
 
-First, please implement the `cn.org.codecrafters.guid.GuidCreator` interface based on your own rules for generating JWT IDs.
+First, please implement the `com.onixbyte.guid.GuidCreator` interface based on your own rules for generating JWT IDs.
 
 Then, add the instance of your own guid creator to spring container, whose name is `jtiCreator`.
 
