@@ -38,8 +38,8 @@ jobs:
 
       - name: Creating PGP Ring Key
         run: |
-          echo ${{ secrets.GPG_PASSPHRASE }} | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --export-secret-keys -o gpg_key.ring
-          pwd
+          mkdir -p ~/.gnupg
+          echo ${{ secrets.GPG_PASSPHRASE }} | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --export-secret-keys -o ~/.gnupg/gpg_key.ring
 
       - name: Restore gradle.properties
         env:
