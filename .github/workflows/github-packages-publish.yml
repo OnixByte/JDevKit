@@ -30,9 +30,7 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Creating PGP Ring Key
-        run: |
-          mkdir -p ~/.gnupg
-          gpg --export-secret-keys -o ~/.gnupg/pgp_key.ring
+        run: gpg --export-secret-keys -o ~/.gnupg/pgp_key.ring
 
       - name: Restore gradle.properties
         env:
