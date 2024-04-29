@@ -38,7 +38,7 @@ jobs:
           gpg --list-secret-keys --keyid-format LONG
 
       - name: Creating PGP Ring Key
-        run: gpg --export-secret-keys -o ~/.gnupg/pgp_key.ring
+        run: gpg --export-secret-keys -o ~/pgp_key.ring
 
       - name: Restore gradle.properties
         env:
