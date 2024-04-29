@@ -33,6 +33,10 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
           trust_level: 5
 
+      - name: Check PGP Private Key
+        run: |
+          gpg --list-secret-keys --keyid-format LONG
+
       - name: Creating PGP Ring Key
         run: gpg --export-secret-keys -o ~/.gnupg/pgp_key.ring
 
