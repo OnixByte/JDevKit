@@ -37,7 +37,9 @@ jobs:
           trust_level: 5
 
       - name: Creating PGP Ring Key
-        run: echo ${{ secrets.GPG_PASSPHRASE }} | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --export-secret-keys -o gpg_key.ring
+        run: |
+          echo ${{ secrets.GPG_PASSPHRASE }} | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --export-secret-keys -o gpg_key.ring
+          ls -l
 
       - name: Restore gradle.properties
         env:
