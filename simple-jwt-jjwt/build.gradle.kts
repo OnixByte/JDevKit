@@ -69,10 +69,10 @@ publishing {
                         url = licenseUrl
                     }
                 }
-                
+
                 scm {
-                    connection = "scm:git:git://github.com:CodeCraftersCN/JDevKit.git"
-                    developerConnection = "scm:git:git://github.com:CodeCraftersCN/JDevKit.git"
+                    connection = "scm:git:git://github.com:OnixByte/JDevKit.git"
+                    developerConnection = "scm:git:git://github.com:OnixByte/JDevKit.git"
                     url = projectGithubUrl
                 }
 
