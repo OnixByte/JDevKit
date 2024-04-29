@@ -47,7 +47,6 @@ jobs:
           mkdir -p ~/.gradle/
           echo "GRADLE_USER_HOME=${HOME}/.gradle" >> $GITHUB_ENV
           echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties
-          cat ~/.gradle/gradle.properties
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
