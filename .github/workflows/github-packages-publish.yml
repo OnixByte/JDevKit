@@ -42,7 +42,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p ~/.gradle/
-          echo "::set-env name=GRADLE_USER_HOME::$HOME/.gradle"
+          export GRADLE_USER_HOME=~/.gradle
           echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
 
       - name: Set up JDK 17
