@@ -104,15 +104,6 @@ publishing {
             }
 
             maven {
-                name = "codingNexus"
-                url = URI(providers.gradleProperty("repo.coding.host").get())
-                credentials {
-                    username = providers.gradleProperty("repo.coding.username").get()
-                    password = providers.gradleProperty("repo.coding.password").get()
-                }
-            }
-
-            maven {
                 name = "githubPackages"
                 url = URI(providers.gradleProperty("repo.github.host").get())
                 credentials {
