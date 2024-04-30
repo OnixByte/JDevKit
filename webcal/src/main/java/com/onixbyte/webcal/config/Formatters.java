@@ -26,7 +26,7 @@ import java.util.Objects;
  *
  * @author Zihlu Wang
  */
-public final class DateAndTimeFormatter {
+public final class Formatters {
 
     /**
      * Get the {@link java.time.format.DateTimeFormatter datetime formatter}
@@ -44,5 +44,11 @@ public final class DateAndTimeFormatter {
     }
 
     private static DateTimeFormatter utcDateTimeFormatter;
+
+    /**
+     * Private constructor to prevent this class being initialised.
+     */
+    private Formatters() {
+    }
 
 }

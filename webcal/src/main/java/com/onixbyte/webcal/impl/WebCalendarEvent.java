@@ -19,7 +19,7 @@ package com.onixbyte.webcal.impl;
 
 import com.onixbyte.webcal.WebCalendarNode;
 import com.onixbyte.webcal.config.Classification;
-import com.onixbyte.webcal.config.DateAndTimeFormatter;
+import com.onixbyte.webcal.config.Formatters;
 
 import java.text.MessageFormat;
 import java.time.Duration;
@@ -269,8 +269,8 @@ public final class WebCalendarEvent extends WebCalendarNode {
                         END:{0}""",
                 /* 0 - tag */TAG,
                 /* 1 - uid */ Optional.ofNullable(uid).orElse(UUID.randomUUID().toString()) + "@" + domainName,
-                /* 2 - dtstamp */ now.format(DateAndTimeFormatter.getUtcDatetimeFormatter()),
-                /* 3 - start time */ start.atZone(ZoneId.systemDefault()).format(DateAndTimeFormatter.getUtcDatetimeFormatter()),
+                /* 2 - dtstamp */ now.format(Formatters.getUtcDatetimeFormatter()),
+                /* 3 - start time */ start.atZone(ZoneId.systemDefault()).format(Formatters.getUtcDatetimeFormatter()),
                 /* 4 - summary */ Optional.ofNullable(summary).map((item) -> "\nSUMMARY:" + item).orElse(""),
                 /* 5 - categories */ Optional.ofNullable(categories)
                         .map((item) -> !item.isEmpty() ? "\nCATEGORIES:" + resolveCategories() : null).orElse(""),
