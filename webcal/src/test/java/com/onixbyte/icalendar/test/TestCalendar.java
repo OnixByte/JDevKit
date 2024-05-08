@@ -15,19 +15,26 @@
  * limitations under the License.
  */
 
+package com.onixbyte.icalendar.test;
+
+import com.onixbyte.icalendar.component.Calendar;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 /**
- * The package {@code cn.org.codecrafters.webcal.config} contains classes
- * related to the configuration and settings of the web calendar module. It
- * provides various configurations and constants used in the generation and
- * resolution of iCalendar content.
- * <p>The classes in this package include:</p>
- * <ul>
- *     <li>
- *         {@link com.onixbyte.webcal.config.Classification}: An enum
- *         representing the classification of events in the web calendar.
- *     </li>
- * </ul>
+ * TestWebCalendar
  *
- * @since 1.0.0
+ * @author Zihlu Wang
  */
-package com.onixbyte.webcal.config;
+@Slf4j
+public class TestCalendar {
+
+    @Test
+    void testWebCalendar() {
+
+    }
+
+}

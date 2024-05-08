@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.onixbyte.webcal.config;
+package com.onixbyte.icalendar.config;
 
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;

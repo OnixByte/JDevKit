@@ -23,16 +23,16 @@
  * The main classes and modules in this package include:
  * <ul>
  *     <li>
- *         {@link com.onixbyte.webcal.WebCalendar}: A class for
+ *         {@link com.onixbyte.icalendar.component.Calendar}: A class for
  *         generating web calendars with customisable settings and events.
  *     </li>
  *     <li>
- *         {@link com.onixbyte.webcal.impl.WebCalendarEvent}: A class
+ *         {@link com.onixbyte.icalendar.impl.CalendarEvent}: A class
  *         representing a single event in a web calendar with various
  *         attributes and options.
  *     </li>
  *     <li>
- *         {@link com.onixbyte.webcal.WebCalendarNode}: An abstract
+ *         {@link com.onixbyte.icalendar.component.CalendarComponent}: An abstract
  *         class serving as the base class for web calendar nodes, providing
  *         common attributes and functionality for events.
  *     </li>
@@ -40,4 +40,4 @@
  *
  * @since 1.0.0
  */
-package com.onixbyte.webcal;
+package com.onixbyte.icalendar;
