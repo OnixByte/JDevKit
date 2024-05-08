@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 CodeCraftersCN.
+ * Copyright (C) 2024-2024 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,7 @@
  */
 
 /**
- * The package {@code cn.org.codecrafters.webcal.config} contains classes
- * related to the configuration and settings of the web calendar module. It
- * provides various configurations and constants used in the generation and
- * resolution of iCalendar content.
- * <p>The classes in this package include:</p>
- * <ul>
- *     <li>
- *         {@link com.onixbyte.icalendar.config.Classification}: An enum
- *         representing the classification of events in the web calendar.
- *     </li>
- * </ul>
+ * 
  *
  * @since 1.0.0
  */

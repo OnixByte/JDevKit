@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 CodeCraftersCN.
+ * Copyright (C) 2024-2024 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,27 +16,7 @@
  */
 
 /**
- * The package {@code cn.org.codecrafters.webcal} contains classes and modules
- * related to web calendar generation and resolution. It provides functionality
- * to create and manage iCalendar content for web-based calendar applications.
- * <p>
- * The main classes and modules in this package include:
- * <ul>
- *     <li>
- *         {@link com.onixbyte.icalendar.component.Calendar}: A class for
- *         generating web calendars with customisable settings and events.
- *     </li>
- *     <li>
- *         {@link com.onixbyte.icalendar.impl.CalendarEvent}: A class
- *         representing a single event in a web calendar with various
- *         attributes and options.
- *     </li>
- *     <li>
- *         {@link com.onixbyte.icalendar.component.CalendarComponent}: An abstract
- *         class serving as the base class for web calendar nodes, providing
- *         common attributes and functionality for events.
- *     </li>
- * </ul>
+ *
  *
  * @since 1.0.0
  */
