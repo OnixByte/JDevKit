@@ -40,7 +40,6 @@ import java.util.UUID;
  * @author hubin@baomidou
  * @version 1.1.0
  * @since 1.1.0
- * @see com.baomidou.mybatisplus.core.toolkit.AES AES
  */
 @Slf4j
 public final class AesUtil {
