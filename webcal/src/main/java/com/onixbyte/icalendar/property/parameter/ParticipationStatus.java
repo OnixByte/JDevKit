@@ -47,7 +47,7 @@ public enum ParticipationStatus implements PropertyParameter {
         return List.of(NEEDS_ACTION, ACCEPTED, DECLINED);
     }
 
-    private static final String PROPERTY_NAME = "PARTSTAT";
+    private static final String PARAMETER_NAME = "PARTSTAT";
 
     private final String tag;
 
@@ -57,6 +57,6 @@ public enum ParticipationStatus implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + tag;
+        return PARAMETER_NAME + "=" + tag;
     }
 }

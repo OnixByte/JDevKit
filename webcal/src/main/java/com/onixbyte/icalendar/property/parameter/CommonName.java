@@ -17,8 +17,6 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
-import com.onixbyte.icalendar.property.CalendarResolvable;
-
 /**
  * Common Name can be specified on properties with a CAL-ADDRESS value type. The parameter
  * specifies the common name to be associated with the calendar user specified by the property.
@@ -29,7 +27,7 @@ import com.onixbyte.icalendar.property.CalendarResolvable;
  */
 public final class CommonName implements PropertyParameter {
 
-    private static final String PROPERTY_NAME = "CN";
+    private static final String PARAMETER_NAME = "CN";
 
     private final String value;
 
@@ -59,6 +57,6 @@ public final class CommonName implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=\"" + this.value + "\"";
+        return PARAMETER_NAME + "=\"" + this.value + "\"";
     }
 }

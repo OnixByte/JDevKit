@@ -15,29 +15,23 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.component.property;
 
-/**
- * FormatType
- *
- * @author Zihlu WANG
- */
-public enum FormatType implements PropertyParameter {
+import com.onixbyte.icalendar.CalendarUtil;
+import com.onixbyte.icalendar.property.parameter.AlternateRepresentation;
+import com.onixbyte.icalendar.property.parameter.Language;
 
-    JSON("application/json"),
+import java.util.Objects;
+import java.util.Optional;
 
-    ;
+public record Comment(AlternateRepresentation altRep,
+                      Language language,
+                      String value) implements TextProperty, ComponentProperty {
 
-    private static final String PARAMETER_NAME = "FMTTYPE";
-
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
-    }
+    private static final String PROPERTY_NAME = "COMMENT";
 
     @Override
     public String resolve() {
-        return PARAMETER_NAME + "=" + this.ianaRegistry;
+        return composeResolution(PROPERTY_NAME, altRep, language, value);
     }
 }

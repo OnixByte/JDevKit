@@ -30,7 +30,7 @@ public enum ParticipationRole implements PropertyParameter {
     NON_PARTICIPANT("NON-PARTICIPANT"),
     ;
 
-    private static final String PROPERTY_NAME = "ROLE";
+    private static final String PARAMETER_NAME = "ROLE";
 
     private final String tag;
 
@@ -40,6 +40,6 @@ public enum ParticipationRole implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + tag;
+        return PARAMETER_NAME + "=" + tag;
     }
 }

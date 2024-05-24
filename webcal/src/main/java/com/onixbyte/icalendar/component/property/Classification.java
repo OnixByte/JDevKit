@@ -17,5 +17,17 @@
 
 package com.onixbyte.icalendar.component.property;
 
-public enum Classification {
+public enum Classification implements ComponentProperty {
+
+    PUBLIC,
+    PRIVATE,
+    CONFIDENTIAL,
+    ;
+
+    private static final String PROPERTY_NAME = "CLASS";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + ":" + name() + "\n";
+    }
 }

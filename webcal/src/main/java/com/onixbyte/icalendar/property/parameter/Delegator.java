@@ -18,7 +18,6 @@
 package com.onixbyte.icalendar.property.parameter;
 
 import com.onixbyte.icalendar.datatype.CalendarUserAddress;
-import com.onixbyte.icalendar.property.CalendarResolvable;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import java.util.function.Supplier;
  */
 public final class Delegator implements PropertyParameter {
 
-    private static final String PROPERTY_NAME = "DELEGATED-FROM";
+    private static final String PARAMETER_NAME = "DELEGATED-FROM";
 
     private List<CalendarUserAddress> value;
 
@@ -83,7 +82,7 @@ public final class Delegator implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=\"" + String.join(",", value.stream()
+        return PARAMETER_NAME + "=\"" + String.join(",", value.stream()
                 .map((_value) -> "\"" + _value + "\"")
                 .toList()) + "\"";
     }

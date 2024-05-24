@@ -17,5 +17,49 @@
 
 package com.onixbyte.icalendar.component.property;
 
-public class Categories {
+import java.util.ArrayList;
+import java.util.List;
+
+public final class Categories implements ComponentProperty {
+
+    private static final String PROPERTY_NAME = "CATEGORIES";
+
+    private final List<String> value;
+
+    private Categories(List<String> value) {
+        this.value = value;
+    }
+
+    public static class Builder {
+        private List<String> categories;
+
+        private Builder() {
+            categories = new ArrayList<>();
+        }
+
+        public Builder addCategory(String category) {
+            if (!categories.contains(category)) {
+                categories.add(category);
+            }
+            return this;
+        }
+
+        public Builder addCategories(List<String> categories) {
+            categories.forEach(this::addCategory);
+            return this;
+        }
+
+        public Categories build() {
+            return new Categories(categories);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + ":" + String.join(",", value) + "\n";
+    }
 }

@@ -17,8 +17,6 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
-import com.onixbyte.icalendar.property.CalendarResolvable;
-
 /**
  * Language
  *
@@ -260,7 +258,7 @@ public enum Language implements PropertyParameter {
     SOUTH_AFRICA_ZULU("zu-ZA")
     ;
 
-    private static final String PROPERTY_NAME = "LANGUAGE";
+    private static final String PARAMETER_NAME = "LANGUAGE";
 
     private final String value;
 
@@ -270,6 +268,6 @@ public enum Language implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + value;
+        return PARAMETER_NAME + "=" + value;
     }
 }

@@ -22,7 +22,7 @@ package com.onixbyte.icalendar.calendar.property;
  *
  * @author Zihlu WANG
  */
-public final class ProductIdentifier implements CalendarProperty {
+public final class ProductIdentifier implements Property {
 
     private final String value;
 

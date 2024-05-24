@@ -22,5 +22,33 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class ValueDataType {
+public enum ValueDataType implements PropertyParameter {
+
+    BINARY("BINARY"),
+    BOOLEAN("BOOLEAN"),
+    CAL_ADDRESS("CAL-ADDRESS"),
+    DATE("DATE"),
+    DATE_TIME("DATE-TIME"),
+    DURATION("DURATION"),
+    FLOAT("FLOAT"),
+    INTEGER("INTEGER"),
+    PERIOD("PERIOD"),
+    RECURRENCE_RULE("RECUR"),
+    TEXT("TEXT"),
+    URI("URI"),
+    UTC_OFFSET("UTC-OFFSET"),
+    ;
+
+    private static final String PARAMETER_NAME = "VALUE";
+
+    private final String tag;
+
+    ValueDataType(String tag) {
+        this.tag = tag;
+    }
+
+    @Override
+    public String resolve() {
+        return PARAMETER_NAME + "=" + tag;
+    }
 }

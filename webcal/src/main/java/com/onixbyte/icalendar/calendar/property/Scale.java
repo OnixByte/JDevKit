@@ -15,29 +15,23 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.calendar.property;
 
 /**
- * FormatType
+ * Scale
  *
  * @author Zihlu WANG
  */
-public enum FormatType implements PropertyParameter {
+public enum Scale implements Property {
 
-    JSON("application/json"),
-
+    GREGORIAN,
     ;
 
-    private static final String PARAMETER_NAME = "FMTTYPE";
-
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
-    }
+    private static final String PROPERTY_NAME = "CALSCALE";
 
     @Override
     public String resolve() {
-        return PARAMETER_NAME + "=" + this.ianaRegistry;
+        return PROPERTY_NAME + ':' + this.name();
     }
+
 }

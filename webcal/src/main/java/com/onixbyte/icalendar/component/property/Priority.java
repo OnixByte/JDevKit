@@ -15,29 +15,20 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.component.property;
 
-/**
- * FormatType
- *
- * @author Zihlu WANG
- */
-public enum FormatType implements PropertyParameter {
+public record Priority(int value) implements ComponentProperty {
 
-    JSON("application/json"),
+    private static final String PROPERTY_NAME = "PRIORITY";
 
-    ;
-
-    private static final String PARAMETER_NAME = "FMTTYPE";
-
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
+    public Priority {
+        if (value < 0 || value > 9) {
+            throw new IllegalArgumentException("Priority %d is exceeded the range of 0-9.".formatted(value));
+        }
     }
 
     @Override
     public String resolve() {
-        return PARAMETER_NAME + "=" + this.ianaRegistry;
+        return PROPERTY_NAME + ":" + value + "\n";
     }
 }

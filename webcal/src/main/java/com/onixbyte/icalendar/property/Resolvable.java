@@ -17,7 +17,7 @@
 
 package com.onixbyte.icalendar.property;
 
-public interface CalendarResolvable {
+public interface Resolvable {
 
     String resolve();
 

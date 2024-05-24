@@ -27,7 +27,7 @@ public enum RecurrenceIdentifierRange implements PropertyParameter {
     THIS_AND_FUTURE("THISANDFUTURE")
     ;
 
-    private static final String PROPERTY_NAME = "RANGE";
+    private static final String PARAMETER_NAME = "RANGE";
 
     private final String tag;
 
@@ -37,6 +37,6 @@ public enum RecurrenceIdentifierRange implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + tag;
+        return PARAMETER_NAME + "=" + tag;
     }
 }

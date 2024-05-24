@@ -17,7 +17,7 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
-import com.onixbyte.icalendar.property.CalendarResolvable;
+import com.onixbyte.icalendar.property.Resolvable;
 
-public interface PropertyParameter extends CalendarResolvable {
+public interface PropertyParameter extends Resolvable {
 }

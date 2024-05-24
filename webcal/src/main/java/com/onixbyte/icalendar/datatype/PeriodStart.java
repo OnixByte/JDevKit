@@ -15,29 +15,21 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.datatype;
 
-/**
- * FormatType
- *
- * @author Zihlu WANG
- */
-public enum FormatType implements PropertyParameter {
+import com.onixbyte.icalendar.component.property.DateTimeProperty;
 
-    JSON("application/json"),
+import java.time.Duration;
+import java.time.LocalDateTime;
 
-    ;
+public final class PeriodStart implements Period {
 
-    private static final String PARAMETER_NAME = "FMTTYPE";
+    private LocalDateTime start;
 
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
-    }
+    private Duration duration;
 
     @Override
     public String resolve() {
-        return PARAMETER_NAME + "=" + this.ianaRegistry;
+        return start.format(DateTimeProperty.utcDateTimeFormatter()) + "/" + duration;
     }
 }

@@ -17,15 +17,25 @@
 
 package com.onixbyte.icalendar.component.property;
 
-/**
- * UniqueIdentifier
- *
- * @author Zihlu WANG
- */
-public record UniqueIdentifier(String value) implements ComponentProperty {
+import com.onixbyte.icalendar.property.parameter.ValueDataType;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Optional;
+
+public record DateTimeEnd(ValueDataType valueDataType,
+                          LocalDateTime localDateTime) implements DateTimeProperty, ComponentProperty {
+
+    private static final String PROPERTY_NAME = "DTEND";
+
+    public DateTimeEnd {
+        if (Objects.nonNull(valueDataType) && !SUPPORTED_VALUES.contains(valueDataType)) {
+            throw new IllegalArgumentException("ValueDateType only accepts DATE and DATE-TIME");
+        }
+    }
 
     @Override
     public String resolve() {
-        return "uid:" + this.value + '\n';
+        return DateTimeProperty.composeResolution(PROPERTY_NAME, valueDataType, localDateTime);
     }
 }

@@ -15,9 +15,16 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.calendar.property;
+package com.onixbyte.icalendar.component.property;
 
-import com.onixbyte.icalendar.property.CalendarResolvable;
+import java.time.Duration;
 
-public interface CalendarProperty extends CalendarResolvable {
+public record CalendarDuration(Duration duration) implements ComponentProperty {
+
+    private static final String PROPERTY_NAME = "DURATION";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + ":" + duration.toString() + "\n";
+    }
 }

@@ -28,10 +28,10 @@ public enum AlarmTriggerRelationship implements PropertyParameter {
     END
     ;
 
-    private static final String PROPERTY_NAME = "RELATED";
+    private static final String PARAMETER_NAME = "RELATED";
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + name();
+        return PARAMETER_NAME + "=" + name();
     }
 }

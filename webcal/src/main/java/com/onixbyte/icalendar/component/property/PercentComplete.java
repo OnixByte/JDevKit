@@ -15,29 +15,21 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.component.property;
 
-/**
- * FormatType
- *
- * @author Zihlu WANG
- */
-public enum FormatType implements PropertyParameter {
+public record PercentComplete(int value) implements ComponentProperty {
 
-    JSON("application/json"),
-
-    ;
-
-    private static final String PARAMETER_NAME = "FMTTYPE";
-
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
+    public PercentComplete {
+        if (value < 0 || value > 100) {
+            throw new IllegalArgumentException("PercentComplete only accept value from 0 to 100, the given value %d is not acceptable."
+                    .formatted(value));
+        }
     }
+
+    private static final String PROPERTY_NAME = "PERCENT-COMPLETE";
 
     @Override
     public String resolve() {
-        return PARAMETER_NAME + "=" + this.ianaRegistry;
+        return PROPERTY_NAME + ":" + value + "\n";
     }
 }

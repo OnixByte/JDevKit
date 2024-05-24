@@ -17,36 +17,28 @@
 
 package com.onixbyte.icalendar.datatype;
 
+import com.onixbyte.icalendar.component.property.DateTimeProperty;
 import com.onixbyte.icalendar.property.Resolvable;
 
-import java.net.URI;
+import java.time.LocalDateTime;
 
-public final class CalendarUserAddress implements Resolvable {
+public final class PeriodExplicit implements Period {
 
-    private URI value;
+    private final LocalDateTime startTime;
 
-    public CalendarUserAddress(URI value) {
-        if (!"mailto".equalsIgnoreCase(value.getScheme())) {
-            throw new IllegalArgumentException("Calendar User Address (CAL-ADDRESS) only accept mailto URI.");
+    private final LocalDateTime endTime;
+
+    public PeriodExplicit(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime.isAfter(endTime)) {
+            throw new IllegalArgumentException("Period start must not after than period end.");
         }
-        this.value = value;
-    }
-
-    public CalendarUserAddress(String value) {
-        var uri = URI.create(value);
-        if (!"mailto".equalsIgnoreCase(uri.getScheme())) {
-            throw new IllegalArgumentException("Calendar User Address (CAL-ADDRESS) only accept mailto URI.");
-        }
-        this.value = uri;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
     public String resolve() {
-        return toString();
-    }
-
-    @Override
-    public String toString() {
-        return value.toString();
+        return startTime.format(DateTimeProperty.utcDateTimeFormatter()) + "/" +
+                endTime.format(DateTimeProperty.utcDateTimeFormatter());
     }
 }

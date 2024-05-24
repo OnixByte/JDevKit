@@ -22,7 +22,7 @@ package com.onixbyte.icalendar.calendar.property;
  *
  * @author Zihlu WANG
  */
-public enum Version implements CalendarProperty {
+public enum Version implements Property {
 
     VERSION_2_0,
     ;

@@ -18,26 +18,42 @@
 package com.onixbyte.icalendar.property.parameter;
 
 /**
- * FormatType
+ * UserType
  *
  * @author Zihlu WANG
  */
-public enum FormatType implements PropertyParameter {
+public enum UserType implements PropertyParameter {
 
-    JSON("application/json"),
+    /**
+     * An individual.
+     */
+    INDIVIDUAL,
 
+    /**
+     * A group of individuals.
+     */
+    GROUP,
+
+    /**
+     * A physical resource.
+     */
+    RESOURCE,
+
+    /**
+     * A room resource.
+     */
+    ROOM,
+
+    /**
+     * Otherwise not known.
+     */
+    UNKNOWN,
     ;
 
-    private static final String PARAMETER_NAME = "FMTTYPE";
-
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
-    }
+    private static final String PARAMETER_NAME = "CUTYPE";
 
     @Override
     public String resolve() {
-        return PARAMETER_NAME + "=" + this.ianaRegistry;
+        return PARAMETER_NAME + "=" + this.name();
     }
 }

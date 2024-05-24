@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public final class Delegatee implements PropertyParameter {
 
-    private static final String PROPERTY_NAME = "DELEGATED-TO";
+    private static final String PARAMETER_NAME = "DELEGATED-TO";
 
     private final List<CalendarUserAddress> value;
 
@@ -82,7 +82,7 @@ public final class Delegatee implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + String.join(",", value.stream()
+        return PARAMETER_NAME + "=" + String.join(",", value.stream()
                 .map((_value) -> "\"" + _value + "\"")
                 .toList());
     }

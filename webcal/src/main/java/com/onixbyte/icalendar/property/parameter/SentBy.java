@@ -28,7 +28,7 @@ import java.net.URI;
  */
 public final class SentBy implements PropertyParameter {
 
-    private static final String PROPERTY_NAME = "SENT-BY";
+    private static final String PARAMETER_NAME = "SENT-BY";
 
     private final CalendarUserAddress value;
 
@@ -68,6 +68,6 @@ public final class SentBy implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=\"" + value + "\"";
+        return PARAMETER_NAME + "=\"" + value + "\"";
     }
 }

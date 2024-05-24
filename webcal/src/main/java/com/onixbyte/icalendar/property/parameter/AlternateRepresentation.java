@@ -17,8 +17,6 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
-import com.onixbyte.icalendar.property.CalendarResolvable;
-
 import java.net.URI;
 
 /**
@@ -35,7 +33,7 @@ import java.net.URI;
  */
 public final class AlternateRepresentation implements PropertyParameter {
 
-    private static final String PROPERTY_NAME = "ALTREP";
+    private static final String PARAMETER_NAME = "ALTREP";
 
     private final URI value;
 
@@ -45,7 +43,7 @@ public final class AlternateRepresentation implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=\"" + value.toString() + "\"";
+        return PARAMETER_NAME + "=\"" + value.toString() + "\"";
     }
 
     public static class Builder {

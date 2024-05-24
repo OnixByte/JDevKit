@@ -17,7 +17,7 @@
 
 package com.onixbyte.icalendar.component;
 
-import com.onixbyte.icalendar.calendar.property.CalendarScale;
+import com.onixbyte.icalendar.calendar.property.Scale;
 import com.onixbyte.icalendar.calendar.property.Method;
 import com.onixbyte.icalendar.calendar.property.ProductIdentifier;
 import com.onixbyte.icalendar.calendar.property.Version;
@@ -60,7 +60,7 @@ public final class Calendar {
     /**
      * This property are OPTIONAL, but MUST NOT occur more than once.
      */
-    private CalendarScale scale;
+    private Scale scale;
 
     /**
      * This property are OPTIONAL, but MUST NOT occur more than once.

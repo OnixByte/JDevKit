@@ -17,7 +17,7 @@
 
 package com.onixbyte.icalendar.calendar.property;
 
-public enum Method implements CalendarProperty {
+public enum Method implements Property {
 
     PUBLISH("PUBLISH"),
     REQUEST("REQUEST"),

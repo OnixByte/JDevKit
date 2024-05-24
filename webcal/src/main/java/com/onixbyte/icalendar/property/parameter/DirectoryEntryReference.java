@@ -26,7 +26,7 @@ import java.net.URI;
  */
 public final class DirectoryEntryReference implements PropertyParameter {
 
-    private static final String PROPERTY_NAME = "DIR";
+    private static final String PARAMETER_NAME = "DIR";
 
     private final URI value;
 
@@ -61,6 +61,6 @@ public final class DirectoryEntryReference implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=\"" + value + "\"";
+        return PARAMETER_NAME + "=\"" + value + "\"";
     }
 }

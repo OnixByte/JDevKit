@@ -35,10 +35,10 @@ public enum InlineEncoding implements PropertyParameter {
         this.tag = tag;
     }
 
-    private static final String PROPERTY_NAME = "ENCODING";
+    private static final String PARAMETER_NAME = "ENCODING";
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + tag;
+        return PARAMETER_NAME + "=" + tag;
     }
 }

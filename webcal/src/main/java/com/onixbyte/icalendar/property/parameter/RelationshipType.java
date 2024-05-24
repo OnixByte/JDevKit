@@ -39,7 +39,7 @@ public enum RelationshipType implements PropertyParameter {
     START_TO_START("STARTTOSTART")
     ;
 
-    private static final String PROPERTY_NAME = "RELTYPE";
+    private static final String PARAMETER_NAME = "RELTYPE";
 
     private final String tag;
 
@@ -49,6 +49,6 @@ public enum RelationshipType implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + tag;
+        return PARAMETER_NAME + "=" + tag;
     }
 }

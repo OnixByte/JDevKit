@@ -30,7 +30,7 @@ public enum FreeBusyTimeType implements PropertyParameter {
     BUSY_TENTATIVE("BUSY-TENTATIVE")
     ;
 
-    private static final String PROPERTY_NAME = "FBTYPE";
+    private static final String PARAMETER_NAME = "FBTYPE";
 
     private final String tag;
 
@@ -40,6 +40,6 @@ public enum FreeBusyTimeType implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + tag;
+        return PARAMETER_NAME + "=" + tag;
     }
 }

@@ -20,6 +20,7 @@ package com.onixbyte.icalendar.component.property;
 import com.onixbyte.icalendar.property.parameter.FormatType;
 
 import java.net.URI;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -27,21 +28,27 @@ import java.util.Optional;
  *
  * @author Zihlu WANG
  */
-public final class Attachment implements ComponentProperty {
+public record Attachment(FormatType formatType,
+                         URI uri,
+                         String content) implements ComponentProperty {
 
-    private FormatType formatType;
-
-    private URI uri;
+    private static final String PROPERTY_NAME = "ATTACH";
 
     @Override
     public String resolve() {
-        final var attachmentBuilder = new StringBuilder("ATTACH");
+        if (Objects.isNull(uri) && (Objects.isNull(content) || content.isBlank())) {
+            return null;
+        }
+
+        final var attachmentBuilder = new StringBuilder(PROPERTY_NAME);
 
         Optional.ofNullable(formatType)
-                .ifPresent((fmtType) -> attachmentBuilder.append(fmtType.resolve()));
+                .ifPresent((fmtType) -> attachmentBuilder.append(";").append(fmtType.resolve()));
 
-        attachmentBuilder.append(":")
-                .append(uri.toString());
+        Optional.ofNullable(uri).ifPresentOrElse(
+                (_uri) -> attachmentBuilder.append(":").append(_uri),
+                () -> attachmentBuilder.append(";ENCODING=BASE64;VALUE=BINARY:").append(content));
+        attachmentBuilder.append("\n");
 
         return attachmentBuilder.toString();
     }
