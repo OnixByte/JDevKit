@@ -37,10 +37,10 @@ public final class AlternateRepresentation implements PropertyParameter {
 
     private static final String PROPERTY_NAME = "ALTREP";
 
-    private URI value;
+    private final URI value;
 
-    private AlternateRepresentation(URI uri) {
-        this.value = uri;
+    private AlternateRepresentation(URI value) {
+        this.value = value;
     }
 
     @Override
