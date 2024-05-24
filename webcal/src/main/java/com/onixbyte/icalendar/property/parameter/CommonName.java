@@ -17,7 +17,7 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
-import com.onixbyte.icalendar.property.Prop;
+import com.onixbyte.icalendar.property.CalendarResolvable;
 
 /**
  * Common Name can be specified on properties with a CAL-ADDRESS value type. The parameter
@@ -27,26 +27,38 @@ import com.onixbyte.icalendar.property.Prop;
  *
  * @author Zihlu Wang
  */
-public final class CommonName implements Prop {
+public final class CommonName implements PropertyParameter {
 
-    private String value;
+    private static final String PROPERTY_NAME = "CN";
 
-    private CommonName() {
-    }
+    private final String value;
 
-    public CommonName setValue(String value) {
+    private CommonName(String value) {
         this.value = value;
-        return this;
     }
 
-    public static CommonName createInstance(String commonName) {
-        var instance = new CommonName();
-        instance.value = commonName;
-        return instance;
+    public static class Builder {
+        private String value;
+
+        private Builder() {
+        }
+
+        public Builder commonName(String commonName) {
+            this.value = commonName;
+            return this;
+        }
+
+        public CommonName build() {
+            return new CommonName(value);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
     public String resolve() {
-        return "CN=\"" + this.value + "\"";
+        return PROPERTY_NAME + "=\"" + this.value + "\"";
     }
 }

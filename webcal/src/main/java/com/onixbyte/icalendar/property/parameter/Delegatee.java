@@ -17,10 +17,49 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
+import com.onixbyte.icalendar.datatype.CalendarUserAddress;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Delegate
  *
  * @author Zihlu WANG
  */
-public class Delegatee {
+public final class Delegatee implements PropertyParameter {
+
+    private static final String PROPERTY_NAME = "DELEGATED-TO";
+
+    private final List<CalendarUserAddress> value;
+
+    private Delegatee(List<CalendarUserAddress> value) {
+        this.value = value;
+    }
+
+    public static class Builder {
+        private List<CalendarUserAddress> value;
+
+        private Builder() {
+            this.value = new ArrayList<>();
+        }
+
+        public Builder addDelegatee(URI delegateeUri) {
+            value.add(new CalendarUserAddress(delegateeUri));
+            return this;
+        }
+
+        public Delegatee build() {
+            return new Delegatee(value);
+        }
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + String.join(",", value
+                .stream()
+                .map((_value) -> "\"" + _value + "\"")
+                .toList());
+    }
 }

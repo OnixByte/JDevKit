@@ -15,26 +15,23 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.component;
-
-import com.onixbyte.icalendar.property.Prop;
-import com.onixbyte.icalendar.property.parameter.FormatType;
+package com.onixbyte.icalendar.datatype;
 
 import java.net.URI;
 
-/**
- * Attach
- *
- * @author Zihlu WANG
- */
-public final class Attach implements Prop {
+public final class CalendarUserAddress  {
 
-    private FormatType formatType;
+    private URI value;
 
-    private URI uri;
+    public CalendarUserAddress(URI value) {
+        if (!"mailto".equalsIgnoreCase(value.getScheme())) {
+            throw new IllegalArgumentException("Calendar User Address (CAL-ADDRESS) only accept mailto URI.");
+        }
+        this.value = value;
+    }
 
     @Override
-    public String resolve() {
-        return "";
+    public String toString() {
+        return value.toString();
     }
 }

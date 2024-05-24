@@ -15,19 +15,19 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.component;
+package com.onixbyte.icalendar.component.property;
 
+import com.onixbyte.icalendar.calendar.property.Method;
 import com.onixbyte.icalendar.config.Formatters;
-import com.onixbyte.icalendar.property.Prop;
 
 import java.time.LocalDateTime;
 
 /**
  * In the case of an {@link com.onixbyte.icalendar.component.Calendar iCalendar} object that specifies a "{@link
- * com.onixbyte.icalendar.property.calendar.Method Method}" property, this property specifies the date and time that
+ * Method Method}" property, this property specifies the date and time that
  * the instance of the {@link com.onixbyte.icalendar.component.Calendar iCalendar} object was created. In the case of
  * an {@link com.onixbyte.icalendar.component.Calendar iCalendar} object that doesn't specify a "{@link
- * com.onixbyte.icalendar.property.calendar.Method Method}" property, this property specifies the date and time that
+ * Method Method}" property, this property specifies the date and time that
  * the information associated with the calendar component was last revised in the calendar store.
  * <p>
  * The value MUST be specified in the UTC time format.
@@ -37,19 +37,19 @@ import java.time.LocalDateTime;
  * com.onixbyte.icalendar.component.Calendar iCalendar} objects.
  * <p>
  * In the case of an {@link com.onixbyte.icalendar.component.Calendar iCalendar} object that specifies a "{@link
- * com.onixbyte.icalendar.property.calendar.Method Method}" property, this property differs from the "{@link
+ * Method Method}" property, this property differs from the "{@link
  * DateTimeCreated CREATED}" and "{@link LastModified LAST-MODIFIED}" properties. These two properties are used to
  * specify when the particular calendar data in the calendar store was created and last modified. This is different
  * from when the {@link com.onixbyte.icalendar.component.Calendar iCalendar} object representation of the calendar
  * service information was created or last modified.
  * <p>
  * In the case of an {@link com.onixbyte.icalendar.component.Calendar iCalendar} object that specifies a "{@link
- * com.onixbyte.icalendar.property.calendar.Method METHOD}" property, this property is equivalent to the "{@link
+ * Method METHOD}" property, this property is equivalent to the "{@link
  * LastModified LAST-MODIFIED}" property.
  *
  * @author Zihlu WANG
  */
-public final class DateTimeStamp implements Prop {
+public final class DateTimeStamp implements ComponentProperty {
 
     private static final String PROPERTY_NAME = "DTSTAMP";
 

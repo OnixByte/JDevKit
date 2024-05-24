@@ -17,10 +17,10 @@
 
 package com.onixbyte.icalendar.component;
 
-import com.onixbyte.icalendar.property.calendar.CalendarScale;
-import com.onixbyte.icalendar.property.calendar.Method;
-import com.onixbyte.icalendar.property.calendar.ProductIdentifier;
-import com.onixbyte.icalendar.property.calendar.Version;
+import com.onixbyte.icalendar.calendar.property.CalendarScale;
+import com.onixbyte.icalendar.calendar.property.Method;
+import com.onixbyte.icalendar.calendar.property.ProductIdentifier;
+import com.onixbyte.icalendar.calendar.property.Version;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,9 +100,7 @@ public final class Calendar {
                 .ifPresent((_method) -> calendarBuilder.append(_method.resolve()).append('\n'));
 
         if (!components.isEmpty()) {
-            for (var component : components) {
-                calendarBuilder.append(component.resolve()).append('\n');
-            }
+            components.forEach(((component) -> calendarBuilder.append(component.resolve()).append('\n')));
         }
 
         calendarBuilder.append("END:").append(COMPONENT_NAME).append('\n');

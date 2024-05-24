@@ -17,14 +17,14 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
-import com.onixbyte.icalendar.property.Prop;
+import com.onixbyte.icalendar.property.CalendarResolvable;
 
 /**
  * CalendarUserType
  *
  * @author Zihlu WANG
  */
-public enum CalendarUserType implements Prop {
+public enum CalendarUserType implements PropertyParameter {
 
     /**
      * An individual.

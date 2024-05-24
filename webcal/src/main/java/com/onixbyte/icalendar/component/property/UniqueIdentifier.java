@@ -15,16 +15,14 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.component;
-
-import com.onixbyte.icalendar.property.Prop;
+package com.onixbyte.icalendar.component.property;
 
 /**
  * UniqueIdentifier
  *
  * @author Zihlu WANG
  */
-public final class UniqueIdentifier implements Prop {
+public final class UniqueIdentifier implements ComponentProperty {
 
     private String value;
 

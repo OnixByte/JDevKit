@@ -15,12 +15,7 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.component;
+package com.onixbyte.icalendar.component.property;
 
-/**
- * LastModified
- *
- * @author Zihlu WANG
- */
-public final class LastModified {
+public enum Classification {
 }

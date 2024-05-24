@@ -15,23 +15,23 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.component;
+package com.onixbyte.icalendar.calendar.property;
 
 /**
- * The abstract sealed class {@code WebCalendarNode} represents a node in a web calendar, such as an
- * <a href="some_link">event</a>, a to-do item, or an alarm. It provides common properties and
- * methods for all calendar components and events.
- * <p>
- * Subclasses of {@code WebCalendarNode} should implement the {@link #resolve()} method to generate
- * the corresponding iCalendar content for the specific calendar component or event.
+ * CalendarScale
  *
- * @author Zihlu Wang
- * @version 1.1.0
- * @since 1.0.0
+ * @author Zihlu WANG
  */
-public abstract class CalendarComponent {
+public enum CalendarScale implements CalendarProperty {
 
-    public abstract String resolve();
+    GREGORIAN,
+    ;
+
+    private static final String PROPERTY_NAME = "CALSCALE";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + ':' + this.name();
+    }
 
 }
-

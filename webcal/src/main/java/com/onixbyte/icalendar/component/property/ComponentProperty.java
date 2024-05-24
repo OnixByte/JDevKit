@@ -15,10 +15,9 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property;
+package com.onixbyte.icalendar.component.property;
 
-public interface Prop {
+import com.onixbyte.icalendar.property.CalendarResolvable;
 
-    String resolve();
-
+public interface ComponentProperty extends CalendarResolvable {
 }

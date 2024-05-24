@@ -15,29 +15,10 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.property;
 
-import com.onixbyte.icalendar.property.CalendarResolvable;
+public interface CalendarResolvable {
 
-/**
- * FormatType
- *
- * @author Zihlu WANG
- */
-public enum FormatType implements PropertyParameter {
+    String resolve();
 
-    JSON("application/json"),
-
-    ;
-
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
-    }
-
-    @Override
-    public String resolve() {
-        return "FMTTYPE:" + this.ianaRegistry;
-    }
 }

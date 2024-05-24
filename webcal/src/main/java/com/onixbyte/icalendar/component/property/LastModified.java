@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.component;
+package com.onixbyte.icalendar.component.property;
 
 /**
- * DateTimeCreated
+ * LastModified
  *
  * @author Zihlu WANG
  */
-public final class DateTimeCreated {
+public final class LastModified {
 }

@@ -15,38 +15,22 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.calendar;
+package com.onixbyte.icalendar.calendar.property;
 
-import com.onixbyte.icalendar.property.Prop;
+/**
+ * Version
+ *
+ * @author Zihlu WANG
+ */
+public enum Version implements CalendarProperty {
 
-public enum Method implements Prop {
-
-    PUBLISH("PUBLISH"),
-    REQUEST("REQUEST"),
-    REPLY("REPLY"),
-    ADD("ADD"),
-    CANCEL("CANCEL"),
-    REFRESH("REFRESH"),
-    COUNTER("COUNTER"),
-    DECLINE_COUNTER("DECLINECOUNTER"),
+    VERSION_2_0,
     ;
-
-    private final String label;
-
-    private static final String PROPERTY_NAME = "METHOD";
-
-    Method(String label) {
-        this.label = label;
-    }
-
-    @Override
-    public String toString() {
-        return label;
-    }
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + ":" + label;
+        return "VERSION:" + switch (this) {
+            case VERSION_2_0 -> "2.0";
+        };
     }
-
 }

@@ -15,25 +15,9 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.calendar;
+package com.onixbyte.icalendar.calendar.property;
 
-import com.onixbyte.icalendar.property.Prop;
+import com.onixbyte.icalendar.property.CalendarResolvable;
 
-/**
- * CalendarScale
- *
- * @author Zihlu WANG
- */
-public enum CalendarScale implements Prop {
-
-    GREGORIAN,
-    ;
-
-    private static final String PROPERTY_NAME = "CALSCALE";
-
-    @Override
-    public String resolve() {
-        return PROPERTY_NAME + ':' + this.name();
-    }
-
+public interface CalendarProperty extends CalendarResolvable {
 }

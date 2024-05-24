@@ -15,18 +15,16 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.calendar;
-
-import com.onixbyte.icalendar.property.Prop;
+package com.onixbyte.icalendar.calendar.property;
 
 /**
  * ProductIdentifier
  *
  * @author Zihlu WANG
  */
-public final class ProductIdentifier implements Prop {
+public final class ProductIdentifier implements CalendarProperty {
 
-    private String value;
+    private final String value;
 
     @Override
     public String resolve() {
@@ -34,29 +32,28 @@ public final class ProductIdentifier implements Prop {
     }
 
     public static class Builder {
-        private final ProductIdentifier productIdentifier;
+        private String productIdentifier;
 
         private Builder() {
-            this.productIdentifier = new ProductIdentifier();
         }
 
         public Builder productIdentifier(String productIdentifier) {
-            this.productIdentifier.value = productIdentifier;
+            this.productIdentifier = productIdentifier;
             return this;
         }
 
         public Builder productIdentifier(String companyName, String productName) {
-            this.productIdentifier.value = "-//" + companyName + "//" + productName + "//EN";
+            this.productIdentifier = "-//" + companyName + "//" + productName + "//EN";
             return this;
         }
 
         public Builder productIdentifier(String companyName, String productName, String languageTag) {
-            this.productIdentifier.value = "-//" + companyName + "//" + productName + "//" + languageTag;
+            this.productIdentifier = "-//" + companyName + "//" + productName + "//" + languageTag;
             return this;
         }
 
         public ProductIdentifier build() {
-            return productIdentifier;
+            return new ProductIdentifier(productIdentifier);
         }
     }
 
@@ -66,6 +63,7 @@ public final class ProductIdentifier implements Prop {
 
     private static final String PROPERTY_NAME = "PRODID";
 
-    private ProductIdentifier() {
+    private ProductIdentifier(String value) {
+        this.value = value;
     }
 }

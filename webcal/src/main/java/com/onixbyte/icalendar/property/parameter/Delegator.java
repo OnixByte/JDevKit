@@ -17,7 +17,7 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
-import com.onixbyte.icalendar.property.Prop;
+import com.onixbyte.icalendar.property.CalendarResolvable;
 
 import java.net.URI;
 
@@ -26,7 +26,7 @@ import java.net.URI;
  *
  * @author Zihlu WANG
  */
-public final class Delegator implements Prop {
+public final class Delegator implements PropertyParameter {
 
     private static final String PROPERTY_NAME = "DELEGATED-FROM";
 

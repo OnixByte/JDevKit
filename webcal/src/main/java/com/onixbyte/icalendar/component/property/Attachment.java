@@ -15,29 +15,34 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.component.property;
 
-import com.onixbyte.icalendar.property.CalendarResolvable;
+import com.onixbyte.icalendar.property.parameter.FormatType;
+
+import java.net.URI;
+import java.util.Optional;
 
 /**
- * FormatType
+ * Attachment
  *
  * @author Zihlu WANG
  */
-public enum FormatType implements PropertyParameter {
+public final class Attachment implements ComponentProperty {
 
-    JSON("application/json"),
+    private FormatType formatType;
 
-    ;
-
-    private final String ianaRegistry;
-
-    FormatType(String ianaRegistry) {
-        this.ianaRegistry = ianaRegistry;
-    }
+    private URI uri;
 
     @Override
     public String resolve() {
-        return "FMTTYPE:" + this.ianaRegistry;
+        final var attachmentBuilder = new StringBuilder("ATTACH");
+
+        Optional.ofNullable(formatType)
+                .ifPresent((fmtType) -> attachmentBuilder.append(fmtType.resolve()));
+
+        attachmentBuilder.append(":")
+                .append(uri.toString());
+
+        return attachmentBuilder.toString();
     }
 }
