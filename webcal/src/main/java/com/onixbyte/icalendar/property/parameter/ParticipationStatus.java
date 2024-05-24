@@ -17,10 +17,46 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
+import java.util.List;
+
 /**
  * ParticipationStatus
  *
  * @author Zihlu WANG
  */
-public class ParticipationStatus {
+public enum ParticipationStatus implements PropertyParameter {
+
+    ACCEPTED("ACCEPTED"),
+    DECLINED("DECLINED"),
+    TENTATIVE("TENTATIVE"),
+    DELEGATED("DELEGATED"),
+    COMPLETED("COMPLETED"),
+    IN_PROGRESS("IN-PROGRESS"),
+    NEEDS_ACTION("NEEDS-ACTION")
+    ;
+
+    public static List<ParticipationStatus> eventStatues() {
+        return List.of(NEEDS_ACTION, ACCEPTED, DECLINED, TENTATIVE, DELEGATED);
+    }
+
+    public static List<ParticipationStatus> todoStatues() {
+        return List.of(NEEDS_ACTION, ACCEPTED, DECLINED, TENTATIVE, DELEGATED, COMPLETED, IN_PROGRESS);
+    }
+
+    public static List<ParticipationStatus> journalStatues() {
+        return List.of(NEEDS_ACTION, ACCEPTED, DECLINED);
+    }
+
+    private static final String PROPERTY_NAME = "PARTSTAT";
+
+    private final String tag;
+
+    ParticipationStatus(String tag) {
+        this.tag = tag;
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + tag;
+    }
 }

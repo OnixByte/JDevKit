@@ -22,5 +22,33 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class RelationshipType {
+public enum RelationshipType implements PropertyParameter {
+
+    PARENT("PARENT"),
+    CHILD("CHILD"),
+    SIBLING("SIBLING"),
+    SNOOZE("SNOOZE"),
+    CONCEPT("CONCEPT"),
+    DEPENDS_ON("DEPENDS-ON"),
+    FINISH_TO_FINISH("FINISHTOFINISH"),
+    FINISH_TO_START("FINISHTOSTART"),
+    FIRST("FIRST"),
+    NEXT("NEXT"),
+    REF_ID("REFID"),
+    START_TO_FINISH("STARTTOFINISH"),
+    START_TO_START("STARTTOSTART")
+    ;
+
+    private static final String PROPERTY_NAME = "RELTYPE";
+
+    private final String tag;
+
+    RelationshipType(String tag) {
+        this.tag = tag;
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + tag;
+    }
 }

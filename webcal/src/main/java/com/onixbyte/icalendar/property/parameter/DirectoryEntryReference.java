@@ -17,10 +17,50 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
+import java.net.URI;
+
 /**
  * DirectoryEntryReference
  *
  * @author Zihlu WANG
  */
-public class DirectoryEntryReference {
+public final class DirectoryEntryReference implements PropertyParameter {
+
+    private static final String PROPERTY_NAME = "DIR";
+
+    private final URI value;
+
+    private DirectoryEntryReference(URI value) {
+        this.value = value;
+    }
+
+    public static class Builder {
+        private URI value;
+
+        private Builder() {
+        }
+
+        public Builder directoryEntryReference(URI value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder directoryEntryReference(String value) {
+            this.value = URI.create(value);
+            return this;
+        }
+
+        public DirectoryEntryReference build() {
+            return new DirectoryEntryReference(value);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=\"" + value + "\"";
+    }
 }

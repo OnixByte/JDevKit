@@ -260,6 +260,8 @@ public enum Language implements PropertyParameter {
     SOUTH_AFRICA_ZULU("zu-ZA")
     ;
 
+    private static final String PROPERTY_NAME = "LANGUAGE";
+
     private final String value;
 
     Language(String value) {
@@ -268,6 +270,6 @@ public enum Language implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return "LANGUAGE=" + value;
+        return PROPERTY_NAME + "=" + value;
     }
 }

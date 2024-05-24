@@ -22,5 +22,24 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class ParticipationRole {
+public enum ParticipationRole implements PropertyParameter {
+
+    CHAIR("CHAIR"),
+    REQ_PARTICIPANT("REQ-PARTICIPANT"),
+    OPT_PARTICIPANT("OPT-PARTICIPANT"),
+    NON_PARTICIPANT("NON-PARTICIPANT"),
+    ;
+
+    private static final String PROPERTY_NAME = "ROLE";
+
+    private final String tag;
+
+    ParticipationRole(String tag) {
+        this.tag = tag;
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + tag;
+    }
 }

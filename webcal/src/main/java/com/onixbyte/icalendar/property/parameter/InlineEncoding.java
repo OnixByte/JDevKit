@@ -22,5 +22,23 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class InlineEncoding {
+public enum InlineEncoding implements PropertyParameter {
+
+    EIGHT_BIT("8BIT"),
+
+    BASE_64("BASE64"),
+    ;
+
+    private final String tag;
+
+    InlineEncoding(String tag) {
+        this.tag = tag;
+    }
+
+    private static final String PROPERTY_NAME = "ENCODING";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + tag;
+    }
 }

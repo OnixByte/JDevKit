@@ -22,5 +22,21 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class RecurrenceIdentifierRange {
+public enum RecurrenceIdentifierRange implements PropertyParameter {
+
+    THIS_AND_FUTURE("THISANDFUTURE")
+    ;
+
+    private static final String PROPERTY_NAME = "RANGE";
+
+    private final String tag;
+
+    RecurrenceIdentifierRange(String tag) {
+        this.tag = tag;
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + tag;
+    }
 }

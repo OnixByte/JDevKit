@@ -82,8 +82,7 @@ public final class Delegatee implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + "=" + String.join(",", value
-                .stream()
+        return PROPERTY_NAME + "=" + String.join(",", value.stream()
                 .map((_value) -> "\"" + _value + "\"")
                 .toList());
     }

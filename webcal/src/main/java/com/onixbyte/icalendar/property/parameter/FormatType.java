@@ -30,6 +30,8 @@ public enum FormatType implements PropertyParameter {
 
     ;
 
+    private static final String PROPERTY_NAME = "FMTTYPE";
+
     private final String ianaRegistry;
 
     FormatType(String ianaRegistry) {
@@ -38,6 +40,6 @@ public enum FormatType implements PropertyParameter {
 
     @Override
     public String resolve() {
-        return "FMTTYPE:" + this.ianaRegistry;
+        return PROPERTY_NAME + "=" + this.ianaRegistry;
     }
 }

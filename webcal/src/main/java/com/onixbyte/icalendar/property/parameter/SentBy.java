@@ -17,10 +17,57 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
+import com.onixbyte.icalendar.datatype.CalendarUserAddress;
+
+import java.net.URI;
+
 /**
  * SentBy
  *
  * @author Zihlu WANG
  */
-public class SentBy {
+public final class SentBy implements PropertyParameter {
+
+    private static final String PROPERTY_NAME = "SENT-BY";
+
+    private final CalendarUserAddress value;
+
+    private SentBy(CalendarUserAddress value) {
+        this.value = value;
+    }
+
+    public static class Builder {
+        private CalendarUserAddress sentBy;
+
+        private Builder() {
+        }
+
+        public Builder sentBy(CalendarUserAddress sentBy) {
+            this.sentBy = sentBy;
+            return this;
+        }
+
+        public Builder sentBy(String sentBy) {
+            this.sentBy = new CalendarUserAddress(sentBy);
+            return this;
+        }
+
+        public Builder sentBy(URI sentBy) {
+            this.sentBy = new CalendarUserAddress(sentBy);
+            return this;
+        }
+
+        public SentBy build() {
+            return new SentBy(sentBy);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=\"" + value + "\"";
+    }
 }

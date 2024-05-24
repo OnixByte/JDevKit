@@ -22,5 +22,24 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class FreeBusyTimeType {
+public enum FreeBusyTimeType implements PropertyParameter {
+
+    FREE("FREE"),
+    BUSY("BUSY"),
+    BUSY_UNAVAILABLE("BUSY-UNAVAILABLE"),
+    BUSY_TENTATIVE("BUSY-TENTATIVE")
+    ;
+
+    private static final String PROPERTY_NAME = "FBTYPE";
+
+    private final String tag;
+
+    FreeBusyTimeType(String tag) {
+        this.tag = tag;
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + tag;
+    }
 }

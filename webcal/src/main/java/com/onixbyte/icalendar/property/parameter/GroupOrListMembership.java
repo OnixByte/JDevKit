@@ -17,10 +17,73 @@
 
 package com.onixbyte.icalendar.property.parameter;
 
+import com.onixbyte.icalendar.datatype.CalendarUserAddress;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 /**
  * GroupOrListMembership
  *
  * @author Zihlu WANG
  */
-public class GroupOrListMembership {
+public final class GroupOrListMembership implements PropertyParameter {
+
+    private static final String PROPERTY_NAME = "MEMBER";
+
+    private final List<CalendarUserAddress> value;
+
+    private GroupOrListMembership(List<CalendarUserAddress> value) {
+        this.value = value;
+    }
+
+    public static class Builder {
+        private final List<CalendarUserAddress> value;
+
+        private Builder() {
+            this.value = new ArrayList<>();
+        }
+
+        public Builder addMembership(CalendarUserAddress membership) {
+            value.add(membership);
+            return this;
+        }
+
+        public Builder addMembership(String membership) {
+            value.add(new CalendarUserAddress(membership));
+            return this;
+        }
+
+        public Builder addMembership(URI membership) {
+            value.add(new CalendarUserAddress(membership));
+            return this;
+        }
+
+        public Builder addMemberships(List<CalendarUserAddress> memberships) {
+            value.addAll(memberships);
+            return this;
+        }
+
+        public Builder addMemberships(Supplier<List<CalendarUserAddress>> memberships) {
+            value.addAll(memberships.get());
+            return this;
+        }
+
+        public GroupOrListMembership build() {
+            return new GroupOrListMembership(value);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + String.join(",", value.stream()
+                .map((_value) -> "\"" + _value + "\"")
+                .toList());
+    }
 }

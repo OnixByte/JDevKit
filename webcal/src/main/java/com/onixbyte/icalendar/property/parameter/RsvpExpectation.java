@@ -22,5 +22,18 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class RsvpExpectation {
+public final class RsvpExpectation implements PropertyParameter {
+
+    private static final String PROPERTY_NAME = "RSVP";
+
+    private final boolean value;
+
+    public RsvpExpectation(boolean value) {
+        this.value = value;
+    }
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + String.valueOf(value).toUpperCase();
+    }
 }

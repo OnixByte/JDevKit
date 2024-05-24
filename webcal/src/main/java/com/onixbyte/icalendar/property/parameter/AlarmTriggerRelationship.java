@@ -22,5 +22,16 @@ package com.onixbyte.icalendar.property.parameter;
  *
  * @author Zihlu WANG
  */
-public class AlarmTriggerRelationship {
+public enum AlarmTriggerRelationship implements PropertyParameter {
+
+    START,
+    END
+    ;
+
+    private static final String PROPERTY_NAME = "RELATED";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + "=" + name();
+    }
 }
