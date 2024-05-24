@@ -22,6 +22,7 @@ import com.onixbyte.icalendar.datatype.CalendarUserAddress;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Delegate
@@ -38,6 +39,10 @@ public final class Delegatee implements PropertyParameter {
         this.value = value;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private List<CalendarUserAddress> value;
 
@@ -45,8 +50,28 @@ public final class Delegatee implements PropertyParameter {
             this.value = new ArrayList<>();
         }
 
-        public Builder addDelegatee(URI delegateeUri) {
-            value.add(new CalendarUserAddress(delegateeUri));
+        public Builder addDelegatee(CalendarUserAddress delegatee) {
+            value.add(delegatee);
+            return this;
+        }
+
+        public Builder addDelegatee(URI delegatee) {
+            value.add(new CalendarUserAddress(delegatee));
+            return this;
+        }
+
+        public Builder addDelegatee(String delegatee) {
+            value.add(new CalendarUserAddress(delegatee));
+            return this;
+        }
+
+        public Builder addDelegatees(List<CalendarUserAddress> delegatees) {
+            value.addAll(delegatees);
+            return this;
+        }
+
+        public Builder addDelegatees(Supplier<List<CalendarUserAddress>> delegatees) {
+            value.addAll(delegatees.get());
             return this;
         }
 

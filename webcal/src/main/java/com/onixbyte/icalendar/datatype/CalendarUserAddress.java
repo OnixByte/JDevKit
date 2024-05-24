@@ -30,6 +30,14 @@ public final class CalendarUserAddress  {
         this.value = value;
     }
 
+    public CalendarUserAddress(String value) {
+        var uri = URI.create(value);
+        if (!"mailto".equalsIgnoreCase(uri.getScheme())) {
+            throw new IllegalArgumentException("Calendar User Address (CAL-ADDRESS) only accept mailto URI.");
+        }
+        this.value = uri;
+    }
+
     @Override
     public String toString() {
         return value.toString();

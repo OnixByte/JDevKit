@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (C) 2023 CodeCraftersCN.
+  ~ Copyright (C) 2024-2024 OnixByte.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
   ~ limitations under the License.
   -->
 <configuration>
-    <property name="COLOURFUL_OUTPUT" value="%black(%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK}) %highlight(%-5level) %black(---) %black([%10.10t]) %cyan(%-20.20logger{20}) %black(:) %msg%n"/>
+    <property name="COLOURFUL_OUTPUT" value="%black(%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK}) %highlight(%-5level) %black(---) %black([%15.15t]) %cyan(%-39.39logger{39}) %black(:) %msg%n"/>
     <property name="STANDARD_OUTPUT" value="%date{'dd MMM, yyyy HH:mm:ss', Asia/Hong_Kong, en-UK} %-5level %black(---) [%10.10t] %-20.20logger{20} : %msg%n"/>
 
     <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
