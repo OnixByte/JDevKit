@@ -18,9 +18,10 @@
 package com.onixbyte.icalendar.component.property;
 
 import com.onixbyte.icalendar.calendar.property.Method;
-import com.onixbyte.icalendar.config.Formatters;
+import com.onixbyte.icalendar.core.DateTimeFormatters;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * In the case of an {@link com.onixbyte.icalendar.component.Calendar iCalendar} object that
@@ -50,7 +51,15 @@ import java.time.LocalDateTime;
  *
  * @author Zihlu WANG
  */
-// public final class DateTimeStamp implements DateTimeProperty, ComponentProperty {
-//
-//
-// }
+public record DateTimeStamp(LocalDateTime dateTimeStamp) implements DateTimeProperty, ComponentProperty {
+
+    private static final String PROPERTY_NAME = "DTSTAMP";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + ":" + dateTimeStamp
+                .atZone(ZoneId.systemDefault())
+                .withZoneSameInstant(ZoneId.of("UTC"))
+                .format(DateTimeFormatters.utcDateTimeFormatter()) + "\n";
+    }
+}

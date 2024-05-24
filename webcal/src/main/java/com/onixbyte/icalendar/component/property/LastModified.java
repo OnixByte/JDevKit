@@ -17,10 +17,24 @@
 
 package com.onixbyte.icalendar.component.property;
 
+import com.onixbyte.icalendar.core.DateTimeFormatters;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 /**
  * LastModified
  *
  * @author Zihlu WANG
  */
-public final class LastModified {
+public record LastModified(LocalDateTime value) implements ComponentProperty {
+
+    private static final String PROPERTY_NAME = "LAST-MODIFIED";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + ":" + value.atZone(ZoneId.systemDefault())
+                .withZoneSameInstant(ZoneId.of("UTC"))
+                .format(DateTimeFormatters.utcDateTimeFormatter()) + "\n";
+    }
 }

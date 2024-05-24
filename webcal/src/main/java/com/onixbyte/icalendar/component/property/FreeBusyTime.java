@@ -49,7 +49,7 @@ public final class FreeBusyTime implements ComponentProperty {
 
         private FreeBusyTimeType freeBusyType;
 
-        private List<Period> freeBusyValue;
+        private final List<Period> freeBusyValue;
 
         private Builder() {
             this.freeBusyValue = new ArrayList<>();
@@ -70,7 +70,8 @@ public final class FreeBusyTime implements ComponentProperty {
         freeBusyBuilder.append(":").append(String.join(",", freeBusyValue
                 .stream()
                 .map(Period::resolve)
-                .toList()));
+                .toList()))
+                .append("\n");
 
         return freeBusyBuilder.toString();
     }

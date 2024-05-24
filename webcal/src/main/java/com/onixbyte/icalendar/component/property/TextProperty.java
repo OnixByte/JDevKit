@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 
 public interface TextProperty {
 
-    default String composeResolution(String propertyName,
+    static String composeResolution(String propertyName,
                                      AlternateRepresentation altRep,
                                      Language language,
                                      String value) {
@@ -49,7 +49,7 @@ public interface TextProperty {
         return resolutionBuilder.toString();
     }
 
-    default String composeResolution(String propertyName,
+    static String composeResolution(String propertyName,
                                      AlternateRepresentation altRep,
                                      Language language,
                                      Supplier<String> valueSupplier) {

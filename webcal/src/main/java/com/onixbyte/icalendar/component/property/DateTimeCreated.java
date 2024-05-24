@@ -17,10 +17,25 @@
 
 package com.onixbyte.icalendar.component.property;
 
+import com.onixbyte.icalendar.core.DateTimeFormatters;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 /**
  * DateTimeCreated
  *
  * @author Zihlu WANG
  */
-public final class DateTimeCreated {
+public record DateTimeCreated(LocalDateTime created) implements ComponentProperty {
+
+    private static final String PROPERTY_NAME = "CREATED";
+
+    @Override
+    public String resolve() {
+        return PROPERTY_NAME + ":" + created
+                .atZone(ZoneId.systemDefault())
+                .withZoneSameInstant(ZoneId.of("UTC"))
+                .format(DateTimeFormatters.utcDateTimeFormatter()) + "\n";
+    }
 }

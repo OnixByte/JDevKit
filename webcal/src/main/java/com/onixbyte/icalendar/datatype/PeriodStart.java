@@ -18,6 +18,7 @@
 package com.onixbyte.icalendar.datatype;
 
 import com.onixbyte.icalendar.component.property.DateTimeProperty;
+import com.onixbyte.icalendar.core.DateTimeFormatters;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -30,6 +31,6 @@ public final class PeriodStart implements Period {
 
     @Override
     public String resolve() {
-        return start.format(DateTimeProperty.utcDateTimeFormatter()) + "/" + duration;
+        return start.format(DateTimeFormatters.utcDateTimeFormatter()) + "/" + duration;
     }
 }

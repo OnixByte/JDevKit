@@ -15,9 +15,18 @@
  * limitations under the License.
  */
 
+package com.onixbyte.icalendar.core;
+
 /**
- * 
+ * CalendarUtil
  *
- * @since 1.0.0
+ * @author Zihlu WANG
  */
-package com.onixbyte.icalendar.config;
+public final class CalendarUtil {
+
+    private CalendarUtil() {
+    }
+
+
+
+}

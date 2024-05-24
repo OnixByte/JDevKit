@@ -51,7 +51,7 @@ public class Event extends CalendarComponent {
     /**
      *
      */
-    private DateTimeStamp dtStart;
+    // private DateTimeStamp dtStart;
 
     /*
      * The following properties are OPTIONAL, but MUST NOT occur more than once.

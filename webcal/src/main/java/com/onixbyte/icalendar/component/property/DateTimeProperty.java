@@ -17,13 +17,13 @@
 
 package com.onixbyte.icalendar.component.property;
 
-import com.onixbyte.icalendar.CalendarUtil;
+import com.onixbyte.icalendar.core.DateTimeFormatters;
 import com.onixbyte.icalendar.property.parameter.ValueDataType;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public interface DateTimeProperty {
@@ -32,18 +32,6 @@ public interface DateTimeProperty {
             ValueDataType.DATE,
             ValueDataType.DATE_TIME
     );
-
-    DateTimeFormatter utcDateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-
-    static DateTimeFormatter utcDateTimeFormatter() {
-        return utcDateTimeFormatter;
-    }
-
-    static DateTimeFormatter dateFormatter() {
-        return dateFormatter;
-    }
 
     static String composeResolution(String propertyName,
                                     ValueDataType valueDataType,
@@ -57,12 +45,16 @@ public interface DateTimeProperty {
         var dateTimeFormatter = switch (Optional.ofNullable(valueDataType)
                 .filter(SUPPORTED_VALUES::contains)
                 .orElse(ValueDataType.DATE_TIME)) {
-            case DATE -> dateFormatter;
+            case DATE -> DateTimeFormatters.dateFormatter();
             case BINARY, UTC_OFFSET, BOOLEAN, CAL_ADDRESS, DURATION, FLOAT, INTEGER, PERIOD,
-                 RECURRENCE_RULE, TEXT, URI, DATE_TIME -> utcDateTimeFormatter;
+                 RECURRENCE_RULE, TEXT, URI, DATE_TIME -> DateTimeFormatters.utcDateTimeFormatter();
         };
 
-        dateTimeEndBuilder.append(":").append(localDateTime.format(dateTimeFormatter)).append("\n");
+        dateTimeEndBuilder.append(":")
+                .append(localDateTime.atZone(ZoneId.systemDefault())
+                        .withZoneSameInstant(ZoneId.of("UTC"))
+                        .format(dateTimeFormatter))
+                .append("\n");
         return dateTimeEndBuilder.toString();
     }
 

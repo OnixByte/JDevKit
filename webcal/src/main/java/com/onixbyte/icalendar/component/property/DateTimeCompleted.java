@@ -17,7 +17,7 @@
 
 package com.onixbyte.icalendar.component.property;
 
-import com.onixbyte.icalendar.CalendarUtil;
+import com.onixbyte.icalendar.core.DateTimeFormatters;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -31,6 +31,6 @@ public record DateTimeCompleted(LocalDateTime value) implements DateTimeProperty
         return PROPERTY_NAME + ":" + value
                 .atZone(ZoneId.systemDefault())
                 .withZoneSameInstant(ZoneId.of("UTC"))
-                .format(DateTimeProperty.utcDateTimeFormatter());
+                .format(DateTimeFormatters.utcDateTimeFormatter()) + "\n";
     }
 }

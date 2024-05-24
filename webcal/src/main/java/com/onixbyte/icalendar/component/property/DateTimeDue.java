@@ -17,13 +17,10 @@
 
 package com.onixbyte.icalendar.component.property;
 
-import com.onixbyte.icalendar.CalendarUtil;
 import com.onixbyte.icalendar.property.parameter.ValueDataType;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public record DateTimeDue(ValueDataType valueDataType,
                           LocalDateTime localDateTime) implements DateTimeProperty, ComponentProperty {

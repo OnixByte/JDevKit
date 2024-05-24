@@ -31,7 +31,7 @@ public final class Categories implements ComponentProperty {
     }
 
     public static class Builder {
-        private List<String> categories;
+        private final List<String> categories;
 
         private Builder() {
             categories = new ArrayList<>();

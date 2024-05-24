@@ -17,7 +17,6 @@
 
 package com.onixbyte.icalendar.component.property;
 
-import com.onixbyte.icalendar.CalendarUtil;
 import com.onixbyte.icalendar.property.parameter.AlternateRepresentation;
 import com.onixbyte.icalendar.property.parameter.Language;
 
@@ -29,6 +28,6 @@ public record Location(AlternateRepresentation altRep,
 
     @Override
     public String resolve() {
-        return composeResolution(PROPERTY_NAME, altRep, language, value);
+        return TextProperty.composeResolution(PROPERTY_NAME, altRep, language, value);
     }
 }

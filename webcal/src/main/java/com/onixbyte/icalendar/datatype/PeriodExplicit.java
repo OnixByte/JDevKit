@@ -17,8 +17,7 @@
 
 package com.onixbyte.icalendar.datatype;
 
-import com.onixbyte.icalendar.component.property.DateTimeProperty;
-import com.onixbyte.icalendar.property.Resolvable;
+import com.onixbyte.icalendar.core.DateTimeFormatters;
 
 import java.time.LocalDateTime;
 
@@ -38,7 +37,7 @@ public final class PeriodExplicit implements Period {
 
     @Override
     public String resolve() {
-        return startTime.format(DateTimeProperty.utcDateTimeFormatter()) + "/" +
-                endTime.format(DateTimeProperty.utcDateTimeFormatter());
+        return startTime.format(DateTimeFormatters.utcDateTimeFormatter()) + "/" +
+                endTime.format(DateTimeFormatters.utcDateTimeFormatter());
     }
 }

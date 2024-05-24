@@ -40,7 +40,7 @@ public final class Resources implements TextProperty, ComponentProperty {
     }
 
     public static class Builder {
-        private List<String> value;
+        private final List<String> value;
 
         private AlternateRepresentation altRep;
 
@@ -81,6 +81,6 @@ public final class Resources implements TextProperty, ComponentProperty {
 
     @Override
     public String resolve() {
-        return composeResolution(PROPERTY_NAME, altRep, language, () -> String.join(",", value));
+        return TextProperty.composeResolution(PROPERTY_NAME, altRep, language, () -> String.join(",", value));
     }
 }
