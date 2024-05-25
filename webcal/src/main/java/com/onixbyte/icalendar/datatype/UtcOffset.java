@@ -15,16 +15,14 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.component.property;
+package com.onixbyte.icalendar.datatype;
 
-import com.onixbyte.icalendar.datatype.UtcOffset;
+import com.onixbyte.icalendar.property.Resolvable;
 
-public record TimeZoneOffsetFrom(UtcOffset offset) implements ComponentProperty {
-
-    private static final String PROPERTY_NAME = "TZOFFSETFROM";
+public record UtcOffset(char sign, int hour, int minute) implements Resolvable {
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + ":" + offset.resolve() + "\n";
+        return "%c%02d%02d".formatted(sign, hour, minute);
     }
 }

@@ -15,45 +15,16 @@
  * limitations under the License.
  */
 
-package com.onixbyte.icalendar.property.parameter;
+package com.onixbyte.icalendar.component.property;
 
-/**
- * UserType
- *
- * @author Zihlu WANG
- */
-public enum UserType implements PropertyParameter {
+import com.onixbyte.icalendar.datatype.UtcOffset;
 
-    /**
-     * An individual.
-     */
-    INDIVIDUAL,
+public record TimeZoneOffsetTo(UtcOffset offset) implements ComponentProperty {
 
-    /**
-     * A group of individuals.
-     */
-    GROUP,
-
-    /**
-     * A physical resource.
-     */
-    RESOURCE,
-
-    /**
-     * A room resource.
-     */
-    ROOM,
-
-    /**
-     * Otherwise not known.
-     */
-    UNKNOWN,
-    ;
-
-    private static final String PARAMETER_NAME = "CUTYPE";
+    public static final String PROPERTY_NAME = "TZOFFSETTO";
 
     @Override
     public String resolve() {
-        return PARAMETER_NAME + "=" + this.name();
+        return PROPERTY_NAME + ":" + offset.resolve() + "\n";
     }
 }

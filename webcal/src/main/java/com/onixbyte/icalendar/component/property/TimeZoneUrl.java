@@ -17,14 +17,14 @@
 
 package com.onixbyte.icalendar.component.property;
 
-import com.onixbyte.icalendar.datatype.UtcOffset;
+import java.net.URI;
 
-public record TimeZoneOffsetFrom(UtcOffset offset) implements ComponentProperty {
+public record TimeZoneUrl(URI uri) implements ComponentProperty {
 
-    private static final String PROPERTY_NAME = "TZOFFSETFROM";
+    public static final String PROPERTY_NAME = "TZURL";
 
     @Override
     public String resolve() {
-        return PROPERTY_NAME + ":" + offset.resolve() + "\n";
+        return PROPERTY_NAME + ":" + uri + "\n";
     }
 }
