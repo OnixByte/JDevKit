@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 CodeCraftersCN.
+ * Copyright (C) 2024-2024 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
 }
 
