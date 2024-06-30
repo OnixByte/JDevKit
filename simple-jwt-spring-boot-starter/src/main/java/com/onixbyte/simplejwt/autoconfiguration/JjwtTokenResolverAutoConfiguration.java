@@ -66,9 +66,10 @@ import org.springframework.context.annotation.Bean;
 public class JjwtTokenResolverAutoConfiguration {
 
     /**
-     * Constructs a new {@code SimpleJwtAutoConfiguration} instance with the
-     * provided SimpleJwtProperties.
+     * Constructs a new {@code SimpleJwtAutoConfiguration} instance with the provided
+     * {@link SimpleJwtProperties}.
      *
+     * @param jtiCreator          a creator to create JSON Web Token ids
      * @param simpleJwtProperties the SimpleJwtProperties instance
      */
     @Autowired
@@ -78,11 +79,10 @@ public class JjwtTokenResolverAutoConfiguration {
     }
 
     /**
-     * Creates a new {@link TokenResolver} bean using {@link
-     * JjwtTokenResolver} if no existing {@link TokenResolver} bean is
-     * found. The {@link JjwtTokenResolver} is configured with the
-     * provided {@link GuidCreator}, {@code algorithm}, {@code issuer}, and
-     * {@code secret} properties from {@link SimpleJwtProperties}.
+     * Creates a new {@link TokenResolver} bean using {@link JjwtTokenResolver} if no existing
+     * {@link TokenResolver} bean is found. The {@link JjwtTokenResolver} is configured with the
+     * provided {@link GuidCreator}, {@code algorithm}, {@code issuer}, and {@code secret}
+     * properties from {@link SimpleJwtProperties}.
      *
      * @return the {@link TokenResolver} instance
      */
@@ -102,8 +102,8 @@ public class JjwtTokenResolverAutoConfiguration {
     private final GuidCreator<?> jtiCreator;
 
     /**
-     * The {@code SimpleJwtProperties} instance containing the configuration
-     * properties for Simple JWT.
+     * The {@code SimpleJwtProperties} instance containing the configuration properties
+     * for Simple JWT.
      */
     private final SimpleJwtProperties simpleJwtProperties;
 

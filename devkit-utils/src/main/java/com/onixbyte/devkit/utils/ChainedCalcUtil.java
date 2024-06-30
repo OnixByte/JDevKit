@@ -26,12 +26,11 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * The {@code ChainedCalcUtil} class provides a convenient way to perform
- * chained high-precision calculations using {@link BigDecimal}. It allows
- * users to perform mathematical operations such as addition, subtraction,
- * multiplication, and division with customisable precision and scale. By using
- * this utility class, developers can achieve accurate results and avoid
- * precision loss in their calculations.
+ * The {@code ChainedCalcUtil} class provides a convenient way to perform chained high-precision
+ * calculations using {@link BigDecimal}. It allows users to perform mathematical operations such
+ * as addition, subtraction, multiplication, and division with customisable precision and scale.
+ * By using this utility class, developers can achieve accurate results and avoid precision loss
+ * in their calculations.
  * <p>
  * <b>Usage:</b>
  * <pre>
@@ -82,10 +81,9 @@ import java.util.function.Function;
  * {@code ChainedCalcUtil} class.
  * <p>
  * <b>Note:</b>
- * The {@code ChainedCalcUtil} class internally uses {@link BigDecimal} to
- * handle high-precision calculations. It is important to note that {@link
- * BigDecimal} operations can be memory-intensive and may have performance
- * implications for extremely large numbers or complex calculations.
+ * The {@code ChainedCalcUtil} class internally uses {@link BigDecimal} to handle high-precision
+ * calculations. It is important to note that {@link BigDecimal} operations can be memory-intensive
+ * and may have performance implications for extremely large numbers or complex calculations.
  *
  * @author sunzsh
  * @version 1.1.0
@@ -96,8 +94,7 @@ import java.util.function.Function;
 public final class ChainedCalcUtil {
 
     /**
-     * Creates a {@code ChainedCalcUtil} instance with the specified initial
-     * value.
+     * Creates a {@code ChainedCalcUtil} instance with the specified initial value.
      *
      * @param value the initial value for the calculation
      */
@@ -126,8 +123,7 @@ public final class ChainedCalcUtil {
     }
 
     /**
-     * Adds the specified value to the current value with a specified scale
-     * before the operation.
+     * Adds the specified value to the current value with a specified scale before the operation.
      *
      * @param other              the value to be added
      * @param beforeOperateScale the scale to be applied before the operation
@@ -148,8 +144,8 @@ public final class ChainedCalcUtil {
     }
 
     /**
-     * Subtracts the specified value from the current value with a specified
-     * scale before the operation.
+     * Subtracts the specified value from the current value with a specified scale before
+     * the operation.
      *
      * @param other              the value to be subtracted
      * @param beforeOperateScale the scale to be applied before the operation
@@ -170,8 +166,8 @@ public final class ChainedCalcUtil {
     }
 
     /**
-     * Multiplies the current value by the specified value with a specified
-     * scale before the operation.
+     * Multiplies the current value by the specified value with a specified scale before
+     * the operation.
      *
      * @param other              the value to be multiplied by
      * @param beforeOperateScale the scale to be applied before the operation
@@ -192,8 +188,7 @@ public final class ChainedCalcUtil {
     }
 
     /**
-     * Divides the current value by the specified value with a specified scale
-     * before the operation.
+     * Divides the current value by the specified value with a specified scale before the operation.
      *
      * @param other              the value to divide by
      * @param beforeOperateScale the scale to be applied before the operation
@@ -216,8 +211,8 @@ public final class ChainedCalcUtil {
     }
 
     /**
-     * Divides the current value by the specified value with a specified scale
-     * and a scale applied before the operation.
+     * Divides the current value by the specified value with a specified scale and a scale applied
+     * before the operation.
      *
      * @param other              the value to divide by
      * @param scale              the scale for the result
@@ -225,7 +220,9 @@ public final class ChainedCalcUtil {
      * @return a {@code ChainedCalcUtil} instance with the updated value
      */
     public ChainedCalcUtil divideWithScale(Number other, Integer scale, Integer beforeOperateScale) {
-        return baseOperator(otherValue -> this.value.divide(otherValue, scale, RoundingMode.HALF_UP), other, beforeOperateScale);
+        return baseOperator((otherValue) ->
+                        this.value.divide(otherValue, scale, RoundingMode.HALF_UP),
+                other, beforeOperateScale);
     }
 
     /**
@@ -276,8 +273,7 @@ public final class ChainedCalcUtil {
     }
 
     /**
-     * Applies the specified operator function to the current value and another
-     * value.
+     * Applies the specified operator function to the current value and another value.
      *
      * @param operator   the operator function to apply
      * @param otherValue the value to apply the operator with
@@ -288,8 +284,8 @@ public final class ChainedCalcUtil {
     }
 
     /**
-     * Applies the specified operator function to the current value and another
-     * value with a specified scale before the operation.
+     * Applies the specified operator function to the current value and another value with a
+     * specified scale before the operation.
      *
      * @param operator           the operator function to apply
      * @param other              the value to apply the operator with
@@ -298,7 +294,10 @@ public final class ChainedCalcUtil {
      * @return a ChainedCalcUtil instance with the updated value
      */
     private ChainedCalcUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other, Integer beforeOperateScale) {
-        return baseOperator((otherValue) -> operator.apply(this.value, otherValue), other, beforeOperateScale);
+        return baseOperator((otherValue) ->
+                operator.apply(this.value, otherValue),
+                other,
+                beforeOperateScale);
     }
 
     /**
@@ -328,8 +327,7 @@ public final class ChainedCalcUtil {
      * Converts the specified value to a {@link BigDecimal}.
      *
      * @param value the value to convert
-     * @param scale the scale to apply to the resulting BigDecimal, or null if
-     *              not applicable
+     * @param scale the scale to apply to the resulting BigDecimal, or null if not applicable
      * @return the converted BigDecimal value
      */
     private BigDecimal convertBigDecimal(Object value, Integer scale) {
