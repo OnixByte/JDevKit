@@ -36,15 +36,21 @@ import java.util.Objects;
 public class GuidCreatorCondition implements Condition {
 
     /**
+     * Default constructor.
+     */
+    public GuidCreatorCondition() {
+    }
+
+    /**
      * The condition to create bean {@code jtiCreator}.
      * <p>
-     * If Spring does not have a bean of type
-     * {@link GuidCreator} named {@code jtiCreator}
-     * in the application context, then create {@code jtiCreator}.
+     * If Spring does not have a bean of type {@link GuidCreator} named {@code jtiCreator} in the
+     * application context, then create {@code jtiCreator}.
      *
      * @param context  the spring application context
-     * @param metadata the metadata of the {@link org.springframework.core.type.AnnotationMetadata class}
-     *                 or {@link org.springframework.core.type.MethodMetadata method} being checked
+     * @param metadata the metadata of the {@link org.springframework.core.type.AnnotationMetadata
+     *                 class} or {@link org.springframework.core.type.MethodMetadata method}
+     *                 being checked
      */
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {

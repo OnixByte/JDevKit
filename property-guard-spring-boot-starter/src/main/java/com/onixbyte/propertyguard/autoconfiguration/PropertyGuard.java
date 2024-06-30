@@ -71,6 +71,12 @@ import java.util.Optional;
 public class PropertyGuard implements EnvironmentPostProcessor {
 
     /**
+     * Create a {@link PropertyGuard} instance.
+     */
+    public PropertyGuard() {
+    }
+
+    /**
      * Process the encryption environment variables.
      *
      * @param environment the environment to post-process

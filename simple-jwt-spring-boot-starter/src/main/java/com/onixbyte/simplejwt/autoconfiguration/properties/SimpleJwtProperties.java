@@ -25,21 +25,20 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * {@code SimpleJwtProperties} is a configuration properties class used to
- * store the properties related to Simple JWT library configurations. These
- * properties can be configured in the application's properties file (e.g.,
- * application.properties) with the prefix "code-crafters.simple-jwt".
+ * {@code SimpleJwtProperties} is a configuration properties class used to store the properties
+ * related to Simple JWT library configurations. These properties can be configured in the
+ * application's properties file (e.g., application.properties) with the prefix
+ * "onixbyte.simple-jwt".
  * <p>
- * {@code SimpleJwtProperties} provides configuration options for the JWT
- * algorithm, issuer, and secret. The properties are used by the {@link
- * AuthzeroTokenResolverAutoConfiguration} and {@link
- * JjwtTokenResolver} to set up the
- * necessary configurations for JWT generation and validation.
+ * {@code SimpleJwtProperties} provides configuration options for the JWT algorithm, issuer,
+ * and secret. The properties are used by the {@link AuthzeroTokenResolverAutoConfiguration} and
+ * {@link JjwtTokenResolver} to set up the necessary configurations for JWT generation
+ * and validation.
  * <p>
- * Developers can customise the JWT algorithm, issuer, and secret by setting
- * the corresponding properties in the application's properties file. The
- * {@code SimpleJwtAutoConfiguration} class reads these properties and uses
- * them to create the TokenResolver bean with the desired configuration.
+ * Developers can customise the JWT algorithm, issuer, and secret by setting the corresponding
+ * properties in the application's properties file. The {@code SimpleJwtAutoConfiguration} class
+ * reads these properties and uses them to create the TokenResolver bean with the
+ * desired configuration.
  *
  * @author Zihlu Wang
  * @version 1.1.0
@@ -50,21 +49,25 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SimpleJwtProperties {
 
     /**
+     * Default constructor.
+     */
+    public SimpleJwtProperties() {
+    }
+
+    /**
      * The algorithm used for JWT generation and validation. Default value is
      * {@link TokenAlgorithm#HS256}
      */
     private TokenAlgorithm algorithm = TokenAlgorithm.HS256;
 
     /**
-     * The issuer value to be included in the generated JWT. Default value is
-     * an empty String.
+     * The issuer value to be included in the generated JWT. Default value is an empty String.
      */
     private String issuer = "";
 
     /**
-     * The secret key used for JWT generation and validation. Default value is
-     * the result of call to {@link
-     * SecretCreator#createSecret(int, boolean, boolean, boolean)}.
+     * The secret key used for JWT generation and validation. Default value is the result of call to
+     * {@link SecretCreator#createSecret(int, boolean, boolean, boolean)}.
      */
     private String secret = SecretCreator.createSecret(32, true, true, true);
 

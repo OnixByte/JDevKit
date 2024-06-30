@@ -61,6 +61,10 @@ import java.util.Map;
  */
 public final class JjwtTokenResolverConfig implements TokenResolverConfig<SecureDigestAlgorithm<SecretKey, SecretKey>> {
 
+    /**
+     * Get the instance for io.jsonwebtoken:jjwt config.
+     * @return the instance for io.jsonwebtoken:jjwt config
+     */
     public static JjwtTokenResolverConfig getInstance() {
         if (instance == null) {
             instance = new JjwtTokenResolverConfig();

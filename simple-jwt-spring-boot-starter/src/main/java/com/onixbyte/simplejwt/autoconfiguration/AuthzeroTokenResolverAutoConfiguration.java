@@ -69,8 +69,9 @@ public class AuthzeroTokenResolverAutoConfiguration {
      * Constructs a new {@code SimpleJwtAutoConfiguration} instance with the
      * provided SimpleJwtProperties.
      *
-     * @param simpleJwtProperties the SimpleJwtProperties instance
-     * @param objectMapper Jackson JSON Handler
+     * @param simpleJwtProperties a {@link SimpleJwtProperties} instance
+     * @param jtiCreator a creator to create ids for JSON Web Token
+     * @param objectMapper jackson JSON Handler
      */
     @Autowired
     public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, @Qualifier("jtiCreator") GuidCreator<?> jtiCreator, ObjectMapper objectMapper) {
@@ -80,11 +81,10 @@ public class AuthzeroTokenResolverAutoConfiguration {
     }
 
     /**
-     * Creates a new {@link TokenResolver} bean using {@link
-     * AuthzeroTokenResolver} if no existing {@link TokenResolver} bean is
-     * found. The {@link AuthzeroTokenResolver} is configured with the
-     * provided {@link GuidCreator}, {@code algorithm}, {@code issuer}, and
-     * {@code secret} properties from {@link SimpleJwtProperties}.
+     * Creates a new {@link TokenResolver} bean using {@link AuthzeroTokenResolver} if no existing
+     * {@link TokenResolver} bean is found. The {@link AuthzeroTokenResolver} is configured with the
+     * provided {@link GuidCreator}, {@code algorithm}, {@code issuer}, and {@code secret}
+     * properties from {@link SimpleJwtProperties}.
      *
      * @return the {@link TokenResolver} instance
      */
@@ -99,15 +99,8 @@ public class AuthzeroTokenResolverAutoConfiguration {
         );
     }
 
-    /**
-     * The GuidCreator instance to be used for generating JWT IDs (JTI).
-     */
     private final GuidCreator<?> jtiCreator;
 
-    /**
-     * The {@code SimpleJwtProperties} instance containing the configuration
-     * properties for Simple JWT.
-     */
     private final SimpleJwtProperties simpleJwtProperties;
 
     private final ObjectMapper objectMapper;

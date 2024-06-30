@@ -233,7 +233,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      *                    token
      * @return the generated token as a {@code String} or {@code null} if
      * creation fails
-     * @see MapUtil#objectToMap(Object)
+     * @see MapUtil#objectToMap(Object, Map)
      */
     @Override
     public <T extends TokenPayload> String createToken(Duration expireAfter, String audience, String subject, T payload) {
@@ -291,7 +291,7 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
      * @param targetType the target class representing the payload data type
      * @return an instance of the specified target type with the extracted
      * payload data, or {@code null} if extraction fails.
-     * @see MapUtil#mapToObject(Map, Class)
+     * @see MapUtil#mapToObject(Map, Object, Map)
      */
     @Override
     public <T extends TokenPayload> T extract(String token, Class<T> targetType) {

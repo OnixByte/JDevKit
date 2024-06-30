@@ -28,7 +28,7 @@ import java.util.Optional;
  * to objects.
  * <p>
  * Note: Since version 1.4.2, this util class removed reflection API and transferred to a safer API.
- * Please see <a href="">documentation</a> for more information.
+ * Please see documentation for more information.
  *
  * @author Zihlu Wang
  * @version 1.4.2
@@ -41,7 +41,9 @@ public final class MapUtil {
     /**
      * Converts an object to a map by mapping the field names to their corresponding values.
      *
-     * @param entity the object to be converted to a map
+     * @param <T>      the type of the object
+     * @param entity   the object to be converted to a map
+     * @param adapters adapts the entity for mapping to a map
      * @return a map representing the fields and their values of the object
      */
     public static <T> Map<String, Object> objectToMap(T entity,
@@ -73,6 +75,7 @@ public final class MapUtil {
     /**
      * Retrieves the value of a field from an object using reflection.
      *
+     * @param <E>     the type of the entity
      * @param <T>     the type of the field value
      * @param entity  the object from which to retrieve the field value
      * @param adapter the adapter to execute the getter
@@ -86,6 +89,8 @@ public final class MapUtil {
     /**
      * Sets the value of a field in an object using reflection.
      *
+     * @param <E>        the type of the entity
+     * @param <T>        the type of the field value
      * @param entity     the object in which to set the field value
      * @param adapter    the adapter to execute the setter
      * @param fieldValue the value to be set

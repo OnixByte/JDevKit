@@ -38,6 +38,12 @@ import java.util.UUID;
 public class GuidAutoConfiguration {
 
     /**
+     * Default constructor.
+     */
+    public GuidAutoConfiguration() {
+    }
+
+    /**
      * Create a default {@code jtiCreator} with UUID.
      *
      * @return UUID creator
