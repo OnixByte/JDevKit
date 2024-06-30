@@ -100,15 +100,6 @@ publishing {
                     password = providers.gradleProperty("repo.maven-central.password").get()
                 }
             }
-
-            maven {
-                name = "githubPackages"
-                url = URI(providers.gradleProperty("repo.github.host").get())
-                credentials {
-                    username = providers.gradleProperty("repo.github.username").get()
-                    password = providers.gradleProperty("repo.github.password").get()
-                }
-            }
         }
     }
 }
