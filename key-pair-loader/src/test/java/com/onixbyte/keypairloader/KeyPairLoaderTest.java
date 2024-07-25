@@ -15,18 +15,15 @@
  * limitations under the License.
  */
 
-rootProject.name = "JDevKit"
+package com.onixbyte.keypairloader;
 
-include(
-    "devkit-core",
-    "devkit-utils",
-    "guid",
-    "webcal",
-    "simple-jwt-facade",
-    "simple-jwt-authzero",
-    "simple-jwt-jjwt",
-    "simple-jwt-spring-boot-starter",
-    "property-guard-spring-boot-starter"
-)
-include("map-util-unsafe")
-include("key-pair-loader")
+import org.junit.jupiter.api.Test;
+
+public class KeyPairLoaderTest {
+
+    @Test
+    public void test() {
+
+    }
+
+}
