@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.onixbyte.keypairloader;
+package com.onixbyte.security;
 
 import org.junit.jupiter.api.Test;
 

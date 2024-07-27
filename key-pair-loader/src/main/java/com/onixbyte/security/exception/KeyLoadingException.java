@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.onixbyte.keypairloader.exception;
+package com.onixbyte.security.exception;
 
 public class KeyLoadingException extends RuntimeException {
 
