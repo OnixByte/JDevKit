@@ -51,12 +51,6 @@ subprojects {
         testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
     }
 
-    repositories {
-        mavenLocal()
-        maven(url = "https://maven.proxy.ustclug.org/maven2/")
-        mavenCentral()
-    }
-
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
     }
