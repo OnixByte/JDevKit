@@ -17,24 +17,63 @@
 
 package com.onixbyte.security.exception;
 
+/**
+ * {@code KeyLoadingException} is an exception indicating an error occurred while loading a key.
+ *
+ * @author zihluwang
+ * @version 1.6.0
+ * @since 1.6.0
+ */
 public class KeyLoadingException extends RuntimeException {
 
+    /**
+     * Creates a new instance of {@code KeyLoadingException} without a specific message or cause.
+     */
     public KeyLoadingException() {
     }
 
+    /**
+     * Creates a new instance of {@code KeyLoadingException} with the specified detail message.
+     *
+     * @param message the detail message
+     */
     public KeyLoadingException(String message) {
         super(message);
     }
 
+    /**
+     * Creates a new instance of {@code KeyLoadingException} with the specified detail message
+     * and cause.
+     *
+     * @param message the detail message
+     * @param cause   the cause of this exception
+     */
     public KeyLoadingException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /**
+     * Creates a new instance of {@code KeyLoadingException} with the specified cause.
+     *
+     * @param cause the cause of this exception
+     */
     public KeyLoadingException(Throwable cause) {
         super(cause);
     }
 
-    public KeyLoadingException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    /**
+     * Constructs a new exception with the specified detail message, cause, suppression enabled
+     * or disabled, and writable stack trace enabled or disabled.
+     *
+     * @param message the detail message
+     * @param cause the cause of this exception
+     * @param enableSuppression whether suppression is enabled or disabled
+     * @param writableStackTrace whether the stack trace should be writable
+     */
+    public KeyLoadingException(String message,
+                               Throwable cause,
+                               boolean enableSuppression,
+                               boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

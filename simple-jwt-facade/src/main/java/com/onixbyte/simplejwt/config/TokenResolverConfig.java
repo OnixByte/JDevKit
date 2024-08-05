@@ -20,6 +20,8 @@ package com.onixbyte.simplejwt.config;
 import com.onixbyte.simplejwt.TokenResolver;
 import com.onixbyte.simplejwt.constants.TokenAlgorithm;
 
+import java.util.List;
+
 /**
  * The {@code TokenResolverConfig} provides a mechanism to configure an
  * implementation of {@link TokenResolver} with algorithm functions.
@@ -49,11 +51,15 @@ public interface TokenResolverConfig<Algo> {
      * implementation that can be used by the {@link TokenResolver} to handle
      * the specific algorithm.
      *
-     * @param algorithm the {@link TokenAlgorithm} for which the algorithm
-     *                  function is required
-     * @return the algorithm function associated with the given {@link
-     * TokenAlgorithm}
+     * @param algorithm the {@link TokenAlgorithm} for which the algorithm function is required
+     * @return the algorithm function associated with the given {@link TokenAlgorithm}
      */
     Algo getAlgorithm(TokenAlgorithm algorithm);
+
+    List<TokenAlgorithm> ECDSA_ALGORITHMS =
+            List.of(TokenAlgorithm.ES256, TokenAlgorithm.ES384, TokenAlgorithm.ES512);
+
+    List<TokenAlgorithm> HMAC_ALGORITHMS =
+            List.of(TokenAlgorithm.HS256, TokenAlgorithm.HS384, TokenAlgorithm.HS512);
 
 }

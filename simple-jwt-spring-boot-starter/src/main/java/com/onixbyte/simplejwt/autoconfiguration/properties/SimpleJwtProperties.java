@@ -72,6 +72,13 @@ public class SimpleJwtProperties {
     private String secret = SecretCreator.createSecret(32, true, true, true);
 
     /**
+     * The private key of
+     */
+    private String privateKey;
+
+    private String publicKey;
+
+    /**
      * Returns the JWT algorithm configured in the properties.
      *
      * @return the JWT algorithm

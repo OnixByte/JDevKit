@@ -17,6 +17,7 @@
 
 package com.onixbyte.simplejwt.authzero.config;
 
+import com.onixbyte.security.KeyLoader;
 import com.onixbyte.simplejwt.TokenResolver;
 import com.onixbyte.simplejwt.authzero.AuthzeroTokenResolver;
 import com.onixbyte.simplejwt.config.TokenResolverConfig;
@@ -30,6 +31,7 @@ import java.security.interfaces.ECPrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -58,7 +60,7 @@ import java.util.function.Function;
  * @since 1.0.0
  */
 public final class AuthzeroTokenResolverConfig
-        implements TokenResolverConfig<Function<String, Algorithm>> {
+        implements TokenResolverConfig<BiFunction<String, String, Algorithm>> {
 
     /**
      * Gets the instance of {@code AuthzeroTokenResolverConfig}.
@@ -92,7 +94,7 @@ public final class AuthzeroTokenResolverConfig
      *                                       this implementation
      */
     @Override
-    public Function<String, Algorithm> getAlgorithm(TokenAlgorithm algorithm) {
+    public BiFunction<String, String, Algorithm> getAlgorithm(TokenAlgorithm algorithm) {
         return Optional.of(SUPPORTED_ALGORITHMS).map((entry) -> entry.get(algorithm))
                 .orElseThrow(() -> new UnsupportedAlgorithmException("The specified algorithm is not supported yet."));
     }
@@ -127,26 +129,20 @@ public final class AuthzeroTokenResolverConfig
      * specific algorithms. The mapping is used to provide proper algorithm
      * resolution and processing within the {@link AuthzeroTokenResolver}.
      */
-    private static final Map<TokenAlgorithm, Function<String, Algorithm>> SUPPORTED_ALGORITHMS = new HashMap<>() {{
-        put(TokenAlgorithm.HS256, Algorithm::HMAC256);
-        put(TokenAlgorithm.HS384, Algorithm::HMAC384);
-        put(TokenAlgorithm.HS512, Algorithm::HMAC512);
-        put(TokenAlgorithm.ES256, (String privateKey) -> {
-            try {
-                var keyBytes = Base64.getDecoder().decode(privateKey);
-                var spec = new PKCS8EncodedKeySpec(keyBytes);
-                var kf = KeyFactory.getInstance("EC");
-                var key = kf.generatePrivate(spec);
-                if (key instanceof ECPrivateKey pk) {
-                    return Algorithm.ECDSA256(pk);
-                } else {
-                    throw new RuntimeException("Type error!");
-                }
-            } catch (NoSuchAlgorithmException ignored) {
-            } catch (InvalidKeySpecException e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        });
+    private static final
+    Map<TokenAlgorithm, BiFunction<String, String, Algorithm>> SUPPORTED_ALGORITHMS =
+            new HashMap<>() {{
+        put(TokenAlgorithm.HS256, (String secret, String ignoredValue) ->
+                Algorithm.HMAC256(secret));
+        put(TokenAlgorithm.HS384, (String secret, String ignoredValue) ->
+                Algorithm.HMAC384(secret));
+        put(TokenAlgorithm.HS512, (String secret, String ignoredValue) ->
+                Algorithm.HMAC512(secret));
+        put(TokenAlgorithm.ES256, (String privateKey, String publicKey) ->
+                Algorithm.ECDSA256(KeyLoader.loadEcdsaPrivateKey(privateKey)));
+        put(TokenAlgorithm.ES384, (String privateKey, String publicKey) ->
+                Algorithm.ECDSA256(KeyLoader.loadEcdsaPrivateKey(privateKey)));
+        put(TokenAlgorithm.ES512, (String privateKey, String publicKey) ->
+                Algorithm.ECDSA256(KeyLoader.loadEcdsaPrivateKey(privateKey)));
     }};
 }

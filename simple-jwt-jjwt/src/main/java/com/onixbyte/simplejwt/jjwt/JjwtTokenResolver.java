@@ -112,9 +112,6 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         }
 
         if (secret.length() < 32) {
-            log.error("""
-                            The provided secret which owns {} characters is too weak. Please replace it with a stronger one.""",
-                    secret.length());
             throw new WeakSecretException("""
                     The provided secret which owns %s characters is too weak. Please replace it with a stronger one."""
                     .formatted(secret.length()));
@@ -166,9 +163,6 @@ public class JjwtTokenResolver implements TokenResolver<Jws<Claims>> {
         }
 
         if (secret.length() < 32) {
-            log.error(
-                    "The provided secret which owns {} characters is too weak. Please replace it with a stronger one.",
-                    secret.length());
             throw new WeakSecretException(
                     "The provided secret which owns %s characters is too weak. Please replace it with a stronger one."
                             .formatted(secret.length()));

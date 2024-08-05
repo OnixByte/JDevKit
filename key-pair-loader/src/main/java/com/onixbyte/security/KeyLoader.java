@@ -50,10 +50,10 @@ public class KeyLoader {
      *
      * @param pemKeyText pem-formatted key text
      * @return loaded private key
-     * @throws KeyLoadingException if the generated key is not a {@link ECPrivateKey} instance, or EC Key Factory is
-     *                             not loaded, or key spec is invalid
+     * @throws KeyLoadingException if the generated key is not a {@link ECPrivateKey} instance,
+     *                             or EC Key Factory is not loaded, or key spec is invalid
      */
-    public ECPrivateKey loadEcdsaPrivateKey(String pemKeyText) {
+    public static ECPrivateKey loadEcdsaPrivateKey(String pemKeyText) {
         try {
             var decodedKeyString = Base64.getDecoder().decode(pemKeyText);
             var keySpec = new PKCS8EncodedKeySpec(decodedKeyString);
@@ -76,10 +76,10 @@ public class KeyLoader {
      *
      * @param pemKeyText pem-formatted key text
      * @return loaded private key
-     * @throws KeyLoadingException if the generated key is not a {@link ECPrivateKey} instance, or EC Key Factory is
-     *                             not loaded, or key spec is invalid
+     * @throws KeyLoadingException if the generated key is not a {@link ECPrivateKey} instance,
+     *                             or EC Key Factory is not loaded, or key spec is invalid
      */
-    public ECPublicKey loadEcdsaPublicKey(String pemKeyText) {
+    public static ECPublicKey loadEcdsaPublicKey(String pemKeyText) {
         try {
             var keyBytes = Base64.getDecoder().decode(pemKeyText);
             var spec = new X509EncodedKeySpec(keyBytes);
