@@ -23,7 +23,7 @@ import com.onixbyte.simplejwt.authzero.AuthzeroTokenResolver;
 import com.onixbyte.simplejwt.autoconfiguration.properties.SimpleJwtProperties;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onixbyte.simplejwt.config.TokenResolverConfig;
+import com.onixbyte.simplejwt.constants.TokenAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -91,25 +91,21 @@ public class AuthzeroTokenResolverAutoConfiguration {
      */
     @Bean
     public TokenResolver<DecodedJWT> tokenResolver() {
-        if (TokenResolverConfig.HMAC_ALGORITHMS.contains(simpleJwtProperties.algorithm())) {
-            return new AuthzeroTokenResolver(
-                    jtiCreator,
-                    simpleJwtProperties.algorithm(),
-                    simpleJwtProperties.issuer(),
-                    simpleJwtProperties.secret(),
-                    "",
-                    objectMapper
-            );
-        } else {
-            return new AuthzeroTokenResolver(
-                    jtiCreator,
-                    simpleJwtProperties.algorithm(),
-                    simpleJwtProperties.issuer(),
-                    simpleJwtProperties.getPrivateKey(),
-                    simpleJwtProperties.getPublicKey(),
-                    objectMapper
-            );
+        var builder = AuthzeroTokenResolver.builder();
+
+        if (TokenAlgorithm.HMAC_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
+            builder.keyPair(simpleJwtProperties.getPublicKey(), simpleJwtProperties.getPrivateKey())
+                    .algorithm(simpleJwtProperties.getAlgorithm());
+        } else if (TokenAlgorithm.ECDSA_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
+            builder.secret(simpleJwtProperties.getSecret())
+                    .algorithm(simpleJwtProperties.getAlgorithm());
         }
+
+        builder.issuer(simpleJwtProperties.getIssuer());
+        builder.jtiCreator(jtiCreator);
+        builder.objectMapper(objectMapper);
+
+        return builder.build();
     }
 
     private final GuidCreator<?> jtiCreator;

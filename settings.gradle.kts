@@ -20,13 +20,11 @@ rootProject.name = "JDevKit"
 include(
     "devkit-core",
     "devkit-utils",
+    "map-util-unsafe",
     "guid",
-    "webcal",
+    "key-pair-loader",
     "simple-jwt-facade",
     "simple-jwt-authzero",
-    "simple-jwt-jjwt",
     "simple-jwt-spring-boot-starter",
     "property-guard-spring-boot-starter"
 )
-include("map-util-unsafe")
-include("key-pair-loader")

@@ -25,7 +25,7 @@ val licenseName: String by project
 val licenseUrl: String by project
 
 val javaJwtVersion: String by project
-val jjwtVersion: String by project
+val jacksonVersion: String by project
 val springBootVersion: String by project
 
 group = buildGroupId
@@ -36,10 +36,7 @@ dependencies {
     implementation(project(":simple-jwt-facade"))
     compileOnly("com.auth0:java-jwt:$javaJwtVersion")
     compileOnly(project(":simple-jwt-authzero"))
-    compileOnly("io.jsonwebtoken:jjwt-api:$jjwtVersion")
-    compileOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
-    compileOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
-    compileOnly(project(":simple-jwt-jjwt"))
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")

@@ -20,7 +20,6 @@ package com.onixbyte.simplejwt.autoconfiguration.properties;
 import com.onixbyte.simplejwt.SecretCreator;
 import com.onixbyte.simplejwt.autoconfiguration.AuthzeroTokenResolverAutoConfiguration;
 import com.onixbyte.simplejwt.constants.TokenAlgorithm;
-import com.onixbyte.simplejwt.jjwt.JjwtTokenResolver;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -31,9 +30,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * "onixbyte.simple-jwt".
  * <p>
  * {@code SimpleJwtProperties} provides configuration options for the JWT algorithm, issuer,
- * and secret. The properties are used by the {@link AuthzeroTokenResolverAutoConfiguration} and
- * {@link JjwtTokenResolver} to set up the necessary configurations for JWT generation
- * and validation.
+ * and secret. The properties are used by the {@link AuthzeroTokenResolverAutoConfiguration} to
+ * set up the necessary configurations for JWT generation and validation.
  * <p>
  * Developers can customise the JWT algorithm, issuer, and secret by setting the corresponding
  * properties in the application's properties file. The {@code SimpleJwtAutoConfiguration} class
@@ -72,38 +70,14 @@ public class SimpleJwtProperties {
     private String secret = SecretCreator.createSecret(32, true, true, true);
 
     /**
-     * The private key of
+     * The private key, PEM formatted.
      */
     private String privateKey;
 
+    /**
+     * The public key, PEM formatted
+     */
     private String publicKey;
-
-    /**
-     * Returns the JWT algorithm configured in the properties.
-     *
-     * @return the JWT algorithm
-     */
-    public final TokenAlgorithm algorithm() {
-        return algorithm;
-    }
-
-    /**
-     * Returns the issuer value configured in the properties.
-     *
-     * @return the issuer value
-     */
-    public final String issuer() {
-        return issuer;
-    }
-
-    /**
-     * Returns the secret key configured in the properties.
-     *
-     * @return the secret key
-     */
-    public final String secret() {
-        return secret;
-    }
 
 }
 
