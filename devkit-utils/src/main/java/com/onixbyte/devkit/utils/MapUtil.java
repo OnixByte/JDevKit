@@ -30,9 +30,8 @@ import java.util.Optional;
  * Note: Since version 1.4.2, this util class removed reflection API and transferred to a safer API.
  * Please see documentation for more information.
  *
- * @author Zihlu Wang
+ * @author zihluwang
  * @version 1.4.2
- * @see com.onixbyte.devkit.utils.unsafe.ReflectMapUtil
  * @since 1.0.0
  */
 @Slf4j

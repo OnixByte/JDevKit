@@ -24,24 +24,11 @@ val projectGithubUrl: String by project
 val licenseName: String by project
 val licenseUrl: String by project
 
-val javaJwtVersion: String by project
-val jacksonVersion: String by project
-val springBootVersion: String by project
-
 group = buildGroupId
 version = buildVersion
 
 dependencies {
-    implementation(project(":guid"))
-    implementation(project(":simple-jwt-facade"))
-    compileOnly("com.auth0:java-jwt:$javaJwtVersion")
-    compileOnly(project(":simple-jwt-authzero"))
-    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-    implementation("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    implementation(project(":devkit-core"))
 }
 
 java {
@@ -57,14 +44,15 @@ tasks.test {
 
 publishing {
     publications {
-        create<MavenPublication>("simpleJwtSpringBootStarter") {
+        create<MavenPublication>("mapUtilUnsafe") {
             groupId = buildGroupId
-            artifactId = "simple-jwt-spring-boot-starter"
+            artifactId = "map-util-unsafe"
             version = buildVersion
 
             pom {
-                name = "Simple JWT :: Spring Boot Starter"
-                description = "Simple JWT all-in-one package for Spring Boot."
+                name = "Unsafe Map Util"
+                description =
+                    "This module is a converter that can convert an object to a map with unsafe methods."
                 url = projectUrl
 
                 licenses {
@@ -93,7 +81,7 @@ publishing {
             from(components["java"])
 
             signing {
-                sign(publishing.publications["simpleJwtSpringBootStarter"])
+                sign(publishing.publications["mapUtilUnsafe"])
             }
         }
 

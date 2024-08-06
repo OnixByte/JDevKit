@@ -61,7 +61,7 @@ import java.util.Optional;
  * for data integrity checks and password storage, but they should not be used for
  * encryption purposes.
  *
- * @author Zihlu Wang
+ * @author zihluwang
  * @version 1.1.0
  * @see java.security.MessageDigest
  * @since 1.0.0

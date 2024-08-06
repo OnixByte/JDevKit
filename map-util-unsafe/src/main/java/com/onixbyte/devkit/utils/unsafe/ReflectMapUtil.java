@@ -53,7 +53,7 @@ public final class ReflectMapUtil {
         var declaredFields = obj.getClass().getDeclaredFields();
         for (var field : declaredFields) {
             field.setAccessible(true);
-            Object result = field.get(obj);
+            var result = field.get(obj);
             if (result != null) {
                 map.put(field.getName(), result);
             }
@@ -157,7 +157,8 @@ public final class ReflectMapUtil {
      * @throws IllegalAccessException    if an error occurs while accessing the field
      * @throws NoSuchMethodException     if the specific setter is not present
      */
-    public static void setFieldValue(Object obj, String fieldName, Object fieldValue) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void setFieldValue(Object obj, String fieldName, Object fieldValue)
+            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         var objectClass = obj.getClass();
         var methodName = getMethodName("set", fieldName);
         var method = objectClass.getDeclaredMethod(methodName, fieldValue.getClass());
