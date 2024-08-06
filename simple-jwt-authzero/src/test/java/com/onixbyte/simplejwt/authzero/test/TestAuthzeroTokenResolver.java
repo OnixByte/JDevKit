@@ -30,11 +30,4 @@ import java.time.Duration;
  */
 public class TestAuthzeroTokenResolver {
 
-    @Test
-    public void test01() {
-        var tokenResolver = new AuthzeroTokenResolver(TokenAlgorithm.HS384, "Test Issuer", "Test Secret");
-        var testToken = tokenResolver.createToken(Duration.ofMinutes(30), "Test Audience", "User00001");
-        System.out.println(testToken);
-    }
-
 }
