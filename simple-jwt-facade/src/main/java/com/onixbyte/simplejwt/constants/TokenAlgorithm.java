@@ -19,6 +19,8 @@ package com.onixbyte.simplejwt.constants;
 
 import lombok.Getter;
 
+import java.util.List;
+
 /**
  * The {@code TokenAlgorithm} enum class defines the algorithms that can be
  * used for signing and verifying JSON Web Tokens (JWT). JWT allows various
@@ -91,5 +93,19 @@ public enum TokenAlgorithm {
      */
     ES512,
     ;
+
+    /**
+     * HMAC-based algorithms.
+     */
+    public static final List<TokenAlgorithm> HMAC_ALGORITHMS = List.of(
+            TokenAlgorithm.HS256, TokenAlgorithm.HS384, TokenAlgorithm.HS512
+    );
+
+    /**
+     * ECDSA-based algorithms.
+     */
+    public static final List<TokenAlgorithm> ECDSA_ALGORITHMS = List.of(
+            TokenAlgorithm.ES256, TokenAlgorithm.ES384, TokenAlgorithm.ES512
+    );
 
 }

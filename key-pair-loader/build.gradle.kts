@@ -24,20 +24,11 @@ val projectGithubUrl: String by project
 val licenseName: String by project
 val licenseUrl: String by project
 
-val jacksonVersion: String by project
-val jjwtVersion: String by project
-
 group = buildGroupId
 version = buildVersion
 
 dependencies {
-    implementation(project(":devkit-utils"))
-    implementation(project(":guid"))
-    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-    implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
-    implementation("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
-    implementation("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
-    implementation(project(":simple-jwt-facade"))
+    implementation(project(":devkit-core"))
 }
 
 java {
@@ -53,14 +44,15 @@ tasks.test {
 
 publishing {
     publications {
-        create<MavenPublication>("simpleJwtJjwt") {
+        create<MavenPublication>("keyPairLoader") {
             groupId = buildGroupId
-            artifactId = "simple-jwt-jjwt"
+            artifactId = "key-pair-loader"
             version = buildVersion
 
             pom {
-                name = "Simple JWT :: JJWT"
-                description = "SSimple JWT implemented with io.jsonwebtoken:jjwt."
+                name = "Key Pair Loader"
+                description =
+                    "This module can easily load key pairs from a PEM content."
                 url = projectUrl
 
                 licenses {
@@ -89,7 +81,7 @@ publishing {
             from(components["java"])
 
             signing {
-                sign(publishing.publications["simpleJwtJjwt"])
+                sign(publishing.publications["keyPairLoader"])
             }
         }
 

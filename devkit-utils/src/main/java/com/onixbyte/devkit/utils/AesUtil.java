@@ -34,8 +34,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * {@link AesUtil} can help you encrypt and decrypt data with specified secret
- * by AES algorithm.
+ * {@link AesUtil} can help you encrypt and decrypt data with specified secret by AES algorithm.
  *
  * @author hubin@baomidou
  * @version 1.1.0
@@ -81,8 +80,9 @@ public final class AesUtil {
             var cipher = Cipher.getInstance(AES_CBC_CIPHER);
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(secret));
             return cipher.doFinal(data);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | UnsupportedOperationException |
-                 InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException |
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException |
+                 UnsupportedOperationException | InvalidKeyException |
+                 InvalidAlgorithmParameterException | IllegalBlockSizeException |
                  BadPaddingException exception) {
             log.error(exception.getMessage());
             for (var stackTraceElement : exception.getStackTrace()) {
@@ -100,7 +100,8 @@ public final class AesUtil {
      * @return the encryption result or {@code null} if encryption failed
      */
     public static String encrypt(String data, String secret) {
-        return Base64.getEncoder().encodeToString(encrypt(data.getBytes(StandardCharsets.UTF_8), secret.getBytes(StandardCharsets.UTF_8)));
+        return Base64.getEncoder().encodeToString(encrypt(data.getBytes(StandardCharsets.UTF_8),
+                secret.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**

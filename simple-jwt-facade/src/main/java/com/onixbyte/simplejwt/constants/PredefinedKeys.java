@@ -35,13 +35,14 @@ import java.util.List;
  *     <li>{@link #JWT_ID}: Represents the "jti" (JWT ID) claim.</li>
  * </ul>
  * <p>
- * The class also contains a list of all the standard claim constants, accessible via the {@link #KEYS} field. This
- * list can be useful for iterating through all the standard claims or checking for the presence of specific claims.
+ * The class also contains a list of all the standard claim constants, accessible via the {@link
+ * #KEYS} field. This list can be useful for iterating through all the standard claims or checking
+ * for the presence of specific claims.
  * <p>
- * Note: This class is final and cannot be instantiated. It only serves as a utility class to hold the standard JWT
- * claim constants.
+ * Note: This class is final and cannot be instantiated. It only serves as a utility class to hold
+ * the standard JWT claim constants.
  *
- * @author Zihlu Wang
+ * @author zihluwang
  * @version 1.1.0
  * @since 1.0.0
  */
@@ -85,7 +86,8 @@ public final class PredefinedKeys {
     /**
      * List containing all the standard JWT claim constants.
      */
-    public static final List<String> KEYS = List.of(ISSUER, SUBJECT, AUDIENCE, EXPIRATION_TIME, NOT_BEFORE, ISSUED_AT, JWT_ID);
+    public static final List<String> KEYS =
+            List.of(ISSUER, SUBJECT, AUDIENCE, EXPIRATION_TIME, NOT_BEFORE, ISSUED_AT, JWT_ID);
 
     /**
      * Private constructor will protect this class from being instantiated.

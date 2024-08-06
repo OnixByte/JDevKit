@@ -49,7 +49,7 @@ import java.util.Objects;
  * provided. It is recommended to specify the charset explicitly to ensure consistent
  * encoding and decoding.
  *
- * @author Zihlu Wang
+ * @author zihluwang
  * @version 1.1.0
  * @since 1.0.0
  */

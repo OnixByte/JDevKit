@@ -19,12 +19,11 @@ package com.onixbyte.simplejwt.authzero;
 
 import com.onixbyte.devkit.utils.Base64Util;
 import com.onixbyte.guid.GuidCreator;
-import com.onixbyte.simplejwt.SecretCreator;
+import com.onixbyte.security.KeyLoader;
 import com.onixbyte.simplejwt.TokenPayload;
 import com.onixbyte.simplejwt.TokenResolver;
 import com.onixbyte.simplejwt.annotations.ExcludeFromPayload;
 import com.onixbyte.simplejwt.annotations.TokenEnum;
-import com.onixbyte.simplejwt.authzero.config.AuthzeroTokenResolverConfig;
 import com.onixbyte.simplejwt.constants.PredefinedKeys;
 import com.onixbyte.simplejwt.constants.TokenAlgorithm;
 import com.auth0.jwt.JWT;
@@ -36,24 +35,29 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.onixbyte.simplejwt.exceptions.IllegalKeyPairException;
+import com.onixbyte.simplejwt.exceptions.IllegalSecretException;
+import com.onixbyte.simplejwt.exceptions.UnsupportedAlgorithmException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationTargetException;
+import java.security.interfaces.ECPrivateKey;
+import java.security.interfaces.ECPublicKey;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
- * The {@code AuthzeroTokenResolver} class is an implementation of the {@link
- * TokenResolver} interface. It uses the {@code
- * com.auth0:java-jwt} library to handle JSON Web Token (JWT) resolution. This
- * resolver provides functionality to create, extract, verify, and renew JWT
+ * The {@code AuthzeroTokenResolver} class is an implementation of the {@link TokenResolver}
+ * interface. It uses the {@code com.auth0:java-jwt} library to handle JSON Web Token (JWT)
+ * resolution. This resolver provides functionality to create, extract, verify, and renew JWT
  * tokens using various algorithms and custom payload data.
  * <p>
  * <b>Usage:</b>
- * To use the {@code AuthzeroTokenResolver}, first, create an instance of this
- * class:
+ * To use the {@code AuthzeroTokenResolver}, first, create an instance of this class:
  * <pre>{@code
  * TokenResolver<DecodedJWT> tokenResolver =
  *     new AuthzeroTokenResolver(TokenAlgorithm.HS256,
@@ -62,8 +66,7 @@ import java.util.*;
  *                               "Token Secret");
  * }</pre>
  * <p>
- * Then, you can utilize the various methods provided by this resolver to
- * handle JWT tokens:
+ * Then, you can utilize the various methods provided by this resolver to handle JWT tokens:
  * <pre>{@code
  * // Creating a new JWT token
  * String token =
@@ -82,10 +85,9 @@ import java.util.*;
  * }</pre>
  * <p>
  * <b>Note:</b>
- * It is essential to configure the appropriate algorithms, secret, and issuer
- * according to your specific use case when using this resolver.
- * Additionally, ensure that the {@code com.auth0:java-jwt} library is
- * correctly configured in your project's dependencies.
+ * It is essential to configure the appropriate algorithms, secret, and issuer according to your
+ * specific use case when using this resolver. Additionally, ensure that the
+ * {@code com.auth0:java-jwt} library is correctly configured in your project's dependencies.
  *
  * @author Zihlu Wang
  * @version 1.1.1
@@ -100,95 +102,160 @@ import java.util.*;
 public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
 
     /**
-     * Creates a new instance of {@code AuthzeroTokenResolver} with the
-     * provided configurations.
+     * Create a builder of {@link AuthzeroTokenResolver}.
      *
-     * @param jtiCreator   the {@link GuidCreator} used for generating unique
-     *                     identifiers for "jti" claim in JWT tokens
-     * @param algorithm    the algorithm used for signing and verifying JWT
-     *                     tokens
-     * @param issuer       the issuer claim value to be included in JWT tokens
-     * @param secret       the secret used for HMAC-based algorithms (HS256,
-     *                     HS384, HS512) for token signing and verification
-     * @param objectMapper JSON handler
+     * @return a builder instance
      */
-    public AuthzeroTokenResolver(GuidCreator<?> jtiCreator, TokenAlgorithm algorithm, String issuer, String secret, ObjectMapper objectMapper) {
-        if (secret == null || secret.isBlank()) {
-            throw new IllegalArgumentException("A secret is required to build a JSON Web Token.");
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
+     * Builder for {@link AuthzeroTokenResolver}
+     */
+    public static class Builder {
+
+        /**
+         * GuidCreator used for generating unique identifiers for "jti" claim in JWT tokens.
+         */
+        private GuidCreator<?> jtiCreator;
+
+        /**
+         * The algorithm used for signing and verifying JWT tokens.
+         */
+        private Algorithm algorithm;
+
+        /**
+         * The issuer claim value to be included in JWT tokens.
+         */
+        private String issuer;
+
+        /**
+         * Jackson JSON handler.
+         */
+        private ObjectMapper objectMapper;
+
+        /**
+         * The secret to sign a JWT with HMAC based algorithm.
+         */
+        private String secret;
+
+        /**
+         * The private key to sign a JWT with ECDSA based algorithm.
+         */
+        private ECPrivateKey privateKey;
+
+        /**
+         * The public key to read a JWT with ECDSA based algorithm.
+         */
+        private ECPublicKey publicKey;
+
+        /**
+         * Private constructor prevents this class being initialised at somewhere it should not
+         * be initialised.
+         */
+        private Builder() {
         }
 
-        if (secret.length() < 32) {
-            log.warn("The provided secret which owns {} characters is too weak. Please consider replacing it with a stronger one.", secret.length());
+        /**
+         * Set the secret to sign a JWT.
+         *
+         * @param secret the secret
+         * @return the builder instance
+         */
+        public Builder secret(String secret) {
+            this.secret = secret;
+            return this;
         }
 
-        this.jtiCreator = jtiCreator;
-        this.algorithm = config
-                .getAlgorithm(algorithm)
-                .apply(secret);
-        this.issuer = issuer;
-        this.verifier = JWT.require(this.algorithm).build();
-        this.objectMapper = objectMapper;
-    }
+        /**
+         * Set the key pair to sign a JWT.
+         *
+         * @param publicKey  the pem formatted public key text
+         * @param privateKey the pem formatted private key text
+         * @return the builder instance
+         */
+        public Builder keyPair(String publicKey, String privateKey) {
+            this.publicKey = KeyLoader.loadEcdsaPublicKey(publicKey);
+            this.privateKey = KeyLoader.loadEcdsaPrivateKey(privateKey);
+            return this;
+        }
 
-    /**
-     * Creates a new instance of {@link AuthzeroTokenResolver} with the
-     * provided configurations and a simple UUID GuidCreator.
-     *
-     * @param algorithm    the algorithm used for signing and verifying JWT tokens
-     * @param issuer       the issuer claim value to be included in JWT tokens
-     * @param secret       the secret used for HMAC-based algorithms (HS256,
-     *                     HS384, HS512) for token signing and verification
-     * @param objectMapper Jackson Databind JSON Handler
-     */
-    public AuthzeroTokenResolver(TokenAlgorithm algorithm, String issuer, String secret, ObjectMapper objectMapper) {
-        this(UUID::randomUUID, algorithm, issuer, secret, objectMapper);
-    }
+        /**
+         * Set the algorithm to sign a JWT.
+         * <p>
+         * A secret required by HMAC-based algorithms, or key pair required by ECDSA-based
+         * algorithms need to be set before initialise an algorithm.
+         *
+         * @param algorithm an {@link TokenAlgorithm} value
+         * @return the builder instance
+         */
+        public Builder algorithm(TokenAlgorithm algorithm) {
+            // check the secret or key pair before algorithm initialised
+            if (HMAC_ALGORITHMS.containsKey(algorithm)) {
+                if (Objects.isNull(secret) || secret.isBlank()) {
+                    throw new IllegalSecretException("""
+                            Please specify a secret before define an algorithm.""");
+                }
+            } else if (ECDSA_ALGORITHMS.containsKey(algorithm)) {
+                if (Objects.isNull(publicKey) || Objects.isNull(privateKey)) {
+                    throw new IllegalKeyPairException("""
+                            Please specify a ECDSA key pair before define an algorithm.""");
+                }
+            }
 
-    /**
-     * Creates a new instance of {@link AuthzeroTokenResolver} with the
-     * provided configurations and a simple UUID GuidCreator.
-     *
-     * @param algorithm the algorithm used for signing and verifying JWT tokens
-     * @param issuer    the issuer claim value to be included in JWT tokens
-     * @param secret    the secret used for HMAC-based algorithms (HS256,
-     *                  HS384, HS512) for token signing and verification
-     */
-    public AuthzeroTokenResolver(TokenAlgorithm algorithm, String issuer, String secret) {
-        this(UUID::randomUUID, algorithm, issuer, secret, new ObjectMapper());
-    }
+            // initialise algorithm
+            this.algorithm = switch (algorithm) {
+                case HS256, HS384, HS512 -> HMAC_ALGORITHMS.get(algorithm).apply(secret);
+                case ES256, ES384, ES512 -> ECDSA_ALGORITHMS.get(algorithm)
+                        .apply(publicKey, privateKey);
+                default -> throw new UnsupportedAlgorithmException("""
+                        This algorithm is not supported yet.""");
+            };
+            return this;
+        }
 
-    /**
-     * Creates a new instance of {@link AuthzeroTokenResolver} with the
-     * provided configurations, HMAC256 algorithm and a simple
-     * UUID GuidCreator.
-     *
-     * @param issuer the issuer claim value to be included in JWT tokens
-     * @param secret the secret used for HMAC-based algorithms (HS256,
-     *               HS384, HS512) for token signing and verification
-     */
-    public AuthzeroTokenResolver(String issuer, String secret) {
-        this(UUID::randomUUID, TokenAlgorithm.HS256, issuer, secret, new ObjectMapper());
-    }
+        /**
+         * Set the object mapper.
+         *
+         * @param objectMapper an object mapper
+         * @return the builder instance
+         */
+        public Builder objectMapper(ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
+            return this;
+        }
 
-    /**
-     * Creates a new instance of {@link AuthzeroTokenResolver} with the
-     * provided configurations, HMAC256 algorithm and a simple
-     * UUID GuidCreator.
-     *
-     * @param issuer the issuer claim value to be included in JWT tokens
-     */
-    public AuthzeroTokenResolver(String issuer) {
-        var secret = SecretCreator.createSecret(32, true, true, true);
+        /**
+         * Set the creator of JWT id.
+         *
+         * @param jtiCreator a creator to create JWT id
+         * @return the builder instance
+         */
+        public Builder jtiCreator(GuidCreator<?> jtiCreator) {
+            this.jtiCreator = jtiCreator;
+            return this;
+        }
 
-        this.jtiCreator = UUID::randomUUID;
-        this.algorithm = config
-                .getAlgorithm(TokenAlgorithm.HS256)
-                .apply(secret);
-        this.issuer = issuer;
-        this.verifier = JWT.require(this.algorithm).build();
-        this.objectMapper = new ObjectMapper();
+        /**
+         * Set the issuer of created JWT.
+         *
+         * @param issuer the person or organisation issued this JWT
+         * @return the builder instance
+         */
+        public Builder issuer(String issuer) {
+            this.issuer = issuer;
+            return this;
+        }
 
-        log.info("The secret has been set to {}.", secret);
+        /**
+         * Create an {@link AuthzeroTokenResolver} instance
+         *
+         * @return created instance
+         */
+        public AuthzeroTokenResolver build() {
+            return new AuthzeroTokenResolver(jtiCreator, algorithm, issuer, objectMapper);
+        }
     }
 
     /**
@@ -239,7 +306,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      */
     @Override
     public <T extends TokenPayload> String createToken(Duration expireAfter, String audience, String subject, T payload) {
-        final JWTCreator.Builder builder = JWT.create();
+        final var builder = JWT.create();
         buildBasicInfo(builder, expireAfter, subject, audience);
 
         var payloadClass = payload.getClass();
@@ -282,7 +349,7 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
      */
     @Override
     public DecodedJWT resolve(String token) {
-        return verifier.verify(token);
+        return jwtVerifier.verify(token);
     }
 
     /**
@@ -438,15 +505,15 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
         // bind issuer (iss)
         builder.withIssuer(issuer);
         // bind issued at (iat)
-        builder.withIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+        builder.withIssuedAt(now.atZone(ZoneId.systemDefault()).toInstant());
         // bind not before (nbf)
-        builder.withNotBefore(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+        builder.withNotBefore(now.atZone(ZoneId.systemDefault()).toInstant());
         // bind audience (aud)
         builder.withAudience(audience);
         // bind subject (sub)
         builder.withSubject(subject);
         // bind expire at (exp)
-        builder.withExpiresAt(Date.from(now.plus(expireAfter).atZone(ZoneId.systemDefault()).toInstant()));
+        builder.withExpiresAt(now.plus(expireAfter).atZone(ZoneId.systemDefault()).toInstant());
         // bind JWT Id (jti)
         builder.withJWTId(jtiCreator.nextId().toString());
     }
@@ -522,14 +589,13 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     /**
      * Default type reference for Map.
      */
-    private static class MapTypeReference extends TypeReference<Map<String, Object>> {
+    public static class MapTypeReference extends TypeReference<Map<String, Object>> {
         MapTypeReference() {
         }
     }
 
     /**
-     * GuidCreator used for generating unique identifiers for "jti" claim in
-     * JWT tokens.
+     * GuidCreator used for generating unique identifiers for "jti" claim in JWT tokens.
      */
     private final GuidCreator<?> jtiCreator;
 
@@ -546,12 +612,45 @@ public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
     /**
      * The JSON Web Token resolver.
      */
-    private final JWTVerifier verifier;
+    private final JWTVerifier jwtVerifier;
 
     /**
      * Jackson JSON handler.
      */
     private final ObjectMapper objectMapper;
 
-    private final AuthzeroTokenResolverConfig config = AuthzeroTokenResolverConfig.getInstance();
+    /**
+     * A map contains all HMAC-SHA based algorithms.
+     */
+    public static final Map<TokenAlgorithm, Function<String, Algorithm>> HMAC_ALGORITHMS = Map.of(
+            TokenAlgorithm.HS256, Algorithm::HMAC256,
+            TokenAlgorithm.HS384, Algorithm::HMAC384,
+            TokenAlgorithm.HS512, Algorithm::HMAC512
+    );
+
+    /**
+     * A map contains all ECDSA based algorithms.
+     */
+    public static final Map<TokenAlgorithm, BiFunction<ECPublicKey, ECPrivateKey, Algorithm>> ECDSA_ALGORITHMS = Map.of(
+            TokenAlgorithm.ES256, Algorithm::ECDSA256,
+            TokenAlgorithm.ES384, Algorithm::ECDSA384,
+            TokenAlgorithm.ES512, Algorithm::ECDSA512
+    );
+
+    /**
+     * Private constructor prevent this class being initialised mistakenly.
+     *
+     * @param jtiCreator   a creator that can create JWT id
+     * @param algorithm    an algorithm to sign this JWT
+     * @param issuer       the person or organisation who issued this JWT
+     * @param objectMapper a mapper for handling JSON serialisation and deserialization
+     */
+    private AuthzeroTokenResolver(GuidCreator<?> jtiCreator, Algorithm algorithm, String issuer, ObjectMapper objectMapper) {
+        this.jtiCreator = jtiCreator;
+        this.algorithm = algorithm;
+        this.issuer = issuer;
+        this.objectMapper = objectMapper;
+        this.jwtVerifier = JWT.require(algorithm).build();
+    }
+
 }

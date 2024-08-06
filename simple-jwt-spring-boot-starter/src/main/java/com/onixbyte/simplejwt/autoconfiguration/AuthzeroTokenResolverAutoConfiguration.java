@@ -23,6 +23,7 @@ import com.onixbyte.simplejwt.authzero.AuthzeroTokenResolver;
 import com.onixbyte.simplejwt.autoconfiguration.properties.SimpleJwtProperties;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.onixbyte.simplejwt.constants.TokenAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,25 +36,23 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@code AuthzeroTokenResolverAutoConfiguration} is responsible for
- * automatically configuring the Simple JWT library with
- * {@code com.auth0:java-jwt} when used in a Spring Boot application. It
- * provides default settings and configurations to ensure that the library
- * works smoothly without requiring manual configuration.
+ * {@code AuthzeroTokenResolverAutoConfiguration} is responsible for automatically configuring the
+ * Simple JWT library with
+ * {@code com.auth0:java-jwt} when used in a Spring Boot application. It provides default settings
+ * and configurations to ensure that the library works smoothly without requiring
+ * manual configuration.
  * <p>
- * This autoconfiguration class sets up the necessary beans and components
- * required for JWT generation and validation. It automatically creates and
- * configures the {@link AuthzeroTokenResolver} bean based on the available
- * options and properties.
+ * This autoconfiguration class sets up the necessary beans and components required for JWT
+ * generation and validation. It automatically creates and configures the
+ * {@link AuthzeroTokenResolver} bean based on the available options and properties.
  * <p>
- * Developers using the Simple JWT library with Spring Boot do not need to
- * explicitly configure the library, as the autoconfiguration takes care of
- * setting up the necessary components and configurations automatically.
- * However, developers still have the flexibility to customise the behavior of
- * the library by providing their own configurations and properties.
+ * Developers using the Simple JWT library with Spring Boot do not need to explicitly configure the
+ * library, as the autoconfiguration takes care of setting up the necessary components and
+ * configurations automatically. However, developers still have the flexibility to customise the
+ * behavior of the library by providing their own configurations and properties.
  *
- * @author Zihlu Wang
- * @version 1.0.0
+ * @author zihluwang
+ * @version 1.6.0
  * @since 1.0.0
  */
 @Slf4j
@@ -70,11 +69,13 @@ public class AuthzeroTokenResolverAutoConfiguration {
      * provided SimpleJwtProperties.
      *
      * @param simpleJwtProperties a {@link SimpleJwtProperties} instance
-     * @param jtiCreator a creator to create ids for JSON Web Token
-     * @param objectMapper jackson JSON Handler
+     * @param jtiCreator          a creator to create ids for JSON Web Token
+     * @param objectMapper        jackson JSON Handler
      */
     @Autowired
-    public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties, @Qualifier("jtiCreator") GuidCreator<?> jtiCreator, ObjectMapper objectMapper) {
+    public AuthzeroTokenResolverAutoConfiguration(SimpleJwtProperties simpleJwtProperties,
+                                                  @Qualifier("jtiCreator") GuidCreator<?> jtiCreator,
+                                                  ObjectMapper objectMapper) {
         this.jtiCreator = jtiCreator;
         this.simpleJwtProperties = simpleJwtProperties;
         this.objectMapper = objectMapper;
@@ -90,13 +91,21 @@ public class AuthzeroTokenResolverAutoConfiguration {
      */
     @Bean
     public TokenResolver<DecodedJWT> tokenResolver() {
-        return new AuthzeroTokenResolver(
-                jtiCreator,
-                simpleJwtProperties.algorithm(),
-                simpleJwtProperties.issuer(),
-                simpleJwtProperties.secret(),
-                objectMapper
-        );
+        var builder = AuthzeroTokenResolver.builder();
+
+        if (TokenAlgorithm.HMAC_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
+            builder.keyPair(simpleJwtProperties.getPublicKey(), simpleJwtProperties.getPrivateKey())
+                    .algorithm(simpleJwtProperties.getAlgorithm());
+        } else if (TokenAlgorithm.ECDSA_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
+            builder.secret(simpleJwtProperties.getSecret())
+                    .algorithm(simpleJwtProperties.getAlgorithm());
+        }
+
+        builder.issuer(simpleJwtProperties.getIssuer());
+        builder.jtiCreator(jtiCreator);
+        builder.objectMapper(objectMapper);
+
+        return builder.build();
     }
 
     private final GuidCreator<?> jtiCreator;

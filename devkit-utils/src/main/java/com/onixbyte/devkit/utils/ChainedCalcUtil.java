@@ -293,7 +293,9 @@ public final class ChainedCalcUtil {
      *                           or null if not applicable
      * @return a ChainedCalcUtil instance with the updated value
      */
-    private ChainedCalcUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other, Integer beforeOperateScale) {
+    private ChainedCalcUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator,
+                                     Object other,
+                                     Integer beforeOperateScale) {
         return baseOperator((otherValue) ->
                 operator.apply(this.value, otherValue),
                 other,
@@ -311,7 +313,8 @@ public final class ChainedCalcUtil {
      * @return a ChainedCalcUtil instance with the updated value
      */
     private synchronized ChainedCalcUtil baseOperator(Function<BigDecimal, BigDecimal> operatorFunction,
-                                                      Object anotherValue, Integer beforeOperateScale) {
+                                                      Object anotherValue,
+                                                      Integer beforeOperateScale) {
         if (Objects.isNull(anotherValue)) {
             return this;
         }
