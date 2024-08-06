@@ -37,6 +37,10 @@ subprojects {
         exclude("logback.xml")
     }
 
+    repositories {
+        mavenCentral()
+    }
+
     dependencies {
         compileOnly("org.slf4j:slf4j-api:$slf4jVersion")
         compileOnly("org.projectlombok:lombok:$lombokVersion")
