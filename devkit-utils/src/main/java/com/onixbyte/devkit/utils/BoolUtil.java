@@ -77,4 +77,9 @@ public final class BoolUtil {
                 .anyMatch(BooleanSupplier::getAsBoolean);
     }
 
+    /**
+     * Private constructor prevent from being initialised.
+     */
+    private BoolUtil() {}
+
 }
