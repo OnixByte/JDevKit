@@ -240,7 +240,7 @@ public final class ChainedCalcUtil {
      *
      * @return the current value as a {@link Double}
      */
-    public Double getDouble() {
+    public double getDouble() {
         return getValue().doubleValue();
     }
 
@@ -250,7 +250,7 @@ public final class ChainedCalcUtil {
      * @param scale the scale for the result
      * @return the current value as a {@link Double} with the specified scale
      */
-    public Double getDouble(int scale) {
+    public double getDouble(int scale) {
         return getValue(scale).doubleValue();
     }
 
@@ -259,7 +259,7 @@ public final class ChainedCalcUtil {
      *
      * @return the current value as a {@link Long}
      */
-    public Long getLong() {
+    public long getLong() {
         return getValue().longValue();
     }
 
@@ -268,7 +268,7 @@ public final class ChainedCalcUtil {
      *
      * @return the current value as an {@link Integer}
      */
-    public Integer getInteger() {
+    public int getInteger() {
         return getValue().intValue();
     }
 
