@@ -68,7 +68,7 @@ import java.util.function.Supplier;
  *
  * @param <T> the type of the result to be handled by the methods
  * @author zihluwang
- * @version 1.1.0
+ * @version 1.6.1
  * @see java.util.function.Supplier
  * @see java.util.function.BooleanSupplier
  * @see java.lang.Runnable
@@ -224,5 +224,14 @@ public final class BranchUtil<T> {
      * The final result of the boolean expression.
      */
     private final boolean result;
+
+    /**
+     * Get the boolean result.
+     *
+     * @return the result
+     */
+    public boolean getResult() {
+        return result;
+    }
 
 }
