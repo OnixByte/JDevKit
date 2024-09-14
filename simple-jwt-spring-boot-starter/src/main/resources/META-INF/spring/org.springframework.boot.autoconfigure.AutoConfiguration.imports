@@ -1,3 +1,2 @@
 com.onixbyte.simplejwt.autoconfiguration.GuidAutoConfiguration
 com.onixbyte.simplejwt.autoconfiguration.AuthzeroTokenResolverAutoConfiguration
-com.onixbyte.simplejwt.autoconfiguration.JjwtTokenResolverAutoConfiguration
