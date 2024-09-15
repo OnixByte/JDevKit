@@ -93,10 +93,10 @@ public class AuthzeroTokenResolverAutoConfiguration {
     public TokenResolver<DecodedJWT> tokenResolver() {
         var builder = AuthzeroTokenResolver.builder();
 
-        if (TokenAlgorithm.HMAC_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
+        if (TokenAlgorithm.ECDSA_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
             builder.keyPair(simpleJwtProperties.getPublicKey(), simpleJwtProperties.getPrivateKey())
                     .algorithm(simpleJwtProperties.getAlgorithm());
-        } else if (TokenAlgorithm.ECDSA_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
+        } else if (TokenAlgorithm.HMAC_ALGORITHMS.contains(simpleJwtProperties.getAlgorithm())) {
             builder.secret(simpleJwtProperties.getSecret())
                     .algorithm(simpleJwtProperties.getAlgorithm());
         }
