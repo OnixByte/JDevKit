@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.onixbyte.devkit.utils;
+package com.onixbyte.nums;
 
 import lombok.Getter;
 
@@ -87,7 +87,7 @@ import java.util.function.Function;
  *
  * @author sunzsh
  * @version 1.1.0
- * @see java.math.BigDecimal
+ * @see BigDecimal
  * @since 1.0.0
  */
 @Getter

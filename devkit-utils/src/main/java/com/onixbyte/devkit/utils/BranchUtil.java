@@ -17,7 +17,6 @@
 
 package com.onixbyte.devkit.utils;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
@@ -89,62 +88,50 @@ public final class BranchUtil<T> {
      * Creates a {@code BranchUtil} instance to evaluate a logical OR operation on the provided
      * boolean expressions.
      *
-     * @param booleans the boolean expressions to be evaluated
-     * @param <T>      the type of the result to be handled by the methods
+     * @param values the boolean expressions to be evaluated
+     * @param <T>    the type of the result to be handled by the methods
      * @return a {@code BranchUtil} instance representing the result of the logical OR operation
      */
-    public static <T> BranchUtil<T> or(Boolean... booleans) {
-        var result = Arrays.stream(booleans)
-                .filter(Objects::nonNull)
-                .anyMatch(Boolean::booleanValue);
-        return new BranchUtil<>(result);
+    public static <T> BranchUtil<T> or(Boolean... values) {
+        return new BranchUtil<>(BoolUtil.or(values));
     }
 
     /**
      * Creates a {@code BranchUtil} instance to evaluate a logical AND operation on the provided
      * boolean expressions.
      *
-     * @param booleans the boolean expressions to be evaluated
-     * @param <T>      the type of the result to be handled by the methods
+     * @param values the boolean expressions to be evaluated
+     * @param <T>    the type of the result to be handled by the methods
      * @return a {@code BranchUtil} instance representing the result of the logical AND operation
      */
-    public static <T> BranchUtil<T> and(Boolean... booleans) {
-        var result = Arrays.stream(booleans)
-                .filter(Objects::nonNull)
-                .allMatch(Boolean::booleanValue);
-        return new BranchUtil<>(result);
+    public static <T> BranchUtil<T> and(Boolean... values) {
+        return new BranchUtil<>(BoolUtil.and(values));
     }
 
     /**
      * Creates a {@code BranchUtil} instance to evaluate a logical OR operation on the provided
      * boolean suppliers.
      *
-     * @param booleanSuppliers the boolean suppliers to be evaluated
-     * @param <T>              the type of the result to be handled by the methods
+     * @param valueSuppliers the boolean suppliers to be evaluated
+     * @param <T>            the type of the result to be handled by the methods
      * @return a {@code BranchUtil} instance representing the result of the
      * logical OR operation
      */
-    public static <T> BranchUtil<T> or(BooleanSupplier... booleanSuppliers) {
-        var result = Arrays.stream(booleanSuppliers)
-                .filter(Objects::nonNull)
-                .anyMatch(BooleanSupplier::getAsBoolean);
-        return new BranchUtil<>(result);
+    public static <T> BranchUtil<T> or(BooleanSupplier... valueSuppliers) {
+        return new BranchUtil<>(BoolUtil.or(valueSuppliers));
     }
 
     /**
      * Creates a {@code BranchUtil} instance to evaluate a logical AND operation on the provided
      * boolean suppliers.
      *
-     * @param booleanSuppliers the boolean suppliers to be evaluated
-     * @param <T>              the type of the result to be handled by the methods
+     * @param valueSuppliers the boolean suppliers to be evaluated
+     * @param <T>            the type of the result to be handled by the methods
      * @return a {@code BranchUtil} instance representing the result of the
      * logical AND operation
      */
-    public static <T> BranchUtil<T> and(BooleanSupplier... booleanSuppliers) {
-        var result = Arrays.stream(booleanSuppliers)
-                .filter(Objects::nonNull)
-                .allMatch(BooleanSupplier::getAsBoolean);
-        return new BranchUtil<>(result);
+    public static <T> BranchUtil<T> and(BooleanSupplier... valueSuppliers) {
+        return new BranchUtil<>(BoolUtil.and(valueSuppliers));
     }
 
     /**
