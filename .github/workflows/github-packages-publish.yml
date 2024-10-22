@@ -61,7 +61,8 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build -PartefactVersion=${{ github.event.release.tag_name }} # Overwrite artefactVersion
+        # Overwrite artefactVersion with tag name
+        run: ./gradlew build -PartefactVersion=${{ github.event.release.tag_name }}
 
       - name: Publish to Maven Central
         run: ./gradlew publish
