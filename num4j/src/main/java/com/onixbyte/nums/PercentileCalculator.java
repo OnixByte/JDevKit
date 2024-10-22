@@ -21,14 +21,45 @@ import com.onixbyte.nums.model.QuartileBounds;
 import java.util.List;
 
 /**
- * Percentile calculator.
+ * A utility class that provides methods for calculating percentiles and interquartile range (IQR) bounds
+ * for a dataset.
+ * <p>
+ * This class contains static methods to:
+ * <ul>
+ *   <li>Calculate a specified percentile from a list of double values using linear interpolation.</li>
+ *   <li>Calculate interquartile bounds (Q1, Q3) and the corresponding lower and upper bounds,
+ *       which can be used to identify outliers in the dataset.</li>
+ * </ul>
+ * <p>
+ * This class is final, meaning it cannot be subclassed, and it only contains static methods,
+ * so instances of the class cannot be created.
+ * </p>
+ * <h2>Example usage:</h2>
+ * <pre>
+ * {@code
+ * List<Double> data = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
+ * Double percentileValue = PercentileCalculator.calculatePercentile(data, 50.0);  // Calculates median
+ * QuartileBounds bounds = PercentileCalculator.calculatePercentileBounds(data);   // Calculates IQR bounds
+ * }
+ * </pre>
  *
  * @author zihluwang
- * @version 1.7.0
- * @since 1.7.0
+ * @version 1.6.5
+ * @since 1.6.5
  */
 public final class PercentileCalculator {
 
+    /**
+     * Calculates the specified percentile from a list of values.
+     * <p>
+     * This method takes a list of double values and calculates the given percentile using linear interpolation between
+     * the two closest ranks. The list is first sorted in ascending order, and the specified percentile is
+     * then calculated.
+     *
+     * @param values     a list of {@code Double} values from which the percentile is calculated.
+     * @param percentile a {@code Double} representing the percentile to be calculated (e.g., 50.0 for the median)
+     * @return a {@code Double} value representing the calculated percentile
+     */
     public static Double calculatePercentile(List<Double> values, Double percentile) {
         var sorted = values.stream().sorted().toList();
         if (sorted.isEmpty()) {
@@ -36,13 +67,26 @@ public final class PercentileCalculator {
         }
 
         var rank = percentile / 100. * (sorted.size() - 1);
-        var lowerIndex = ((int) Math.floor(rank));
-        var upperIndex = ((int) Math.ceil(rank));
+        var lowerIndex = (int) Math.floor(rank);
+        var upperIndex = (int) Math.ceil(rank);
         var weight = rank - lowerIndex;
 
         return sorted.get(lowerIndex) * (1 - weight) + sorted.get(upperIndex) * weight;
     }
 
+    /**
+     * Calculates the interquartile range (IQR) and the corresponding lower and upper bounds
+     * based on the first (Q1) and third (Q3) quartiles of a dataset.
+     * <p>
+     * This method takes a list of double values, calculates the first quartile (Q1),
+     * the third quartile (Q3), and the interquartile range (IQR). Using the IQR, it computes
+     * the lower and upper bounds, which can be used to detect outliers in the dataset.
+     * The lower bound is defined as {@code Q1 - 1.5 * IQR}, and the upper bound is defined as
+     * {@code Q3 + 1.5 * IQR}.
+     *
+     * @param data a list of {@code Double} values for which the quartile bounds will be calculated
+     * @return a {@code QuartileBounds} object containing the calculated lower and upper bounds
+     */
     public static QuartileBounds calculatePercentileBounds(List<Double> data) {
         var sorted = data.stream().sorted().toList();
         var Q1 = calculatePercentile(sorted, 25.);
