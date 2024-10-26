@@ -29,7 +29,6 @@ package com.onixbyte.nums.model;
  *   <li>{@code lowerBound} - The lower bound of the dataset, typically {@code Q1 - 1.5 * IQR}.</li>
  *   <li>{@code upperBound} - The upper bound of the dataset, typically {@code Q3 + 1.5 * IQR}.</li>
  * </ul>
- * </p>
  * <p>
  * Example usage:
  * <pre>
