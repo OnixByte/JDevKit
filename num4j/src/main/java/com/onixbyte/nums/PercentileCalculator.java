@@ -33,7 +33,6 @@ import java.util.List;
  * <p>
  * This class is final, meaning it cannot be subclassed, and it only contains static methods,
  * so instances of the class cannot be created.
- * </p>
  * <h2>Example usage:</h2>
  * <pre>
  * {@code
@@ -48,6 +47,12 @@ import java.util.List;
  * @since 1.6.5
  */
 public final class PercentileCalculator {
+
+    /**
+     * Private constructor prevents from being initialised.
+     */
+    private PercentileCalculator() {
+    }
 
     /**
      * Calculates the specified percentile from a list of values.

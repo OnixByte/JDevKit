@@ -20,6 +20,7 @@ rootProject.name = "JDevKit"
 include(
     "devkit-core",
     "devkit-utils",
+    "num4j",
     "map-util-unsafe",
     "guid",
     "key-pair-loader",
