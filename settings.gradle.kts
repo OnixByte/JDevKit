@@ -20,10 +20,10 @@ rootProject.name = "JDevKit"
 include(
     "devkit-core",
     "devkit-utils",
-    "num4j",
-    "map-util-unsafe",
     "guid",
     "key-pair-loader",
+    "map-util-unsafe",
+    "num4j",
     "simple-jwt-facade",
     "simple-jwt-authzero",
     "simple-jwt-spring-boot-starter",
