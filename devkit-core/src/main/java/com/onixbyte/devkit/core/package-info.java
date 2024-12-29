@@ -23,20 +23,6 @@
  * <p>
  * JDevKit is designed to be modular, and other specific feature modules within
  * the library may rely on these exceptions from the core package.
- * <p>
- * For more information and the latest version of JDevKit, please visit our
- * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.
- * <p>
- * <b>Contact</b>
- * <ul>
- *     <li>
- *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
- *         >GitHub Issues</a>
- *     </li>
- *     <li>
- *         <a href="https://discord.gg/">Discord Community</a>
- *     </li>
- * </ul>
  *
  * @since 1.0.0
  */

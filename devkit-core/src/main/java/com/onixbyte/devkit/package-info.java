@@ -21,21 +21,6 @@
  * enhance productivity. This package serves as the root package for several
  * modules, containing {@code devkit-core}, {@code guid} and {@code dev-utils}
  * module.
- * <p>
- * For more information and the latest version of JDevKit, please visit our
- * website <a href="https://codecrafters.org.cn">codecrafters.org.cn</a>.
- *
- * <p>
- * <b>Contact</b>
- * <ul>
- *     <li>
- *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
- *         >GitHub Issues</a>
- *     </li>
- *     <li>
- *         <a href="https://discord.gg/">Discord Community</a>
- *     </li>
- * </ul>
  *
  * @since 1.0.0
  */

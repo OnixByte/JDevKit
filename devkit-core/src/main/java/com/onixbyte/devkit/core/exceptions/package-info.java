@@ -18,7 +18,6 @@
 /**
  * This package contains commonly used exceptions will be used in JDevKit.
  *
- * @author Zihlu Wang
  * @since 1.0.0
  */
 package com.onixbyte.devkit.core.exceptions;

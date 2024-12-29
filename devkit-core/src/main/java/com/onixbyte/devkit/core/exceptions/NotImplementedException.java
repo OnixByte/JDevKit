@@ -33,16 +33,6 @@ package com.onixbyte.devkit.core.exceptions;
  *     This feature will be implemented in a future release.""");
  * }
  * </pre>
- * <b>Contact</b>
- * <ul>
- *     <li>
- *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
- *         >GitHub Issues</a>
- *     </li>
- *     <li>
- *         <a href="https://discord.gg/">Discord Community</a>
- *     </li>
- * </ul>
  *
  * @author Zihlu Wang
  * @version 1.1.0
