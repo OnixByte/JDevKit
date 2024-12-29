@@ -17,53 +17,32 @@
 
 package com.onixbyte.devkit.utils;
 
-import java.util.function.BiConsumer;
-import java.util.function.Function;
+import java.util.Map;
 
 /**
  * Adapts an Object to a Map, making conversion between Map and Object much more safe.
  *
- * @param <E> entity type
  * @param <T> field type
  * @author zihluwang
- * @version 1.4.2
+ * @version 1.7.0
  * @since 1.4.2
  */
-public class ObjectMapAdapter<E, T> {
-
-    private final Function<E, T> getter;
-
-    private final BiConsumer<E, Object> setter;
+public interface ObjectMapAdapter<T> {
 
     /**
-     * Create an adapter.
+     * Convert an object to a map.
      *
-     * @param getter the getter of the field
-     * @param setter the setter of the field
+     * @param element the element that will be converted to Map
+     * @return a Map that is converted from the element
      */
-    public ObjectMapAdapter(Function<E, T> getter, BiConsumer<E, Object> setter) {
-        this.getter = getter;
-        this.setter = setter;
-    }
+    Map<String, Object> toMap(T element);
 
     /**
-     * Get data from the entity.
+     * Convert a Map to an object.
      *
-     * @param entity the source of the data
-     * @return the data
+     * @param map the map that will be converted to Object
+     * @return the object that is converted from the Map
      */
-    public T fetch(E entity) {
-        return getter.apply(entity);
-    }
-
-    /**
-     * Set value to the entity.
-     *
-     * @param entity the target of the data
-     * @param value  the value
-     */
-    public void setValue(E entity, Object value) {
-        setter.accept(entity, value);
-    }
+    T toObject(Map<String, Object> map);
 
 }

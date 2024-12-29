@@ -119,7 +119,7 @@ public final class AesUtil {
     }
 
     /**
-     * Generates 16 characters-long random secret.
+     * Generates 16-character random secret.
      *
      * @return the generated secure secret
      */
