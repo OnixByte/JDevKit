@@ -20,9 +20,9 @@ package com.onixbyte.nums.model;
 /**
  * A record representing the quartile bounds of a dataset.
  * <p>
- * This class encapsulates the lower and upper bounds of a dataset, which are typically used for detecting outliers in
- * the data. The bounds are calculated based on the interquartile range (IQR) of the dataset. Values below the lower
- * bound or above the upper bound may be considered outliers.
+ * This class encapsulates the lower and upper bounds of a dataset, which are typically used for
+ * detecting outliers in the data. The bounds are calculated based on the interquartile range (IQR)
+ * of the dataset. Values below the lower bound or above the upper bound may be considered outliers.
  * <p>
  * Quartile bounds consist of:
  * <ul>
@@ -52,8 +52,8 @@ public record QuartileBounds(
     /**
      * Creates a new {@link Builder} instance for building a {@code QuartileBounds} object.
      * <p>
-     * The {@link Builder} pattern is used to construct the {@code QuartileBounds} object with optional values for the
-     * upper and lower bounds.
+     * The {@link Builder} pattern is used to construct the {@code QuartileBounds} object with
+     * optional values for the upper and lower bounds.
      * </p>
      *
      * @return a new instance of the {@link Builder} class
@@ -65,9 +65,10 @@ public record QuartileBounds(
     /**
      * A builder class for constructing instances of the {@code QuartileBounds} record.
      * <p>
-     * The {@link Builder} pattern allows for the step-by-step construction of a {@code QuartileBounds} object,
-     * providing a flexible way to set values for the lower and upper bounds. Once the builder has the required values,
-     * the {@link #build()} method creates and returns a new {@code QuartileBounds} object.
+     * The {@link Builder} pattern allows for the step-by-step construction of a
+     * {@code QuartileBounds} object, providing a flexible way to set values for the lower and
+     * upper bounds. Once the builder has the required values, the {@link #build()} method creates
+     * and returns a new {@code QuartileBounds} object.
      * </p>
      * <p>
      * Example usage:
@@ -114,7 +115,8 @@ public record QuartileBounds(
         }
 
         /**
-         * Builds and returns a new {@code QuartileBounds} instance with the specified upper and lower bounds.
+         * Builds and returns a new {@code QuartileBounds} instance with the specified upper and
+         * lower bounds.
          *
          * @return a new {@code QuartileBounds} object containing the specified bounds
          */

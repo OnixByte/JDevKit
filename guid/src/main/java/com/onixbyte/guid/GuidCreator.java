@@ -18,10 +18,33 @@
 package com.onixbyte.guid;
 
 /**
- * The {@code GuidCreator} is a generic interface for generating globally unique
- * identifiers (GUIDs) of a specific type.
+ * The {@code GuidCreator} is a generic interface for generating globally unique identifiers (GUIDs)
+ * of a specific type.
  * <p>
  * The type of ID is determined by the class implementing this interface.
+ * </p>
+ *
+ * <p><b>Example usage:</b></p>
+ * <pre>
+ * {@code
+ * public class StringGuidCreator implements GuidCreator<String> {
+ *     private final AtomicLong counter = new AtomicLong();
+ *
+ *     @Override
+ *     public String nextId() {
+ *         return UUID.randomUUID().toString() + "-" + counter.incrementAndGet();
+ *     }
+ * }
+ *
+ * public class Example {
+ *     public static void main(String[] args) {
+ *         GuidCreator<String> guidCreator = new StringGuidCreator();
+ *         String guid = guidCreator.nextId();
+ *         System.out.println("Generated GUID: " + guid);
+ *     }
+ * }
+ * }
+ * </pre>
  *
  * @param <IdType> this represents the type of the Global Unique Identifier
  * @author Zihlu Wang
@@ -32,9 +55,6 @@ public interface GuidCreator<IdType> {
 
     /**
      * Generates and returns the next globally unique ID.
-     * <p>
-     * The exact implementation of how the globally unique ID is generated and
-     * returned will depend on the class implementing this method.
      *
      * @return the next globally unique ID
      */

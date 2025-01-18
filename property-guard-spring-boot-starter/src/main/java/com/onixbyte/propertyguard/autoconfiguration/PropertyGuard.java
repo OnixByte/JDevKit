@@ -29,39 +29,34 @@ import java.util.HashMap;
 import java.util.Optional;
 
 /**
- * {@code PropertyGuard} is a utility class designed for encrypting
- * configuration properties in Spring Boot applications.
+ * {@code PropertyGuard} is a utility class designed for encrypting configuration properties in
+ * Spring Boot applications.
  * <p>
- * Spring Boot applications often need to store sensitive configuration details
- * such as database passwords, API keys, etc. To ensure that these sensitive
- * pieces of information are not exposed to the public, developers can utilize
- * the {@code PropertyGuard} class to encrypt and store them within
- * configuration files.
+ * Spring Boot applications often need to store sensitive configuration details such as database
+ * passwords, API keys, etc. To ensure that these sensitive pieces of information are not exposed
+ * to the public, developers can utilize the {@code PropertyGuard} class to encrypt and store them
+ * within configuration files.
  * <p>
  * <b>Usage</b>
- * You need a 16-char long secret for encrypting a configuration property. You
- * can get this secret on your own, or use the helper utility class by the
- * following code:
+ * You need a 16-char long secret for encrypting a configuration property. You can get this secret
+ * on your own, or use the helper utility class by the following code:
  * <pre>{@code
- * var secret = AesUtil.generateRandomSecret(); // Let's presume the result is
- *                                              // "3856faef0d2d4f33"
+ * var secret = AesUtil.generateRandomSecret(); // Let's presume the result is "3856faef0d2d4f33"
  * }</pre>
  * <p>
- * Then, in {@code application.yml} or {@code application.properties}, change
- * the original value from plain text to encrypted value with the prefix
- * "<code>pg:</code>".
- * <pre>
- *     # original
- *     app.example-properties=Sample Value
+ * Then, in {@code application.yml} or {@code application.properties}, change the original value
+ * from plain text to encrypted value with the prefix "<code>pg:</code>".
+ * <pre>{@code
+ * # original
+ * app.example-properties=Sample Value
  *
- *     # encrypted with key 3856faef0d2d4f33
- *     app.example-properties=pg:t4YBfv8M9ZmTzWgTi2gJqg==
- * </pre>
- * After that, before running, you need to add the command line arguments
- * "pg.key" as the following codes: {@code --pg.key=<the secret>}.
+ * # encrypted with key 3856faef0d2d4f33
+ * app.example-properties=pg:t4YBfv8M9ZmTzWgTi2gJqg==
+ * }</pre>
+ * After that, before running, you need to add the command line arguments "pg.key" as the following
+ * codes: {@code --pg.key=<the secret>}.
  * <p>
- * This class is extracted from <a href="https://baomidou.com/pages/e0a5ce/"
- * >MyBatis-Plus</a>.
+ * This class is extracted from <a href="https://baomidou.com/pages/e0a5ce/">MyBatis-Plus</a>.
  *
  * @author hubin@baomidou
  * @version 1.1.0

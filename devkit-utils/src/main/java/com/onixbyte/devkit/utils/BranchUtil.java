@@ -32,8 +32,7 @@ import java.util.function.Supplier;
  * <p>
  * <b>Example:</b>
  * <pre>
- * // If you want to simplify an if (exp1 || exp2), you can use the
- * // following code:
+ * // If you want to simplify an if (exp1 || exp2), you can use the following code:
  * String r1 = BranchUtil.or(1 == 1, 2 == 1)
  *     .handle(() -> "1 is equal to 1 or 2 is equal to 1.");
  *
@@ -49,8 +48,7 @@ import java.util.function.Supplier;
  *     }, () -> {
  *         // do something
  *     });
- * // If you only need an if branch, you can remove the second Supplier
- * // instance.
+ * // If you only need an if branch, you can remove the second Supplier instance.
  *
  * // To check if all boolean expressions are true, use the 'and' method:
  * BranchUtil.and(1 == 1, 2 == 1)

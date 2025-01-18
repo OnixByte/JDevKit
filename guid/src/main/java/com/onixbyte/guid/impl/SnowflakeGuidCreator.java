@@ -24,10 +24,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 /**
- * The {@code SnowflakeGuidCreator} generates unique identifiers using the
- * Snowflake algorithm, which combines a timestamp, worker ID, and data centre
- * ID to create 64-bit long integers. The bit distribution for the generated
- * IDs is as follows:
+ * The {@code SnowflakeGuidCreator} generates unique identifiers using the Snowflake algorithm,
+ * which combines a timestamp, worker ID, and data centre ID to create 64-bit long integers. The bit
+ * distribution for the generated IDs is as follows:
  * <ul>
  *     <li>1 bit for sign</li>
  *     <li>41 bits for timestamp (in milliseconds)</li>
@@ -36,11 +35,10 @@ import java.time.ZoneId;
  *     <li>12 bits for sequence number (per millisecond)</li>
  * </ul>
  * <p>
- * When initializing a {@link SnowflakeGuidCreator}, you must provide the
- * worker ID and data centre ID, ensuring they are within the valid range
- * defined by the bit size. The generator maintains an internal sequence number
- * that increments for IDs generated within the same millisecond. If the system
- * clock moves backward, an exception is thrown to prevent generating IDs with
+ * When initializing a {@link SnowflakeGuidCreator}, you must provide the worker ID and data centre
+ * ID, ensuring they are within the valid range defined by the bit size. The generator maintains an
+ * internal sequence number that increments for IDs generated within the same millisecond. If the
+ * system clock moves backward, an exception is thrown to prevent generating IDs with
  * repeated timestamps.
  *
  * @author Zihlu Wang
@@ -50,8 +48,8 @@ import java.time.ZoneId;
 public final class SnowflakeGuidCreator implements GuidCreator<Long> {
 
     /**
-     * Constructs a SnowflakeGuidGenerator with the default start epoch and
-     * custom worker ID, data centre ID.
+     * Constructs a SnowflakeGuidGenerator with the default start epoch and custom worker ID, data
+     * centre ID.
      *
      * @param dataCentreId the data centre ID (between 0 and 31)
      * @param workerId     the worker ID (between 0 and 31)
@@ -61,16 +59,13 @@ public final class SnowflakeGuidCreator implements GuidCreator<Long> {
     }
 
     /**
-     * Constructs a SnowflakeGuidGenerator with a custom epoch, worker ID, and
-     * data centre ID.
+     * Constructs a SnowflakeGuidGenerator with a custom epoch, worker ID, and data centre ID.
      *
      * @param dataCentreId the data centre ID (between 0 and 31)
      * @param workerId     the worker ID (between 0 and 31)
-     * @param startEpoch   the custom epoch timestamp (in milliseconds) to
-     *                     start generating IDs from
-     * @throws IllegalArgumentException if the start epoch is greater than the
-     *                                  current timestamp, or if the worker ID
-     *                                  or data centre ID is out of range
+     * @param startEpoch   the custom epoch timestamp (in milliseconds) to start generating IDs from
+     * @throws IllegalArgumentException if the start epoch is greater than the current timestamp,
+     *                                  or if the worker ID or data centre ID is out of range
      */
     public SnowflakeGuidCreator(long dataCentreId, long workerId, long startEpoch) {
         if (startEpoch > currentTimestamp()) {
@@ -98,37 +93,37 @@ public final class SnowflakeGuidCreator implements GuidCreator<Long> {
      * Generates the next unique ID.
      *
      * @return the generated unique ID
-     * @throws TimingException if the system clock moves backwards,
-     *                         indicating an invalid sequence of timestamps.
+     * @throws TimingException if the system clock moves backwards, indicating an invalid sequence
+     *                         of timestamps.
      */
     @Override
     public synchronized Long nextId() {
         var timestamp = currentTimestamp();
 
-        // If the current time is less than the timestamp of the last ID generation, it means that the system clock
-        // has been set back and an exception should be thrown.
+        // if the current time is less than the timestamp of the last ID generation, it means that
+        // the system clock has been set back and an exception should be thrown
         if (timestamp < lastTimestamp) {
             throw new TimingException("Clock moved backwards. Refusing to generate id for %d milliseconds"
                     .formatted(lastTimestamp - timestamp));
         }
 
-        // If generated at the same time, perform intra-millisecond sequences
+        // if generated at the same time, perform intra-millisecond sequences
         long sequenceBits = 12L;
         if (lastTimestamp == timestamp) {
             long sequenceMask = ~(-1L << sequenceBits);
             sequence = (sequence + 1) & sequenceMask;
-            // Sequence overflow in milliseconds
+            // sequence overflow in milliseconds
             if (sequence == 0) {
-                // Block to the next millisecond, get a new timestamp
+                // block to the next millisecond, get a new timestamp
                 timestamp = awaitToNextMillis(lastTimestamp);
             }
         }
-        // Timestamp change, sequence reset in milliseconds
+        // timestamp change, sequence reset in milliseconds
         else {
             sequence = 0L;
         }
 
-        // Timestamp of last ID generation
+        // timestamp of last ID generation
         lastTimestamp = timestamp;
 
         // shifted and put together by or operations to form a 64-bit ID

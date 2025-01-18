@@ -55,8 +55,7 @@ import java.util.Optional;
  * The above examples demonstrate how to use the {@code HashUtil} class to calculate hash values
  * for a given string using different algorithms.
  * <p>
- * <b>Note:</b>
- * The hash functions provided by the HashUtil class are one-way hash functions, meaning the
+ * The hash functions provided by the {@link HashUtil} are one-way hash functions, meaning the
  * original data cannot be retrieved from the hash value. These hash functions are commonly used
  * for data integrity checks and password storage, but they should not be used for
  * encryption purposes.

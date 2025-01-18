@@ -24,10 +24,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@code MapUtil} is a utility class that provides methods for converting objects to maps and
- * maps to objects.
+ * The {@link ReflectMapUtil} class provides utility methods for converting between objects and maps
+ * using reflection. This class allows for dynamic mapping of object fields to map entries and
+ * vice versa.
  * <p>
- * It also provides methods for getting and setting field values using reflection.
+ * The utility methods in this class are useful for scenarios where objects need to be represented
+ * as maps for serialization, deserialization, or other purposes, and where the structure of the
+ * objects is not known at compile time.
+ * </p>
+ * 
+ * <p><b>Example usage:</b></p>
+ * <pre>
+ * {@code
+ * public class User {
+ *     private String name;
+ *     private int age;
+ *     
+ *     // getters and setters
+ * }
+ * 
+ * public class Example {
+ *     public static void main(String[] args) throws IllegalAccessException {
+ *         User user = new User();
+ *         user.setName("John");
+ *         user.setAge(30);
+ *         
+ *         // Convert object to map
+ *         Map<String, Object> userMap = ReflectMapUtil.objectToMap(user);
+ *         System.out.println(userMap); // Output: {name=John, age=30}
+ *         
+ *         // Convert map to object
+ *         User newUser = ReflectMapUtil.mapToObject(userMap, User.class);
+ *         System.out.println(newUser.getName()); // Output: John
+ *         System.out.println(newUser.getAge());  // Output: 30
+ *     }
+ * }
+ * }
+ * </pre>
  *
  * @author zihluwang
  * @version 1.4.2
@@ -131,10 +164,8 @@ public final class ReflectMapUtil {
      * @param <T>       the type of the field value
      * @return the value of the field in the object, or null if the field does
      * not exist or cannot be accessed
-     * @throws IllegalAccessException    if an error occurs while accessing the
-     *                                   field
-     * @throws InvocationTargetException if an error occurs while invoking the
-     *                                   field getter method
+     * @throws IllegalAccessException    if an error occurs while accessing the field
+     * @throws InvocationTargetException if an error occurs while invoking the field getter method
      * @throws NoSuchMethodException     if the specified getter is not present
      */
     public static <T> T getFieldValue(Object obj, String fieldName, Class<T> fieldType)

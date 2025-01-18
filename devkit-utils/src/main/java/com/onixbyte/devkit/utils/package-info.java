@@ -22,7 +22,6 @@
  * dev-utils, which contains a collection of common utility classes commonly
  * used in all Java Application development.
  *
- * @author Zihlu Wang
  * @since 1.0.0
  */
 package com.onixbyte.devkit.utils;

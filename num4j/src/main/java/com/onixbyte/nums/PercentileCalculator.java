@@ -21,8 +21,8 @@ import com.onixbyte.nums.model.QuartileBounds;
 import java.util.List;
 
 /**
- * A utility class that provides methods for calculating percentiles and interquartile range (IQR) bounds
- * for a dataset.
+ * A utility class that provides methods for calculating percentiles and interquartile range (IQR)
+ * bounds for a dataset.
  * <p>
  * This class contains static methods to:
  * <ul>
@@ -57,12 +57,13 @@ public final class PercentileCalculator {
     /**
      * Calculates the specified percentile from a list of values.
      * <p>
-     * This method takes a list of double values and calculates the given percentile using linear interpolation between
-     * the two closest ranks. The list is first sorted in ascending order, and the specified percentile is
-     * then calculated.
+     * This method takes a list of double values and calculates the given percentile using linear
+     * interpolation between the two closest ranks. The list is first sorted in ascending order,
+     * and the specified percentile is then calculated.
      *
      * @param values     a list of {@code Double} values from which the percentile is calculated.
-     * @param percentile a {@code Double} representing the percentile to be calculated (e.g., 50.0 for the median)
+     * @param percentile a {@code Double} representing the percentile to be calculated (e.g., 50.0
+     *                   for the median)
      * @return a {@code Double} value representing the calculated percentile
      */
     public static Double calculatePercentile(List<Double> values, Double percentile) {

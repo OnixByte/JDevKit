@@ -30,7 +30,29 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
- * KeyLoader can load key pairs from PEM formated content.
+ * The {@code KeyLoader} class provides utility methods for loading ECDSA keys from PEM-formatted
+ * key text. This class supports loading both private and public keys.
+ * <p>
+ * The utility methods in this class are useful for scenarios where ECDSA keys need to be loaded
+ * from PEM-formatted strings for cryptographic operations.
+ * </p>
+ * 
+ * <p><b>Example usage:</b></p>
+ * <pre>
+ * {@code
+ * String pemPrivateKey = """
+ *                        -----BEGIN PRIVATE KEY-----
+ *                        ...
+ *                        -----END PRIVATE KEY-----""";
+ * ECPrivateKey privateKey = KeyLoader.loadEcdsaPrivateKey(pemPrivateKey);
+ * 
+ * String pemPublicKey = """
+ *                       -----BEGIN PUBLIC KEY-----
+ *                       ...
+ *                       -----END PUBLIC KEY-----""";
+ * ECPublicKey publicKey = KeyLoader.loadEcdsaPublicKey(pemPublicKey);
+ * }
+ * </pre>
  *
  * @author zihluwang
  * @version 1.6.0

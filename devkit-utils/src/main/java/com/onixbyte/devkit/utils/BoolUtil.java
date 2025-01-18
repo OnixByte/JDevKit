@@ -22,10 +22,25 @@ import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
 /**
- * A util for boolean calculations.
+ * The {@link BoolUtil} class provides utility methods for boolean calculations.
+ * This class offers methods to perform logical operations such as AND, OR, and NOT on boolean values.
+ * <p>
+ * The utility methods in this class are useful for scenarios where multiple boolean values need to be
+ * evaluated together, and for simplifying complex boolean expressions.
+ * </p>
+ * 
+ * <p><b>Example usage:</b></p>
+ * <pre>
+ * {@code
+ * boolean result1 = BoolUtil.and(true, true, false); // false
+ * boolean result2 = BoolUtil.or(true, false, false); // true
+ * boolean result3 = BoolUtil.not(false); // true
+ * }
+ * </pre>
  *
- * @author shaoxinke
+ * @author zihluwang
  * @version 1.6.2
+ * @since 1.6.2
  */
 public final class BoolUtil {
 

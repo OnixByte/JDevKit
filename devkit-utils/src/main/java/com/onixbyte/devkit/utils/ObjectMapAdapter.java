@@ -20,9 +20,44 @@ package com.onixbyte.devkit.utils;
 import java.util.Map;
 
 /**
- * Adapts an Object to a Map, making conversion between Map and Object much more safe.
+ * The {@link ObjectMapAdapter} interface provides methods to convert between objects and maps.
+ * This interface is useful for scenarios where objects need to be represented as maps for
+ * serialization, deserialization, or other purposes.
  *
- * @param <T> field type
+ * <p>Implementations of this interface should provide the logic to convert an object of type {@code T}
+ * to a {@link Map} and vice versa.</p>
+ *
+ * <p><b>Example usage:</b></p>
+ * <pre>
+ * {@code
+ * public class User {
+ *     private String name;
+ *     private int age;
+ *     
+ *     // getters and setters
+ * }
+ * 
+ * public class UserMapAdapter implements ObjectMapAdapter<User> {
+ *     @Override
+ *     public Map<String, Object> toMap(User user) {
+ *         Map<String, Object> map = new HashMap<>();
+ *         map.put("name", user.getName());
+ *         map.put("age", user.getAge());
+ *         return map;
+ *     }
+ * 
+ *     @Override
+ *     public User fromMap(Map<String, Object> map) {
+ *         User user = new User();
+ *         user.setName((String) map.get("name"));
+ *         user.setAge((Integer) map.get("age"));
+ *         return user;
+ *     }
+ * }
+ * }
+ * </pre>
+ *
+ * @param <T> the type of the object to be converted
  * @author zihluwang
  * @version 1.7.0
  * @since 1.4.2
@@ -40,7 +75,7 @@ public interface ObjectMapAdapter<T> {
     /**
      * Convert a Map to an object.
      *
-     * @param map the map that will be converted to Object
+     * @param map the map that will be converted to an object
      * @return the object that is converted from the Map
      */
     T toObject(Map<String, Object> map);
