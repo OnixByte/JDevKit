@@ -18,7 +18,8 @@
 package com.onixbyte.simplejwt.autoconfiguration.conditions;
 
 import com.onixbyte.guid.GuidCreator;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
@@ -32,8 +33,9 @@ import java.util.Objects;
  * @version 1.1.0
  * @since 1.0.0
  */
-@Slf4j
 public class GuidCreatorCondition implements Condition {
+
+    private final static Logger log = LoggerFactory.getLogger(GuidCreatorCondition.class);
 
     /**
      * Default constructor.

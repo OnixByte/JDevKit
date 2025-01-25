@@ -17,6 +17,9 @@
 
 package com.onixbyte.devkit.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
@@ -43,6 +46,8 @@ import java.util.function.BooleanSupplier;
  * @since 1.6.2
  */
 public final class BoolUtil {
+
+    private final static Logger log = LoggerFactory.getLogger(BoolUtil.class);
 
     /**
      * Logical and calculation.

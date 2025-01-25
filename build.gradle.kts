@@ -43,16 +43,12 @@ subprojects {
 
     dependencies {
         compileOnly("org.slf4j:slf4j-api:$slf4jVersion")
-        compileOnly("org.projectlombok:lombok:$lombokVersion")
         implementation("ch.qos.logback:logback-classic:$logbackVersion")
         annotationProcessor("org.slf4j:slf4j-api:$slf4jVersion")
-        annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
         testCompileOnly("org.slf4j:slf4j-api:$slf4jVersion")
-        testCompileOnly("org.projectlombok:lombok:$lombokVersion")
         testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
         testAnnotationProcessor("org.slf4j:slf4j-api:$slf4jVersion")
-        testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
     }
 
     tasks.withType<JavaCompile> {

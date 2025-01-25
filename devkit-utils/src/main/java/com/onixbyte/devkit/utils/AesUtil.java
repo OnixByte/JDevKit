@@ -17,7 +17,8 @@
 
 package com.onixbyte.devkit.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -68,8 +69,9 @@ import java.util.UUID;
  * @version 1.1.0
  * @since 1.1.0
  */
-@Slf4j
 public final class AesUtil {
+
+    private final static Logger log = LoggerFactory.getLogger(AesUtil.class);
 
     /**
      * Encrypts the data using the AES algorithm with the given secret.

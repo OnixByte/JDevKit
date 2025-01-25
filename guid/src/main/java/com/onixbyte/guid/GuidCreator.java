@@ -25,8 +25,7 @@ package com.onixbyte.guid;
  * </p>
  *
  * <p><b>Example usage:</b></p>
- * <pre>
- * {@code
+ * <pre>{@code
  * public class StringGuidCreator implements GuidCreator<String> {
  *     private final AtomicLong counter = new AtomicLong();
  *
@@ -43,8 +42,7 @@ package com.onixbyte.guid;
  *         System.out.println("Generated GUID: " + guid);
  *     }
  * }
- * }
- * </pre>
+ * }</pre>
  *
  * @param <IdType> this represents the type of the Global Unique Identifier
  * @author Zihlu Wang

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
 package com.onixbyte.propertyguard.autoconfiguration;
 
 import com.onixbyte.devkit.utils.AesUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
@@ -64,6 +66,8 @@ import java.util.Optional;
  * @since 1.1.0 (3.3.2 of MyBatis-Plus)
  */
 public class PropertyGuard implements EnvironmentPostProcessor {
+
+    private final static Logger log = LoggerFactory.getLogger(PropertyGuard.class);
 
     /**
      * Create a {@link PropertyGuard} instance.

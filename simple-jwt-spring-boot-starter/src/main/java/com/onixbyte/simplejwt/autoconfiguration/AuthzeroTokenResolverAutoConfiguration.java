@@ -24,7 +24,8 @@ import com.onixbyte.simplejwt.autoconfiguration.properties.SimpleJwtProperties;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onixbyte.simplejwt.constants.TokenAlgorithm;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -55,7 +56,6 @@ import org.springframework.context.annotation.Bean;
  * @version 1.6.0
  * @since 1.0.0
  */
-@Slf4j
 @AutoConfiguration
 @EnableConfigurationProperties(value = {SimpleJwtProperties.class})
 @ConditionalOnClass({DecodedJWT.class, AuthzeroTokenResolver.class})
@@ -63,6 +63,8 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnBean(value = {GuidCreator.class}, name = "jtiCreator")
 @AutoConfigureAfter(value = GuidAutoConfiguration.class)
 public class AuthzeroTokenResolverAutoConfiguration {
+
+    private final static Logger log = LoggerFactory.getLogger(AuthzeroTokenResolverAutoConfiguration.class);
 
     /**
      * Constructs a new {@code SimpleJwtAutoConfiguration} instance with the

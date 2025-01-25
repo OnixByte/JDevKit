@@ -19,7 +19,8 @@ package com.onixbyte.simplejwt.autoconfiguration;
 
 import com.onixbyte.guid.GuidCreator;
 import com.onixbyte.simplejwt.autoconfiguration.conditions.GuidCreatorCondition;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -33,9 +34,10 @@ import java.util.UUID;
  * @version 1.1.0
  * @since 1.0.0
  */
-@Slf4j
 @AutoConfiguration
 public class GuidAutoConfiguration {
+
+    private final static Logger log = LoggerFactory.getLogger(GuidAutoConfiguration.class);
 
     /**
      * Default constructor.

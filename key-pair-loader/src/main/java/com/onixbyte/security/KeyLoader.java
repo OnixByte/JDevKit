@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@
 package com.onixbyte.security;
 
 import com.onixbyte.security.exception.KeyLoadingException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -38,8 +39,7 @@ import java.util.Base64;
  * </p>
  * 
  * <p><b>Example usage:</b></p>
- * <pre>
- * {@code
+ * <pre>{@code
  * String pemPrivateKey = """
  *                        -----BEGIN PRIVATE KEY-----
  *                        ...
@@ -51,15 +51,15 @@ import java.util.Base64;
  *                       ...
  *                       -----END PUBLIC KEY-----""";
  * ECPublicKey publicKey = KeyLoader.loadEcdsaPublicKey(pemPublicKey);
- * }
- * </pre>
+ * }</pre>
  *
  * @author zihluwang
  * @version 1.6.0
  * @since 1.6.0
  */
-@Slf4j
 public class KeyLoader {
+
+    private final static Logger log = LoggerFactory.getLogger(KeyLoader.class);
 
     /**
      * Private constructor prevents from being initialised.

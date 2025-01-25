@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@
 
 package com.onixbyte.devkit.utils.unsafe;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -66,8 +67,9 @@ import java.util.Map;
  * @version 1.4.2
  * @since 1.4.2
  */
-@Slf4j
 public final class ReflectMapUtil {
+
+    private final static Logger log = LoggerFactory.getLogger(ReflectMapUtil.class);
 
     /**
      * Converts an object to a map by mapping the field names to their corresponding values.

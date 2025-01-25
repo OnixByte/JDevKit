@@ -17,18 +17,17 @@
 
 package com.onixbyte.devkit.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * The {@link MapUtil} class provides utility methods for converting between objects and maps.
  * This class leverages the {@link ObjectMapAdapter} interface to perform the conversions.
  * <p>
- * The utility methods in this class are useful for scenarios where objects need to be represented as maps for
- * serialization, deserialization, or other purposes.
+ * The utility methods in this class are useful for scenarios where objects need to be represented
+ * as maps for serialization, deserialization, or other purposes.
  * </p>
  * 
  * <p><b>Example usage:</b></p>
@@ -84,8 +83,9 @@ import java.util.Optional;
  * @version 1.7.0
  * @since 1.0.0
  */
-@Slf4j
 public final class MapUtil {
+
+    private final static Logger log = LoggerFactory.getLogger(MapUtil.class);
 
     /**
      * Converts an object to a map by mapping the field names to their corresponding values.

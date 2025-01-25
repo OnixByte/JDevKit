@@ -19,6 +19,8 @@ package com.onixbyte.guid.impl;
 
 import com.onixbyte.guid.GuidCreator;
 import com.onixbyte.guid.exceptions.TimingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -46,6 +48,8 @@ import java.time.ZoneId;
  * @since 1.0.0
  */
 public final class SnowflakeGuidCreator implements GuidCreator<Long> {
+
+    private final static Logger log = LoggerFactory.getLogger(SnowflakeGuidCreator.class);
 
     /**
      * Constructs a SnowflakeGuidGenerator with the default start epoch and custom worker ID, data

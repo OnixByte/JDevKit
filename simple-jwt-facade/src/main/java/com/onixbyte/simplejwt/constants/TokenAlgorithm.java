@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
  */
 
 package com.onixbyte.simplejwt.constants;
-
-import lombok.Getter;
 
 import java.util.List;
 
@@ -45,7 +43,6 @@ import java.util.List;
  * @version 1.1.0
  * @since 1.0.0
  */
-@Getter
 public enum TokenAlgorithm {
 
     /**

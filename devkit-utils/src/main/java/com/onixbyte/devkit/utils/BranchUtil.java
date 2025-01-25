@@ -17,6 +17,9 @@
 
 package com.onixbyte.devkit.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
@@ -72,6 +75,8 @@ import java.util.function.Supplier;
  * @since 1.0.0
  */
 public final class BranchUtil<T> {
+
+    private final static Logger log = LoggerFactory.getLogger(BranchUtil.class);
 
     /**
      * Create a {@code BranchUtil} instance.

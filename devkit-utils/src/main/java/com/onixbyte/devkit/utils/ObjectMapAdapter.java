@@ -24,8 +24,8 @@ import java.util.Map;
  * This interface is useful for scenarios where objects need to be represented as maps for
  * serialization, deserialization, or other purposes.
  *
- * <p>Implementations of this interface should provide the logic to convert an object of type {@code T}
- * to a {@link Map} and vice versa.</p>
+ * <p>Implementations of this interface should provide the logic to convert an object of type
+ * {@code T} to a {@link Map} and vice versa.</p>
  *
  * <p><b>Example usage:</b></p>
  * <pre>
