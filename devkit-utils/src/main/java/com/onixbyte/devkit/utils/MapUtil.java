@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,75 @@
 
 package com.onixbyte.devkit.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
- * {@code MapUtil} is a utility class that provides methods for converting objects to maps and maps
- * to objects.
+ * The {@link MapUtil} class provides utility methods for converting between objects and maps.
+ * This class leverages the {@link ObjectMapAdapter} interface to perform the conversions.
  * <p>
- * Note: Since version 1.4.2, this util class removed reflection API and transferred to a safer API.
- * Please see documentation for more information.
+ * The utility methods in this class are useful for scenarios where objects need to be represented
+ * as maps for serialization, deserialization, or other purposes.
+ * </p>
+ * 
+ * <p><b>Example usage:</b></p>
+ * <pre>
+ * {@code
+ * public class User {
+ *     private String name;
+ *     private int age;
+ *     
+ *     // getters and setters
+ * }
+ * 
+ * public class UserMapAdapter implements ObjectMapAdapter<User> {
+ *     @Override
+ *     public Map<String, Object> toMap(User user) {
+ *         Map<String, Object> map = new HashMap<>();
+ *         map.put("name", user.getName());
+ *         map.put("age", user.getAge());
+ *         return map;
+ *     }
+ * 
+ *     @Override
+ *     public User fromMap(Map<String, Object> map) {
+ *         User user = new User();
+ *         user.setName((String) map.get("name"));
+ *         user.setAge((Integer) map.get("age"));
+ *         return user;
+ *     }
+ * }
+ * 
+ * public class Example {
+ *     public static void main(String[] args) {
+ *         User user = new User();
+ *         user.setName("John");
+ *         user.setAge(30);
+ *         
+ *         UserMapAdapter adapter = new UserMapAdapter();
+ *         
+ *         // Convert object to map
+ *         Map<String, Object> userMap = MapUtil.objectToMap(user, adapter);
+ *         System.out.println(userMap); // Output: {name=John, age=30}
+ *         
+ *         // Convert map to object
+ *         User newUser = MapUtil.mapToObject(userMap, adapter);
+ *         System.out.println(newUser.getName()); // Output: John
+ *         System.out.println(newUser.getAge());  // Output: 30
+ *     }
+ * }
+ * }
+ * </pre>
  *
  * @author zihluwang
  * @version 1.7.0
  * @since 1.0.0
  */
-@Slf4j
 public final class MapUtil {
+
+    private final static Logger log = LoggerFactory.getLogger(MapUtil.class);
 
     /**
      * Converts an object to a map by mapping the field names to their corresponding values.

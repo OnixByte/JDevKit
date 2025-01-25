@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ package com.onixbyte.simplejwt.autoconfiguration.properties;
 import com.onixbyte.simplejwt.SecretCreator;
 import com.onixbyte.simplejwt.autoconfiguration.AuthzeroTokenResolverAutoConfiguration;
 import com.onixbyte.simplejwt.constants.TokenAlgorithm;
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -42,7 +41,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @version 1.1.0
  * @since 1.0.0
  */
-@Data
 @ConfigurationProperties(prefix = "onixbyte.simple-jwt")
 public class SimpleJwtProperties {
 
@@ -79,5 +77,94 @@ public class SimpleJwtProperties {
      */
     private String publicKey;
 
+    /**
+     * Algorithm getter.
+     *
+     * @return algorithm
+     */
+    public TokenAlgorithm getAlgorithm() {
+        return algorithm;
+    }
+
+    /**
+     * Algorithm setter.
+     *
+     * @param algorithm the algorithm
+     */
+    public void setAlgorithm(TokenAlgorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    /**
+     * Issuer getter.
+     *
+     * @return issuer
+     */
+    public String getIssuer() {
+        return issuer;
+    }
+
+    /**
+     * Issuer setter.
+     *
+     * @param issuer the issuer
+     */
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
+    }
+
+    /**
+     * Secret setter.
+     *
+     * @return secret
+     */
+    public String getSecret() {
+        return secret;
+    }
+
+    /**
+     * Secret setter.
+     *
+     * @param secret the secret
+     */
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    /**
+     * Private key getter.
+     *
+     * @return private key
+     */
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    /**
+     * Private key setter.
+     *
+     * @param privateKey private key
+     */
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    /**
+     * Public key getter.
+     *
+     * @return public key
+     */
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    /**
+     * Public key setter.
+     *
+     * @param publicKey public key
+     */
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
 }
 

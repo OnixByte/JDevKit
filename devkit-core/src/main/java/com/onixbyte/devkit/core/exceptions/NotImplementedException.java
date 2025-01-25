@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@
 package com.onixbyte.devkit.core.exceptions;
 
 /**
- * The {@code NotImplementedException} class is a custom runtime exception that represents a situation where a
- * particular method or functionality is not implemented or is currently unavailable in the codebase.
+ * The {@code NotImplementedException} class is a custom runtime exception that represents a
+ * situation where a particular method or functionality is not implemented or is currently
+ * unavailable in the codebase.
  * <p>
- * This exception is typically thrown when developers need to indicate that a specific part of the code is incomplete
- * or requires further implementation. It serves as a placeholder to highlight unfinished sections of the application
- * during development and testing phases.
+ * This exception is typically thrown when developers need to indicate that a specific part of the
+ * code is incomplete or requires further implementation. It serves as a placeholder to highlight
+ * unfinished sections of the application during development and testing phases.
  * <p>
  * Usage Example:
  * <pre>
@@ -33,16 +34,6 @@ package com.onixbyte.devkit.core.exceptions;
  *     This feature will be implemented in a future release.""");
  * }
  * </pre>
- * <b>Contact</b>
- * <ul>
- *     <li>
- *         <a href="https://github.com/CodeCraftersCN/jdevkit/issues/new"
- *         >GitHub Issues</a>
- *     </li>
- *     <li>
- *         <a href="https://discord.gg/">Discord Community</a>
- *     </li>
- * </ul>
  *
  * @author Zihlu Wang
  * @version 1.1.0
@@ -67,7 +58,8 @@ public class NotImplementedException extends RuntimeException {
     }
 
     /**
-     * Creates a new {@code NotImplementedException} with the specified error message and a cause for this exception.
+     * Creates a new {@code NotImplementedException} with the specified error message and a cause
+     * for this exception.
      *
      * @param message the error message associated with this exception
      * @param cause   the cause of this exception
@@ -86,8 +78,8 @@ public class NotImplementedException extends RuntimeException {
     }
 
     /**
-     * Creates a new {@code NotImplementedException} with the specified error message, cause, suppression flag, and
-     * stack trace writable flag.
+     * Creates a new {@code NotImplementedException} with the specified error message, cause,
+     * suppression flag, and stack trace writable flag.
      *
      * @param message            the error message associated with this
      *                           exception

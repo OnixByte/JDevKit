@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@
 
 package com.onixbyte.nums;
 
-import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -90,8 +91,9 @@ import java.util.function.Function;
  * @see BigDecimal
  * @since 1.0.0
  */
-@Getter
 public final class ChainedCalcUtil {
+
+    private final static Logger log = LoggerFactory.getLogger(ChainedCalcUtil.class);
 
     /**
      * Creates a {@code ChainedCalcUtil} instance with the specified initial value.
@@ -236,6 +238,15 @@ public final class ChainedCalcUtil {
     }
 
     /**
+     * Returns the current value as a {@link BigDecimal}.
+     *
+     * @return the current value as a {@link BigDecimal}
+     */
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    /**
      * Returns the current value as a {@link Double}.
      *
      * @return the current value as a {@link Double}
@@ -297,7 +308,7 @@ public final class ChainedCalcUtil {
                                      Object other,
                                      Integer beforeOperateScale) {
         return baseOperator((otherValue) ->
-                operator.apply(this.value, otherValue),
+                        operator.apply(this.value, otherValue),
                 other,
                 beforeOperateScale);
     }

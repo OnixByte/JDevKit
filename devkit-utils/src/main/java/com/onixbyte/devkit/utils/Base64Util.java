@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,9 @@
  */
 
 package com.onixbyte.devkit.utils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -54,6 +57,8 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public final class Base64Util {
+
+    private final static Logger log = LoggerFactory.getLogger(Base64Util.class);
 
     /**
      * Ensure that there is only one Base64 Encoder.

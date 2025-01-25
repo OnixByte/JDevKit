@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,12 @@
 package com.onixbyte.guid.exceptions;
 
 /**
- * The {@code TimingException} class represents an exception that is thrown
- * when there is an error related to time sequence.
+ * The {@code TimingException} class represents an exception that is thrown when there is an error
+ * related to time sequence.
  * <p>
- * Instances of TimingException can be created with or without a message and a
- * cause. The message provides a description of the exception, while the cause
- * represents the underlying cause of the exception and provides additional
- * information about the error.
+ * Instances of TimingException can be created with or without a message and a cause. The message
+ * provides a description of the exception, while the cause represents the underlying cause of the
+ * exception and provides additional information about the error.
  *
  * @author Zihlu Wang
  * @since 1.0.0
@@ -32,15 +31,14 @@ package com.onixbyte.guid.exceptions;
 public class TimingException extends RuntimeException {
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or
-     * scheduling.
+     * A custom exception that is thrown when there is an issue with timing or scheduling.
      */
     public TimingException() {
     }
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or
-     * scheduling with customised error message.
+     * A custom exception that is thrown when there is an issue with timing or scheduling with
+     * customised error message.
      *
      * @param message customised message
      */
@@ -49,8 +47,8 @@ public class TimingException extends RuntimeException {
     }
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or
-     * scheduling with customised error message.
+     * A custom exception that is thrown when there is an issue with timing or scheduling with
+     * customised error message.
      *
      * @param message customised message
      * @param cause   the cause of this exception
@@ -60,8 +58,8 @@ public class TimingException extends RuntimeException {
     }
 
     /**
-     * A custom exception that is thrown when there is an issue with timing or
-     * scheduling with customised error message.
+     * A custom exception that is thrown when there is an issue with timing or scheduling with
+     * customised error message.
      *
      * @param cause the cause of this exception
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,23 @@
 package com.onixbyte.security.exception;
 
 /**
- * {@code KeyLoadingException} is an exception indicating an error occurred while loading a key.
+ * The {@code KeyLoadingException} class represents an exception that is thrown when there is an
+ * error loading cryptographic keys. This exception can be used to indicate various issues such as
+ * invalid key specifications, unsupported key algorithms, or other key loading errors.
+ * <p>
+ * This class extends {@link RuntimeException}, allowing it to be thrown without being declared in
+ * a method's {@code throws} clause.
+ * </p>
+ * 
+ * <p><b>Example usage:</b></p>
+ * <pre>{@code
+ * try {
+ *     ECPrivateKey privateKey = KeyLoader.loadEcdsaPrivateKey(pemPrivateKey);
+ * } catch (KeyLoadingException e) {
+ *     // Handle the exception
+ *     e.printStackTrace();
+ * }
+ * }</pre>
  *
  * @author zihluwang
  * @version 1.6.0

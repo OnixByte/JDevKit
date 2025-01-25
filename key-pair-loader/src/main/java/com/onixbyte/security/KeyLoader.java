@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@
 package com.onixbyte.security;
 
 import com.onixbyte.security.exception.KeyLoadingException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -30,14 +31,35 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
- * KeyLoader can load key pairs from PEM formated content.
+ * The {@code KeyLoader} class provides utility methods for loading ECDSA keys from PEM-formatted
+ * key text. This class supports loading both private and public keys.
+ * <p>
+ * The utility methods in this class are useful for scenarios where ECDSA keys need to be loaded
+ * from PEM-formatted strings for cryptographic operations.
+ * </p>
+ * 
+ * <p><b>Example usage:</b></p>
+ * <pre>{@code
+ * String pemPrivateKey = """
+ *                        -----BEGIN PRIVATE KEY-----
+ *                        ...
+ *                        -----END PRIVATE KEY-----""";
+ * ECPrivateKey privateKey = KeyLoader.loadEcdsaPrivateKey(pemPrivateKey);
+ * 
+ * String pemPublicKey = """
+ *                       -----BEGIN PUBLIC KEY-----
+ *                       ...
+ *                       -----END PUBLIC KEY-----""";
+ * ECPublicKey publicKey = KeyLoader.loadEcdsaPublicKey(pemPublicKey);
+ * }</pre>
  *
  * @author zihluwang
  * @version 1.6.0
  * @since 1.6.0
  */
-@Slf4j
 public class KeyLoader {
+
+    private final static Logger log = LoggerFactory.getLogger(KeyLoader.class);
 
     /**
      * Private constructor prevents from being initialised.

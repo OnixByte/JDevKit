@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
 package com.onixbyte.simplejwt;
 
 import com.onixbyte.simplejwt.exceptions.WeakSecretException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 
@@ -31,6 +33,8 @@ import java.util.Random;
  * @since 1.0.0
  */
 public final class SecretCreator {
+
+    private final static Logger log = LoggerFactory.getLogger(SecretCreator.class);
 
     /**
      * Generates a secure secret with the specified length and character sets.

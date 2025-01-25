@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.onixbyte.nums;
 
 import com.onixbyte.nums.model.QuartileBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * A utility class that provides methods for calculating percentiles and interquartile range (IQR) bounds
- * for a dataset.
+ * A utility class that provides methods for calculating percentiles and interquartile range (IQR)
+ * bounds for a dataset.
  * <p>
  * This class contains static methods to:
  * <ul>
@@ -48,6 +51,8 @@ import java.util.List;
  */
 public final class PercentileCalculator {
 
+    private final static Logger log = LoggerFactory.getLogger(PercentileCalculator.class);
+
     /**
      * Private constructor prevents from being initialised.
      */
@@ -57,12 +62,13 @@ public final class PercentileCalculator {
     /**
      * Calculates the specified percentile from a list of values.
      * <p>
-     * This method takes a list of double values and calculates the given percentile using linear interpolation between
-     * the two closest ranks. The list is first sorted in ascending order, and the specified percentile is
-     * then calculated.
+     * This method takes a list of double values and calculates the given percentile using linear
+     * interpolation between the two closest ranks. The list is first sorted in ascending order,
+     * and the specified percentile is then calculated.
      *
      * @param values     a list of {@code Double} values from which the percentile is calculated.
-     * @param percentile a {@code Double} representing the percentile to be calculated (e.g., 50.0 for the median)
+     * @param percentile a {@code Double} representing the percentile to be calculated (e.g., 50.0
+     *                   for the median)
      * @return a {@code Double} value representing the calculated percentile
      */
     public static Double calculatePercentile(List<Double> values, Double percentile) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,9 @@
 
 package com.onixbyte.devkit.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
@@ -32,8 +35,7 @@ import java.util.function.Supplier;
  * <p>
  * <b>Example:</b>
  * <pre>
- * // If you want to simplify an if (exp1 || exp2), you can use the
- * // following code:
+ * // If you want to simplify an if (exp1 || exp2), you can use the following code:
  * String r1 = BranchUtil.or(1 == 1, 2 == 1)
  *     .handle(() -> "1 is equal to 1 or 2 is equal to 1.");
  *
@@ -49,8 +51,7 @@ import java.util.function.Supplier;
  *     }, () -> {
  *         // do something
  *     });
- * // If you only need an if branch, you can remove the second Supplier
- * // instance.
+ * // If you only need an if branch, you can remove the second Supplier instance.
  *
  * // To check if all boolean expressions are true, use the 'and' method:
  * BranchUtil.and(1 == 1, 2 == 1)
@@ -74,6 +75,8 @@ import java.util.function.Supplier;
  * @since 1.0.0
  */
 public final class BranchUtil<T> {
+
+    private final static Logger log = LoggerFactory.getLogger(BranchUtil.class);
 
     /**
      * Create a {@code BranchUtil} instance.

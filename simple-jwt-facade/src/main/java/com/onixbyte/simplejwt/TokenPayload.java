@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
  */
 
 package com.onixbyte.simplejwt;
-
-import java.util.Map;
 
 /**
  * {@code TokenPayload} interface is used to mark a data class as suitable
@@ -44,7 +42,4 @@ import java.util.Map;
  * @since 1.0.0
  */
 public interface TokenPayload {
-
-    // Marker interface for JWT payload data classes
-
 }

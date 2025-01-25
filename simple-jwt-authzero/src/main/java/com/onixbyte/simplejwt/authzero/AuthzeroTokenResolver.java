@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2024 OnixByte.
+ * Copyright (C) 2024-2025 OnixByte.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.onixbyte.simplejwt.exceptions.IllegalKeyPairException;
 import com.onixbyte.simplejwt.exceptions.IllegalSecretException;
 import com.onixbyte.simplejwt.exceptions.UnsupportedAlgorithmException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.interfaces.ECPrivateKey;
@@ -98,8 +99,9 @@ import java.util.function.Function;
  * @see JWTCreator.Builder
  * @since 1.0.0
  */
-@Slf4j
 public class AuthzeroTokenResolver implements TokenResolver<DecodedJWT> {
+
+    private final static Logger log = LoggerFactory.getLogger(AuthzeroTokenResolver.class);
 
     /**
      * Create a builder of {@link AuthzeroTokenResolver}.
