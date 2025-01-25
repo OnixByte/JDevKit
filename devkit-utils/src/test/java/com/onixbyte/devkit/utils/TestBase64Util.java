@@ -17,12 +17,14 @@
 
 package com.onixbyte.devkit.utils;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class TestBase64Util {
+
+    private final static Logger log = LoggerFactory.getLogger(TestBase64Util.class);
 
     @Test
     public void testEncode() {
