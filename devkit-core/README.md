@@ -11,9 +11,3 @@ This whole `JDevKit` is developed by **JDK 17**, which means you have to use JDK
 ## Installation
 
 You don't have to install this module at all, any module which is from `JDevKit` contains this `devkit-core` module.
-
-## Contact
-
-If you have any suggestions, ideas, don't hesitate contacting us via [GitHub Issues](https://github.com/CodeCraftersCN/jdevkit/issues/new) or [Discord Community](https://discord.gg/NQK9tjcBB8). 
-
-If you face any bugs while using our library and you are able to fix any bugs in our library, we would be happy to accept pull requests from you on [GitHub](https://github.com/CodeCraftersCN/jdevkit/compare).
