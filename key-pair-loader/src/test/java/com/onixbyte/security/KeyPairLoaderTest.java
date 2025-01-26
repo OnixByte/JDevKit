@@ -25,6 +25,8 @@ public class KeyPairLoaderTest {
     @Test
     public void test() {
         var keyLoader = new EcKeyLoader();
+        // The following key pair is only used for test only, and is already exposed to public.
+        // DO NOT USE THEM FOR PRODUCTION!
         var privateKey = keyLoader.loadPrivateKey("""
                 -----BEGIN PRIVATE KEY-----
                 MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgs79JlARgXEf6EDV7
