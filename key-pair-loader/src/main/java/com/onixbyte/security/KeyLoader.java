@@ -17,11 +17,8 @@
 
 package com.onixbyte.security;
 
-import com.onixbyte.security.exception.KeyLoadingException;
-
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.interfaces.ECPrivateKey;
 
 /**
  * The {@code KeyLoader} class provides utility methods for loading keys pairs from PEM-formatted
@@ -31,7 +28,7 @@ import java.security.interfaces.ECPrivateKey;
  * from PEM-formatted strings for cryptographic operations.
  *
  * @author zihluwang
- * @version 1.6.0
+ * @version 2.0.0
  * @since 1.6.0
  */
 public interface KeyLoader {

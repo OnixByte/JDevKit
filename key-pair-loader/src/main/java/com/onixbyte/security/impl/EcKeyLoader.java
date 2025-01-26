@@ -48,6 +48,10 @@ import java.util.Base64;
  *                       -----END EC PUBLIC KEY-----""";
  * ECPublicKey publicKey = KeyLoader.loadPublicKey(pemPublicKey);
  * }</pre>
+ *
+ * @author zihluwang
+ * @version 2.0.0
+ * @since 2.0.0
  */
 public class EcKeyLoader implements KeyLoader {
 
