@@ -55,12 +55,13 @@ public class EcKeyLoader implements KeyLoader {
 
     /**
      * Initialise a key loader for EC-based algorithms.
-     *
-     * @throws NoSuchAlgorithmException if no {@code Provider} supports a {@code KeyFactorySpi}
-     *                                  implementation for the specified algorithm
      */
-    public EcKeyLoader() throws NoSuchAlgorithmException {
-        this.keyFactory = KeyFactory.getInstance("EC");
+    public EcKeyLoader() {
+        try {
+            this.keyFactory = KeyFactory.getInstance("EC");
+        } catch (NoSuchAlgorithmException e) {
+            throw new KeyLoadingException(e);
+        }
     }
 
     /**
@@ -76,8 +77,8 @@ public class EcKeyLoader implements KeyLoader {
         try {
             // remove all unnecessary parts of the pem key text
             pemKeyText = pemKeyText
-                    .replaceAll("-----BEGIN EC PRIVATE KEY-----", "")
-                    .replaceAll("-----END EC PRIVATE KEY-----", "")
+                    .replaceAll("-----BEGIN (EC )?PRIVATE KEY-----", "")
+                    .replaceAll("-----END (EC )?PRIVATE KEY-----", "")
                     .replaceAll("\n", "");
             var decodedKeyString = Base64.getDecoder().decode(pemKeyText);
             var keySpec = new PKCS8EncodedKeySpec(decodedKeyString);
@@ -106,8 +107,8 @@ public class EcKeyLoader implements KeyLoader {
         try {
             // remove all unnecessary parts of the pem key text
             pemKeyText = pemKeyText
-                    .replaceAll("-----BEGIN EC PUBLIC KEY-----", "")
-                    .replaceAll("-----END EC PUBLIC KEY-----", "")
+                    .replaceAll("-----BEGIN (EC )?PUBLIC KEY-----", "")
+                    .replaceAll("-----END (EC )?PUBLIC KEY-----", "")
                     .replaceAll("\n", "");
             var keyBytes = Base64.getDecoder().decode(pemKeyText);
             var spec = new X509EncodedKeySpec(keyBytes);
@@ -115,7 +116,7 @@ public class EcKeyLoader implements KeyLoader {
             if (key instanceof ECPublicKey publicKey) {
                 return publicKey;
             } else {
-                throw new KeyLoadingException("Unable to load private key from pem-formatted key text.");
+                throw new KeyLoadingException("Unable to load public key from pem-formatted key text.");
             }
         } catch (InvalidKeySpecException e) {
             throw new KeyLoadingException("Key spec is invalid.", e);

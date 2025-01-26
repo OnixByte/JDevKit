@@ -17,13 +17,27 @@
 
 package com.onixbyte.security;
 
+import com.onixbyte.security.impl.EcKeyLoader;
 import org.junit.jupiter.api.Test;
 
 public class KeyPairLoaderTest {
 
     @Test
     public void test() {
-
+        var keyLoader = new EcKeyLoader();
+        var privateKey = keyLoader.loadPrivateKey("""
+                -----BEGIN PRIVATE KEY-----
+                MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgs79JlARgXEf6EDV7
+                +PHQCTHEMtqIoHOy1GZ1+ynQJ6yhRANCAARkA7GRY2i4gg8qx0XViAXUP9cPw9pn
+                Jg1wfrQ41FaMyqVBejNYxvaLtamErF/ySimnjafMJ+VZCh34lBj6Ez8R
+                -----END PRIVATE KEY-----
+                """);
+        var publicKey = keyLoader.loadPublicKey("""
+                -----BEGIN PUBLIC KEY-----
+                MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZAOxkWNouIIPKsdF1YgF1D/XD8Pa
+                ZyYNcH60ONRWjMqlQXozWMb2i7WphKxf8kopp42nzCflWQod+JQY+hM/EQ==
+                -----END PUBLIC KEY-----
+                """);
     }
 
 }
