@@ -29,7 +29,7 @@ It is quite simple to install this module by `Maven`. The only thing you need to
     <version>${simple-jwt-${any-implementation}.version}</version>
 </dependency>
 <dependency>
-	<groupId>cn.org.codecrafters</groupId>
+	<groupId>com.onixbyte</groupId>
     <artifactId>simple-jwt-spring-boot-starter</artifactId>
     <version>${simple-jwt-spring-boot-starter.version}</version>
 </dependency>
@@ -50,7 +50,7 @@ Find `build.gradle` in the needed project, and add the following code to the `de
 
 ```groovy
 implementation '${implementation-builder-group-id}:simple-jwt-${any-implementation}:${simple-jwt-${any-implementation}.version}'
-implementation 'cn.org.codecrafters:simple-jwt-spring-boot-starter:${simple-jwt-spring-boot-starter.version}'
+implementation 'com.onixbyte:simple-jwt-spring-boot-starter:${simple-jwt-spring-boot-starter.version}'
 ```
 
 ### If you are not using `Maven` or `Gradle`

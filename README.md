@@ -1,90 +1,20 @@
 # JDevKit
 
+![Static Badge](https://img.shields.io/badge/tag-v2.0.0-orange)
+![Static Badge](https://img.shields.io/badge/maven_central-v2.0.0-orange)
+![Static Badge](https://img.shields.io/badge/licence-Apache_2.0-green)
+![Static Badge](https://img.shields.io/badge/JDK-%E2%89%A517-blue)
+
+
 JDevKit is a Java Development Kit that offers a set of convenient tools for writing code efficiently.
 
-## Modules
-
-> For more information, please visit the README file of each module.
-
-### `devkit-core` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/devkit-core/README.md)_</span>
-
-The core module for `JDevKit`, by now, this module contains the commonly used classes of the whole `dev-kit`.
-
-### `devkit-utils` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/devkit-utils/README.md)_</span>
-
-A collection of common utility classes to simplify Java development. It includes tools for Base64 encoding/decoding of strings, reducing if-else code blocks using Lambda expressions, converting between maps and arbitrary objects, high-precision chained mathematical calculations, and string hashing or message digest calculations.
-
-### `guid` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/guid/README.md)_</span>
-
-A module for generating globally unique IDs. It includes a facade interface and an implementation of GUID generation using the Snowflake algorithm. More globally unique ID generation modes will be added in the future.
-
-### `WebCal` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/webcal/README.md)_</span>
-
-The module `webcal` is a Java library that facilitates the generation and resolution of iCalendar content for web-based calendar applications. It provides a flexible and easy-to-use API for creating web calendars with customisable settings and events.
-
-With the `webcal` module, developers can easily integrate calendar functionality into web applications, enabling users to view, add, and manage events in a structured and standardized format. It is designed to simplify calendar-related tasks and enhance the overall user experience when dealing with calendar data on the web.
-
-Please note that the `webcal` module adheres to the iCalendar standard specified in RFC 5545, ensuring compatibility with other calendar applications that support this format.
-
-### `simple-jwt-facade` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/simple-jwt-facade/README.md)_</span>
-
-A facade for Simple JWT (JSON Web Token) implementations in Java. This module provides a unified interface to work with JWTs regardless of the underlying implementation.
-
-### `simple-jwt-authzero` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/simple-jwt-authzero/README.md)_</span>
-
-A Simple JWT implementation using the com.auth0:java-jwt library.
-
-### `simple-jwt-jjwt` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/simple-jwt-jjwt/README.md)_</span>
-
-A Simple JWT implementation using the `io.jsonwebtoken:jjwt-api` library.
-
-### `simple-jwt-spring-boot-starter` <span style="font-size: 14px;">_[Learn more](https://github.com/CodeCraftersCN/jdevkit/simple-jwt-spring-boot-starter/README.md)_</span>
-
-A Spring Boot autoconfiguration wrapper for the simple-jwt module, making it easier to integrate JWT functionality into Spring Boot applications.
-
 ## Installation and Usage
-
-### Before Installation
-
-For **Chinese Mainland** users, it is suggested to use maven packages services provided by coding.net.
-
-You could follow the following steps to configure.
-
-#### For Maven
-
-You could add the following codes to register Coding Nexus to your Maven.
-
-```xml
-<repository>
-    <id>codecrafters-coding-nexus</id>
-    <name>codecrafters-coding-nexus</name>
-    <url>https://codecrafters-maven.pkg.coding.net/repository/common-productions/maven-packages/</url>
-    <releases>
-        <enabled>true</enabled>
-    </releases>
-    <snapshots>
-        <enabled>true</enabled>
-    </snapshots>
-</repository>
-```
-
-#### For Gradle
-
-You could add a new repository to Gradle repositories closure.
-
-```groovy
-maven { url 'https://codecrafters-maven.pkg.coding.net/repository/common-productions/maven-packages/' }
-```
-
-```kotlin
-maven(url = "https://codecrafters-maven.pkg.coding.net/repository/common-productions/maven-packages/")
-```
 
 If you are using **Maven**, please paste the following codes to _pom.xml_ in your project.
 
 ```xml 
 <dependency>
-    <groupId>cn.org.codecrafters</groupId>
+    <groupId>com.onixbyte</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
 </dependency>
@@ -93,11 +23,11 @@ If you are using **Maven**, please paste the following codes to _pom.xml_ in you
 If you are using **Gradle**, please paste the following codes to _buile.gradle\[.kts\]_ in your project.
 
 ```groovy
-implementation 'cn.org.codecrafters:$artifactId:$version'
+implementation 'com.onixbyte:$artifactId:$version'
 ```
 
 ```kotlin
-implementation("cn.org.codecrafters:$artifactId:$version")
+implementation("com.onixbyte:$artifactId:$version")
 ```
 
 If you want to check the available versions, please check out at our [official site](https://codecrafters.org.cn/devkit/changelog).

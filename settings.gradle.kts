@@ -27,5 +27,6 @@ include(
     "simple-jwt-facade",
     "simple-jwt-authzero",
     "simple-jwt-spring-boot-starter",
-    "property-guard-spring-boot-starter"
+    "property-guard-spring-boot-starter",
+    "simple-serial"
 )

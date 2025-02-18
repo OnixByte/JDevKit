@@ -29,7 +29,8 @@ package com.onixbyte.security.exception;
  * <p><b>Example usage:</b></p>
  * <pre>{@code
  * try {
- *     ECPrivateKey privateKey = KeyLoader.loadEcdsaPrivateKey(pemPrivateKey);
+ *     KeyLoader keyLoader = new EcKeyLoader();
+ *     ECPrivateKey privateKey = keyLoader.loadPrivateKey(pemPrivateKey);
  * } catch (KeyLoadingException e) {
  *     // Handle the exception
  *     e.printStackTrace();
@@ -37,7 +38,7 @@ package com.onixbyte.security.exception;
  * }</pre>
  *
  * @author zihluwang
- * @version 1.6.0
+ * @version 2.0.0
  * @since 1.6.0
  */
 public class KeyLoadingException extends RuntimeException {
