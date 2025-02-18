@@ -1,5 +1,11 @@
 # JDevKit
 
+![Static Badge](https://img.shields.io/badge/tag-v2.0.0-orange)
+![Static Badge](https://img.shields.io/badge/maven_central-v2.0.0-orange)
+![Static Badge](https://img.shields.io/badge/licence-Apache_2.0-green)
+![Static Badge](https://img.shields.io/badge/JDK-%E2%89%A517-blue)
+
+
 JDevKit is a Java Development Kit that offers a set of convenient tools for writing code efficiently.
 
 ## Installation and Usage

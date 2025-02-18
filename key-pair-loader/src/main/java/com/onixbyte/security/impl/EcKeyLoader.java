@@ -57,12 +57,15 @@ public class EcKeyLoader implements KeyLoader {
 
     private final KeyFactory keyFactory;
 
+    private final Base64.Decoder decoder;
+
     /**
      * Initialise a key loader for EC-based algorithms.
      */
     public EcKeyLoader() {
         try {
             this.keyFactory = KeyFactory.getInstance("EC");
+            this.decoder = Base64.getDecoder();
         } catch (NoSuchAlgorithmException e) {
             throw new KeyLoadingException(e);
         }
@@ -84,7 +87,7 @@ public class EcKeyLoader implements KeyLoader {
                     .replaceAll("-----BEGIN (EC )?PRIVATE KEY-----", "")
                     .replaceAll("-----END (EC )?PRIVATE KEY-----", "")
                     .replaceAll("\n", "");
-            var decodedKeyString = Base64.getDecoder().decode(pemKeyText);
+            var decodedKeyString = decoder.decode(pemKeyText);
             var keySpec = new PKCS8EncodedKeySpec(decodedKeyString);
 
             var _key = keyFactory.generatePrivate(keySpec);
@@ -114,7 +117,7 @@ public class EcKeyLoader implements KeyLoader {
                     .replaceAll("-----BEGIN (EC )?PUBLIC KEY-----", "")
                     .replaceAll("-----END (EC )?PUBLIC KEY-----", "")
                     .replaceAll("\n", "");
-            var keyBytes = Base64.getDecoder().decode(pemKeyText);
+            var keyBytes = decoder.decode(pemKeyText);
             var spec = new X509EncodedKeySpec(keyBytes);
             var key = keyFactory.generatePublic(spec);
             if (key instanceof ECPublicKey publicKey) {
