@@ -29,3 +29,4 @@ include(
     "simple-jwt-spring-boot-starter",
     "property-guard-spring-boot-starter"
 )
+include("simple-serial")
